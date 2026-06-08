@@ -293,11 +293,11 @@ function CodeOfIdentity() {
           </h2>
           <div className="sacred-line my-5 w-24" />
           <p className="font-mono text-sm leading-relaxed text-foreground/90">
-            Персональный разбор твоей внутренней архитектуры: где сила, где утечки,
-            где точка сборки. Базовая настройка перед входом в 21-дневный цикл.
+            Персональный разбор твоей внутренней архитектуры по дате рождения: где сила,
+            где утечки, где точка сборки. Базовая настройка перед входом в 21-дневный цикл.
           </p>
           <p className="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-primary">
-            Бесплатно при первом подключении
+            Бесплатно при покупке первого протокола
           </p>
           <a
             href={TELEGRAM_URL}
