@@ -282,40 +282,64 @@ function Modules() {
   );
 }
 
-function CodeOfIdentity() {
+function GiftPromo() {
   return (
     <Section>
-      <div className="oracle-card grid items-center gap-8 p-8 md:grid-cols-2 md:p-12 box-glow-gold">
-        <div>
-          <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary/80">
-            ✦ Бонус первого протокола
+      <div className="oracle-card relative overflow-hidden p-8 md:p-12 box-glow-gold">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full"
+          style={{ background: "radial-gradient(circle, hsl(45 90% 55% / 0.25), transparent 70%)" }}
+        />
+        <div className="relative grid items-center gap-8 md:grid-cols-[1fr_auto]">
+          <div>
+            <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary/80">
+              ✦ Спецпредложение · Today only
+            </div>
+            <h2 className="mt-3 font-display text-2xl uppercase text-primary text-glow-gold md:text-4xl">
+              Подарок при покупке 🎁
+            </h2>
+            <div className="sacred-line my-5 w-24" />
+            <p className="font-mono text-sm leading-relaxed text-foreground/90">
+              Купи любой звуковой трек сегодня и получи{" "}
+              <span className="text-primary text-glow-gold">бесплатно</span> полный
+              психологический анализ твоего характера по дате рождения в приложении
+              «Код Личности».
+            </p>
+            <p className="mt-3 font-mono text-xs leading-relaxed text-muted-foreground">
+              Обычная стоимость разбора —{" "}
+              <span className="text-primary">200 ⭐ Telegram Stars</span>. Ссылка на
+              бесплатный разбор придёт автоматически прямо в чат бота сразу после оплаты.
+            </p>
+            <a
+              href={TELEGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-gold btn-gold-hover mt-6 inline-block px-6 py-3 text-sm"
+              style={{ animation: "var(--animate-pulse-glow)" }}
+            >
+              Забрать подарок →
+            </a>
           </div>
-          <h2 className="mt-3 font-display text-2xl uppercase text-primary text-glow-gold md:text-4xl">
-            Код личности
-          </h2>
-          <div className="sacred-line my-5 w-24" />
-          <p className="font-mono text-sm leading-relaxed text-foreground/90">
-            Персональный разбор твоей внутренней архитектуры по дате рождения: где сила,
-            где утечки, где точка сборки. Базовая настройка перед входом в 21-дневный цикл.
-          </p>
-          <p className="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-primary">
-            Бесплатно при покупке первого протокола
-          </p>
-          <a
-            href={TELEGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-gold btn-gold-hover mt-6 inline-block px-6 py-3 text-sm"
-          >
-            Получить разбор
-          </a>
-        </div>
-        <div className="relative flex items-center justify-center">
-          <div className="text-primary" style={{ animation: "var(--animate-float)" }}>
-            <SacredSymbol className="size-56 md:size-72" />
+          <div className="hidden md:flex items-center justify-center">
+            <div className="text-primary" style={{ animation: "var(--animate-float)" }}>
+              <SacredSymbol className="size-56" />
+            </div>
           </div>
         </div>
       </div>
+    </Section>
+  );
+}
+
+function AudioDemo() {
+  return (
+    <Section>
+      <SectionTitle kicker="Послушать" title="Аудио-превью" />
+      <p className="mx-auto -mt-4 mb-8 max-w-2xl text-center font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+        15 секунд · надень наушники для максимального эффекта
+      </p>
+      <AudioDemoPlayer />
     </Section>
   );
 }
