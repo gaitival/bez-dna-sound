@@ -463,19 +463,21 @@ function FinalCTA() {
 
 function Landing() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-24 md:pb-0">
       <SiteHeader />
       <main>
         <Hero />
         <HowItWorks />
+        <AudioDemo />
+        <GiftPromo />
         <TreeTeaser />
         <Modules />
-        <CodeOfIdentity />
         <Testimonials />
         <FAQ />
         <FinalCTA />
       </main>
       <SiteFooter />
+      <StickyMobileCTA />
     </div>
   );
 }
