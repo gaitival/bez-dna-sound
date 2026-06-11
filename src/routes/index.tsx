@@ -148,14 +148,14 @@ function Hero() {
             href={TELEGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-gold btn-gold-hover px-6 py-4 text-sm md:text-base"
+            className="btn-gold btn-gold-hover inline-flex min-h-[52px] items-center justify-center px-6 py-4 text-sm md:text-base"
             style={{ animation: "var(--animate-pulse-glow)" }}
           >
             Открыть в Telegram
           </a>
           <Link
             to="/tree"
-            className="btn-ghost-gold btn-ghost-gold-hover px-6 py-3 text-xs md:text-sm"
+            className="btn-ghost-gold btn-ghost-gold-hover inline-flex min-h-[48px] items-center justify-center px-6 py-3 text-xs md:text-sm"
           >
             Древо трансформации →
           </Link>
@@ -236,7 +236,7 @@ function TreeTeaser() {
       </div>
 
       <div className="mt-12 text-center">
-        <Link to="/tree" className="btn-ghost-gold btn-ghost-gold-hover inline-block px-6 py-3 text-xs">
+        <Link to="/tree" className="btn-ghost-gold btn-ghost-gold-hover inline-flex min-h-[48px] items-center justify-center px-6 py-3 text-xs">
           Все 21 узел →
         </Link>
       </div>
@@ -311,11 +311,25 @@ function GiftPromo() {
               <span className="text-primary">200 ⭐ Telegram Stars</span>. Ссылка на
               бесплатный разбор придёт автоматически прямо в чат бота сразу после оплаты.
             </p>
+
+            <div className="mt-5 rounded-lg border border-primary/25 bg-primary/5 p-4">
+              <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary/80">
+                ⭐ Подсказка
+              </div>
+              <p className="mt-2 font-mono text-[11px] leading-relaxed text-foreground/80">
+                Оплата происходит в <span className="text-primary">Звёздах Telegram (Stars)</span> —
+                официальной безопасной валюте мессенджера. 250 звёзд стоят примерно
+                <span className="text-primary"> $4–5</span> и приобретаются в один клик
+                прямо внутри Telegram любой банковской картой через App&nbsp;Store
+                или Google&nbsp;Play.
+              </p>
+            </div>
+
             <a
               href={TELEGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold btn-gold-hover mt-6 inline-block px-6 py-3 text-sm"
+              className="btn-gold btn-gold-hover mt-6 inline-flex min-h-[48px] items-center justify-center px-6 py-3 text-sm"
               style={{ animation: "var(--animate-pulse-glow)" }}
             >
               Забрать подарок →
@@ -386,6 +400,7 @@ function FAQ() {
     { q: "нужны ли наушники", a: "Да. Для максимального терапевтического эффекта рекомендуется использовать наушники — звук работает точнее, особенно бинауральные слои." },
     { q: "как я получу подарок «код личности»", a: "Бот за секунду распознаёт оплату трека и пришлёт персональную подарочную кнопку прямо в чат — анализ откроется автоматически." },
     { q: "почему 21 день", a: "За 21 день внутренняя система проходит полный цикл сборки: от диагностики до новой точки опоры. Это не марафон — это перекалибровка." },
+    { q: "как платить — что такое звёзды telegram", a: "Оплата происходит в Звёздах Telegram (Stars) — официальной валюте мессенджера. 250 звёзд стоят примерно $4–5 и покупаются в один клик прямо внутри Telegram любой банковской картой через App Store или Google Play. Безопасно и без вывода из приложения." },
     { q: "это эзотерика", a: "Нет. Никаких чакр и оракулов. Только точная работа со вниманием, ритмом и состоянием через звук." },
   ];
   const [open, setOpen] = useState<number | null>(0);
@@ -447,7 +462,7 @@ function FinalCTA() {
             href={TELEGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-gold btn-gold-hover mt-8 inline-block px-8 py-4 text-sm md:text-base"
+            className="btn-gold btn-gold-hover mt-8 inline-flex min-h-[52px] items-center justify-center px-8 py-4 text-sm md:text-base"
             style={{ animation: "var(--animate-pulse-glow)" }}
           >
             Открыть @dna_sound_bot
