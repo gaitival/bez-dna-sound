@@ -7,7 +7,7 @@ export function StickyMobileCTA() {
         href={TELEGRAM_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="btn-gold btn-gold-hover flex w-full items-center justify-center px-4 py-3 text-sm"
+        className="btn-gold btn-gold-hover flex min-h-[52px] w-full items-center justify-center px-4 py-3 text-sm"
         style={{ animation: "var(--animate-pulse-glow)" }}
       >
         Запустить Лабораторию в Telegram ⚡
