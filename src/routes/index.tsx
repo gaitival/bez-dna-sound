@@ -433,20 +433,6 @@ function FAQ() {
                 aria-label={`Вопрос ${i + 1}: ${it.q}`}
                 className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-primary/5"
               >
-  const [open, setOpen] = useState<number | null>(0);
-  return (
-    <Section>
-      <div id="faq" />
-      <SectionTitle kicker="Терминал" title="FAQ" />
-      <div className="mx-auto max-w-3xl space-y-3">
-        {items.map((it, i) => {
-          const isOpen = open === i;
-          return (
-            <div key={i} className="oracle-card overflow-hidden">
-              <button
-                onClick={() => setOpen(isOpen ? null : i)}
-                className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-primary/5"
-              >
                 <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
                   &gt; вопрос_{String(i + 1).padStart(2, "0")} · {it.q}
                 </span>
