@@ -93,15 +93,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      
+      { rel: "icon", href: "/favicon.ico", sizes: "any" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
-        rel: "stylesheet",
+        rel: "preload",
+        as: "style",
         href: "https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Exo+2:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
     scripts: [
+      {
+        children:
+          "(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Exo+2:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap';document.head.appendChild(l);})();",
+      },
       {
         src: "https://www.googletagmanager.com/gtag/js?id=G-4HG5Z6W8W6",
         async: true,
