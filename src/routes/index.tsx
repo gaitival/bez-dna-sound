@@ -127,13 +127,13 @@ function Hero() {
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
           className="mt-6 font-display text-3xl uppercase leading-[1.1] text-primary text-glow-gold md:text-6xl"
         >
           Лаборатория<br />глубинной настройки
         </motion.h1>
+
 
         <motion.div
           initial={{ opacity: 0 }}
