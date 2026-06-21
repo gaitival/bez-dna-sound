@@ -18,14 +18,20 @@ export const Route = createFileRoute("/")({
         content:
           "Аптека состояний: 21-дневный цикл резонансных протоколов для ясности, опоры и энергии. Подключайся к системе в Telegram.",
       },
+      { property: "og:type", content: "website" },
       { property: "og:title", content: "Аптека состояний — Лаборатория глубинной настройки" },
       {
         property: "og:description",
         content: "21 узел. Один путь. Полная перекалибровка состояния.",
       },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://bez-dna-sound.lovable.app/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Аптека состояний — Лаборатория глубинной настройки" },
+      { name: "twitter:description", content: "21 узел. Один путь. Полная перекалибровка состояния." },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [
+      { rel: "canonical", href: "https://bez-dna-sound.lovable.app/" },
+    ],
     scripts: [
       {
         type: "application/ld+json",
