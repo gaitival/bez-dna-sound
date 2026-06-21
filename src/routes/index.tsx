@@ -18,14 +18,20 @@ export const Route = createFileRoute("/")({
         content:
           "Аптека состояний: 21-дневный цикл резонансных протоколов для ясности, опоры и энергии. Подключайся к системе в Telegram.",
       },
+      { property: "og:type", content: "website" },
       { property: "og:title", content: "Аптека состояний — Лаборатория глубинной настройки" },
       {
         property: "og:description",
         content: "21 узел. Один путь. Полная перекалибровка состояния.",
       },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://bez-dna-sound.lovable.app/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Аптека состояний — Лаборатория глубинной настройки" },
+      { name: "twitter:description", content: "21 узел. Один путь. Полная перекалибровка состояния." },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [
+      { rel: "canonical", href: "https://bez-dna-sound.lovable.app/" },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -121,13 +127,13 @@ function Hero() {
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
           className="mt-6 font-display text-3xl uppercase leading-[1.1] text-primary text-glow-gold md:text-6xl"
         >
           Лаборатория<br />глубинной настройки
         </motion.h1>
+
 
         <motion.div
           initial={{ opacity: 0 }}
