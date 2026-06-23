@@ -1,29 +1,95 @@
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { TELEGRAM_URL } from "@/data/tree";
 
+type NavItem = { href: string; label: string; internal?: boolean };
+const NAV: NavItem[] = [
+  { href: "/#how", label: "Как это работает" },
+  { href: "/tree", label: "Карта пути", internal: true },
+  { href: "/#modules", label: "Аптека" },
+  { href: "/#faq", label: "FAQ" },
+];
+
 export function SiteHeader() {
+  const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 backdrop-blur-md" style={{ background: "hsl(240 10% 4% / 0.65)" }}>
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link to="/" className="flex items-center gap-2 font-display text-[13px] uppercase tracking-[0.18em] text-primary text-glow-gold">
-          <span className="inline-block size-2 rounded-full bg-primary shadow-[0_0_10px_hsl(45_90%_55%)]" />
-          Лаборатория
-        </Link>
-        <nav className="hidden gap-6 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:flex">
-          <a href="/#how" className="hover:text-primary">Как это работает</a>
-          <Link to="/tree" className="hover:text-primary">Древо</Link>
-          <a href="/#modules" className="hover:text-primary">Аптека</a>
-          <a href="/#faq" className="hover:text-primary">FAQ</a>
-        </nav>
-        <a
-          href={TELEGRAM_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-gold btn-gold-hover px-3 py-1.5 text-[11px] md:px-4 md:py-2 md:text-xs"
+    <header
+      className="sticky top-0 z-40 border-b border-border/60 backdrop-blur-md"
+      style={{ background: "hsl(240 10% 4% / 0.7)" }}
+    >
+      <div className="mx-auto flex h-[64px] max-w-6xl items-center justify-between px-4 md:h-[78px]">
+        <Link
+          to="/"
+          className="flex items-center gap-2 font-display text-[12px] uppercase tracking-[0.2em] text-primary text-glow-gold md:text-[13px]"
+          onClick={() => setOpen(false)}
         >
-          В Telegram
-        </a>
+          <span className="inline-block size-2 rounded-full bg-primary shadow-[0_0_10px_hsl(45_90%_55%)]" />
+          Проект Без-Дна
+        </Link>
+
+        <nav className="hidden gap-6 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:flex">
+          {NAV.map((it) =>
+            it.internal ? (
+              <Link key={it.href} to={it.href as "/tree"} className="hover:text-primary">
+                {it.label}
+              </Link>
+            ) : (
+              <a key={it.href} href={it.href} className="hover:text-primary">
+                {it.label}
+              </a>
+            ),
+          )}
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <a
+            href={TELEGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-gold btn-gold-hover px-3 py-2 text-[11px] md:px-4 md:py-2.5 md:text-xs"
+          >
+            <span className="hidden md:inline">Открыть в Telegram</span>
+            <span className="md:hidden">Telegram</span>
+          </a>
+          <button
+            type="button"
+            aria-label="Меню"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="ml-1 inline-flex size-9 items-center justify-center rounded-md border border-border/60 text-primary md:hidden"
+          >
+            <span className="font-display text-base leading-none">{open ? "✕" : "≡"}</span>
+          </button>
+        </div>
       </div>
+
+      {open && (
+        <div className="border-t border-border/60 md:hidden" style={{ background: "hsl(240 10% 4% / 0.95)" }}>
+          <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3 font-mono text-[12px] uppercase tracking-[0.2em] text-muted-foreground">
+            {NAV.map((it) =>
+              it.internal ? (
+                <Link
+                  key={it.href}
+                  to={it.href as "/tree"}
+                  className="rounded px-2 py-3 hover:bg-primary/5 hover:text-primary"
+                  onClick={() => setOpen(false)}
+                >
+                  {it.label}
+                </Link>
+              ) : (
+                <a
+                  key={it.href}
+                  href={it.href}
+                  className="rounded px-2 py-3 hover:bg-primary/5 hover:text-primary"
+                  onClick={() => setOpen(false)}
+                >
+                  {it.label}
+                </a>
+              ),
+            )}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
