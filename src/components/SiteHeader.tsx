@@ -2,12 +2,13 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { TELEGRAM_URL } from "@/data/tree";
 
-const NAV = [
+type NavItem = { href: string; label: string; internal?: boolean };
+const NAV: NavItem[] = [
   { href: "/#how", label: "Как это работает" },
   { href: "/tree", label: "Карта пути", internal: true },
   { href: "/#modules", label: "Аптека" },
   { href: "/#faq", label: "FAQ" },
-] as const;
+];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
