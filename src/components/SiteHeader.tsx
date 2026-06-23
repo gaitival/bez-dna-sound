@@ -30,7 +30,7 @@ export function SiteHeader() {
         <nav className="hidden gap-6 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:flex">
           {NAV.map((it) =>
             it.internal ? (
-              <Link key={it.href} to={it.href} className="hover:text-primary">
+              <Link key={it.href} to={it.href as "/tree"} className="hover:text-primary">
                 {it.label}
               </Link>
             ) : (
@@ -70,7 +70,7 @@ export function SiteHeader() {
               it.internal ? (
                 <Link
                   key={it.href}
-                  to={it.href}
+                  to={it.href as "/tree"}
                   className="rounded px-2 py-3 hover:bg-primary/5 hover:text-primary"
                   onClick={() => setOpen(false)}
                 >
