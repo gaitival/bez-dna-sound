@@ -15,14 +15,14 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Telegram-проект резонансных протоколов и точечных аудио-инструментов для состояний, где нужно собраться. 21 узел Древа. Аптека состояний.",
+          "Telegram-проект треков и аудио-инструментов для состояний: убрать шум, вернуть энергию, выйти из страха, усилить магнетизм и снова собрать себя. Первый вход — бесплатно.",
       },
       { property: "og:type", content: "website" },
       { property: "og:title", content: "Без-Дна — Лаборатория глубинной настройки" },
       {
         property: "og:description",
         content:
-          "Резонансные протоколы и аудио-инструменты под конкретное состояние. Вход — в Telegram.",
+          "Треки и аудио-инструменты под конкретное состояние. Первый вход и первый протокол — бесплатно. Внутри Telegram.",
       },
       { property: "og:url", content: "https://bez-dna-sound.lovable.app/" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/")({
       {
         name: "twitter:description",
         content:
-          "Резонансные протоколы и аудио-инструменты под конкретное состояние. Вход — в Telegram.",
+          "Треки и аудио-инструменты под конкретное состояние. Первый вход — бесплатно.",
       },
     ],
     links: [{ rel: "canonical", href: "https://bez-dna-sound.lovable.app/" }],
@@ -42,7 +42,7 @@ export const Route = createFileRoute("/")({
           "@type": "Organization",
           name: "Проект Без-Дна",
           description:
-            "Telegram-проект резонансных протоколов, мантр-манифестов и аудио-инструментов под конкретные состояния.",
+            "Telegram-проект треков и аудио-инструментов под конкретные состояния.",
           url: "https://bez-dna-sound.lovable.app/",
           sameAs: [TELEGRAM_URL],
         }),
@@ -66,44 +66,24 @@ export const Route = createFileRoute("/")({
 
 const FAQ_ITEMS = [
   {
-    q: "Что это вообще такое",
-    a: "Это Telegram-проект резонансных протоколов, мантр-манифестов и точечных аудио-инструментов под конкретные состояния. Здесь ты не просто слушаешь звук, а получаешь рабочий пакет: аудио, визуал и инструкцию под нужную точку входа.",
+    q: "Что это такое",
+    a: "Это Telegram-проект треков и сопутствующих материалов для состояний, когда нужно убрать внутренний шум, вернуть фокус, восстановить ресурс, границы и внутреннюю опору.",
   },
   {
-    q: "Чем протокол отличается от обычной музыки",
-    a: "Обычную музыку чаще включают «под настроение». Протокол собирается под конкретный внутренний сбой: шум, страх, потерю опоры, истощение, размытые границы, провал ритма или потерю вектора. Это не фон, а точечный инструмент.",
+    q: "Чем это отличается от обычной музыки",
+    a: "Обычную музыку чаще включают под настроение. Здесь треки собраны под конкретные состояния и сопровождаются визуалом и инструкцией, чтобы эффект был не только атмосферным, но и прикладным.",
   },
   {
-    q: "Что входит в покупку",
-    a: "Внутри каждого протокола — WAV, MP3, визуал и инструкция. То есть ты получаешь не один файл, а целый пакет для входа в состояние и дальнейшей работы с ним.",
+    q: "Что можно получить сразу после входа",
+    a: "После перехода в Telegram открывается бесплатный первый шаг: можно посмотреть систему и протестировать стартовый протокол без обязательной покупки.",
   },
   {
     q: "Нужны ли наушники",
-    a: "Лучше — да. Так звук воспринимается точнее, а внимание меньше рассеивается. Но если наушников нет, начать всё равно можно.",
+    a: "Желательно — так звук воспринимается точнее и внимание меньше рассеивается. Но начать можно и без них.",
   },
   {
-    q: "Как я получу подарок «Код личности»",
-    a: "После покупки первого платного протокола бонус открывается автоматически внутри Telegram. Дополнительно писать или отдельно запрашивать его не нужно.",
-  },
-  {
-    q: "Почему 21 день",
-    a: "21 день — это не марафон ради цифры, а логика цикла. За это время система успевает не только отреагировать на новый инструмент, но и пройти путь от первичной диагностики к более устойчивой внутренней сборке.",
-  },
-  {
-    q: "Как происходит оплата",
-    a: "Оплата проходит внутри Telegram через Stars — официальную внутреннюю валюту мессенджера. Всё происходит прямо в приложении, без лишних переходов и без ручной переписки.",
-  },
-  {
-    q: "Это эзотерика",
-    a: "Нет в бытовом смысле этого слова. Проект работает не через «магические обещания», а через внимание, ритм, слово, внутреннее состояние и собранную архитектуру смысла. Здесь важен не антураж, а результат: меньше шума, больше опоры, ясности и управляемости.",
-  },
-  {
-    q: "Обязательно ли идти в Telegram",
-    a: "Да. Лендинг — это точка входа. Вся логика проекта, покупка, выдача материалов, дерево, бонусы и работа с модулями происходят внутри Telegram-приложения.",
-  },
-  {
-    q: "С чего лучше начать",
-    a: "Если ты заходишь впервые — с входа в Telegram и базового просмотра системы. Если хочется сначала почувствовать логику проекта — посмотри карту пути и модули, а потом переходи в приложение.",
+    q: "Это долгая и сложная история",
+    a: "Нет. Первый вход и первый тест занимают немного времени. Дальше можно идти глубже только если сама система действительно откликается.",
   },
 ];
 
@@ -121,17 +101,32 @@ function Section({ children, className = "" }: { children: React.ReactNode; clas
   );
 }
 
-function SectionTitle({ kicker, title, lead }: { kicker?: string; title: string; lead?: string }) {
+function SectionTitle({
+  kicker,
+  title,
+  sublabel,
+  lead,
+}: {
+  kicker?: string;
+  title: string;
+  sublabel?: string;
+  lead?: string;
+}) {
   return (
     <div className="mb-10 text-center">
       {kicker && (
-        <div className="font-mono text-[11px] uppercase tracking-[0.35em] text-primary/80">
+        <div className="font-mono text-[11px] uppercase tracking-[0.32em] text-primary/80">
           {kicker}
         </div>
       )}
       <h2 className="mt-3 font-display text-2xl uppercase text-primary text-glow-gold md:text-4xl">
         {title}
       </h2>
+      {sublabel && (
+        <div className="mt-2 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+          {sublabel}
+        </div>
+      )}
       <div className="sacred-line mx-auto mt-6 w-40" />
       {lead && (
         <p className="mx-auto mt-5 max-w-2xl font-mono text-xs leading-relaxed text-muted-foreground md:text-sm">
@@ -144,46 +139,46 @@ function SectionTitle({ kicker, title, lead }: { kicker?: string; title: string;
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden px-4 pb-16 pt-10 md:pt-20">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[58%_42%]">
+    <section className="relative overflow-hidden px-4 pb-14 pt-8 md:pb-20 md:pt-16">
+      <div className="mx-auto grid max-w-6xl items-center gap-8 md:grid-cols-[60%_40%] md:gap-6">
         {/* Left column */}
         <div className="text-center md:text-left">
-          <div className="font-mono text-[11px] uppercase tracking-[0.4em] text-primary/80" style={{ animation: "var(--animate-breathe)" }}>
-            ✦ Система · Online
-          </div>
-
-          <h1 className="mt-5 font-display text-[34px] uppercase leading-[1.05] text-primary text-glow-gold md:text-6xl">
+          <h1 className="font-display uppercase text-primary text-glow-gold"
+              style={{ fontSize: "clamp(38px, 6vw, 56px)", lineHeight: 1.02, letterSpacing: "-0.005em" }}>
             Лаборатория<br />глубинной настройки
           </h1>
 
-          <p className="mt-5 font-mono text-sm leading-relaxed text-foreground/85 md:text-base">
-            Telegram-проект резонансных протоколов и точечных аудио-инструментов для состояний, где нужно не отвлекаться, а собраться.
+          <p className="mt-5 max-w-[620px] font-mono text-sm leading-relaxed text-foreground/85 md:text-[15px]">
+            <span className="hidden md:inline">
+              Telegram-проект треков и аудио-инструментов для состояний, когда нужно убрать внутренний шум, вернуть энергию, выйти из страха, усилить магнетизм, почувствовать опору и снова собрать себя.
+            </span>
+            <span className="md:hidden">
+              Треки и инструменты для состояний, когда нужно убрать шум, вернуть энергию, выйти из страха и снова собрать себя.
+            </span>
           </p>
 
-          <div className="sacred-line mx-auto mt-7 w-40 md:mx-0" />
+          <div className="sacred-line mx-auto mt-6 w-32 md:mx-0" />
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.7 }}
-            className="oracle-card mt-7 w-full px-6 py-6 text-left"
-          >
-            <p className="text-[15px] leading-relaxed text-foreground/90">
-              Иногда человек не «сломался» — он просто слишком долго живёт в шуме, перегрузе, чужом давлении, усталости или внутреннем раздвоении.
+          <div className="oracle-card mt-6 w-full max-w-[680px] px-6 py-5 text-left md:py-6">
+            <p className="hidden text-[15px] leading-relaxed text-foreground/90 md:block">
+              Здесь не нужно долго гадать, что с тобой происходит. Внутри системы можно быстро выбрать текущее состояние и получить точный инструмент под свой запрос.
             </p>
-            <p className="mt-3 text-[15px] leading-relaxed text-foreground/90">
-              «Без-Дна» — это система звуковых протоколов, мантр-манифестов, аудио-резонансов и точных инструкций, собранных под конкретные состояния: когда нужно вернуть ясность, энергию, границы, внутреннюю опору, ритм или право на своё.
+            <p className="hidden mt-3 text-[15px] leading-relaxed text-foreground/90 md:block">
+              Это не просто аудио для фона, а рабочий пакет: трек, визуал и инструкция. Для тем, которые действительно цепляют людей: страх, усталость, фокус, границы, внутренний ресурс, магнетизм, удача и возврат к своей опоре.
             </p>
-            <p className="mt-3 text-[15px] leading-relaxed text-foreground/90">
-              Это не плейлист «для фона» и не абстрактная эзотерика. Это Telegram-приложение, где ты заходишь в систему, выбираешь точку входа и получаешь инструмент под свой текущий сбой.
+            <p className="text-[14px] leading-relaxed text-foreground/90 md:hidden">
+              Внутри можно быстро выбрать текущее состояние и получить готовый пакет: трек, визуал и инструкцию. Всё происходит в Telegram — без лишней путаницы и долгих поисков.
             </p>
-          </motion.div>
+          </div>
 
-          <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.22em] text-primary/80">
-            Внутри: 21 узел Древа · Аптека состояний · Код личности · бонус первого платного протокола
+          <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.28em] text-primary">
+            ✦ Первый вход и первый протокол — бесплатно
+          </p>
+          <p className="mt-2 max-w-[560px] font-mono text-[12px] leading-relaxed text-muted-foreground">
+            Без обязательной покупки. Зайти, посмотреть и протестировать систему можно сразу.
           </p>
 
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-start">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-start">
             <a
               href={TELEGRAM_URL}
               target="_blank"
@@ -191,27 +186,31 @@ function Hero() {
               className="btn-gold btn-gold-hover inline-flex min-h-[54px] items-center justify-center px-7 py-4 text-sm md:text-base"
               style={{ animation: "var(--animate-pulse-glow)" }}
             >
-              Открыть в Telegram
+              Запустить в Telegram
             </a>
-            <Link
-              to="/tree"
+            <a
+              href="#tree"
               className="btn-ghost-gold btn-ghost-gold-hover inline-flex min-h-[52px] items-center justify-center px-6 py-3 text-xs md:text-sm"
             >
-              Смотреть карту пути →
-            </Link>
+              Посмотреть карту состояний ↓
+            </a>
           </div>
 
-          <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.25em] text-warning">
-            ⚠ Цикл перенастройки: 21 день
+          <p className="mt-5 max-w-[560px] font-mono text-[11px] leading-relaxed text-muted-foreground">
+            Внутри: карта состояний, треки, инструкции, визуалы и бесплатный первый шаг.
           </p>
         </div>
 
-        {/* Right column */}
-        <div className="relative flex items-center justify-center">
+        {/* Right column — symbol closer to heading */}
+        <div className="relative flex items-center justify-center md:-ml-8 md:-mt-10">
           <div className="text-primary" style={{ animation: "var(--animate-float)" }}>
-            <SacredSymbol className="size-56 md:size-80" />
+            <SacredSymbol className="size-44 md:size-[360px]" />
           </div>
-          <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(circle at center, hsl(45 90% 55% / 0.18), transparent 65%)" }} />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{ background: "radial-gradient(circle at center, hsl(45 90% 55% / 0.16), transparent 62%)" }}
+          />
         </div>
       </div>
 
@@ -221,27 +220,49 @@ function Hero() {
   );
 }
 
+function ProblemBlock() {
+  return (
+    <Section>
+      <SectionTitle
+        kicker="Зачем"
+        title="Когда обычные способы уже не работают"
+      />
+      <div className="mx-auto max-w-3xl space-y-5 font-mono text-[14px] leading-relaxed text-foreground/85 md:text-[15px]">
+        <p>
+          Иногда психика не «сломалась» — она просто перегружена. Слишком много чужого давления, фонового шума, тревоги, накопленной усталости и внутренних противоречий.
+        </p>
+        <p>
+          В таком состоянии музыка для фона, случайные практики и бесконечный контент редко помогают. Нужен не шум поверх шума, а точный вход в нужное состояние: убрать внутренний хаос, вернуть фокус, восстановить границы, собрать внимание и снова почувствовать, что управление внутри тебя.
+        </p>
+        <p className="text-foreground/95">
+          <span className="text-primary">«Без-Дна»</span> — это цифровая система треков и сопутствующих материалов, собранных под конкретные внутренние сбои и состояния.
+        </p>
+      </div>
+    </Section>
+  );
+}
+
 function HowItWorks() {
   const cards = [
     {
       n: "01",
       t: "Точка входа",
-      d: "Определяешь, что происходит сейчас: внутренний шум, истощение, внешнее давление, потеря вектора, размытые границы, страх или провал ресурса.",
+      d: "Выбирается то состояние, которое требует фиксации прямо сейчас: тревога, перегруз, страх, потеря фокуса, усталость, размытые границы или дефицит ресурса.",
     },
     {
       n: "02",
-      t: "Подбор инструмента",
-      d: "Система показывает подходящие треки и модули. Один и тот же протокол может работать сразу в нескольких пользовательских блоках — по состоянию, а не по жёсткой формальной категории.",
+      t: "Подбор трека",
+      d: "Система показывает трек или формат, который ближе всего к текущему состоянию. Не по жанру, а по задаче.",
     },
     {
       n: "03",
       t: "Пакет материалов",
-      d: "Каждый протокол открывается в Telegram и включает не только аудио, но и визуал, и инструкцию — чтобы состояние не просто «заиграло», а реально собрало тебя точнее.",
+      d: "Каждый протокол включает не только аудио, но и визуал с инструкцией — чтобы состояние не просто «зазвучало», а зафиксировалось точнее.",
     },
     {
       n: "04",
-      t: "Перенастройка",
-      d: "Ты не просто слушаешь трек, а проходишь цикл сборки: меньше шума, больше опоры, ясности, ритма и управляемости собственного состояния.",
+      t: "Быстрый эффект",
+      d: "Первый сеанс занимает немного времени и помогает почувствовать сдвиг: меньше шума, больше собранности, ясности и внутренней управляемости.",
     },
   ];
   return (
@@ -250,7 +271,7 @@ function HowItWorks() {
       <SectionTitle
         kicker="Протокол входа"
         title="Как это работает"
-        lead="Коротко: как устроен вход в систему и что происходит после перехода в Telegram."
+        lead="Простой путь без долгого вхождения в теорию."
       />
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {cards.map((s, i) => (
@@ -275,17 +296,17 @@ function HowItWorks() {
 
 function WhatInside() {
   const cards = [
-    { t: "Аудио", d: "WAV + MP3 — полная версия протокола в двух форматах." },
-    { t: "Визуал", d: "JPG / PNG — визуальный материал состояния: образ, графика или мандала, в зависимости от конкретного трека." },
-    { t: "Инструкция", d: "DOC — архитектура смыслов, манифест намерения и точка входа в прослушивание." },
-    { t: "Доступ в Telegram", d: "Покупка, открытие, выдача материалов и дальнейшая работа происходят внутри Telegram-приложения." },
+    { t: "Аудио", d: "WAV и MP3 — полная версия трека в двух форматах." },
+    { t: "Визуал", d: "Образ, графика или мандала состояния — в зависимости от конкретного трека." },
+    { t: "Инструкция", d: "Краткая точка входа, архитектура смысла и способ правильного использования." },
+    { t: "Доступ в Telegram", d: "Получение материалов, навигация и дальнейшая работа происходят внутри Telegram-приложения." },
   ];
   return (
     <Section>
       <SectionTitle
         kicker="Состав"
         title="Что входит в каждый протокол"
-        lead="Внутри не один аудиофайл, а целый рабочий пакет."
+        lead="Не один файл, а полноценный рабочий набор."
       />
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {cards.map((c, i) => (
@@ -313,31 +334,32 @@ function TrackExamples() {
   const cards = [
     {
       t: "Код деактивации",
-      ann: "Очищает ментальный шум, навязчивые связи и чужое влияние.",
-      state: "Когда в голове липкость, перегруз и ощущение чужого поля.",
+      ann: "Очищает ментальный шум, навязчивые мысли и внешнее давление.",
+      state: "Когда в голове хаос, перегруз и нужно быстро вернуть контроль над вниманием.",
     },
     {
       t: "Право на своё",
-      ann: "Возвращает границы, ресурс и спокойное право не отдавать себя лишнему.",
-      state: "Когда слишком долго живёшь в режиме спасателя, донора и вечного «ну ладно».",
-    },
-    {
-      t: "Исток рода",
-      ann: "Помогает снять внутреннюю тяжесть старых сценариев и вернуть себе опору.",
-      state: "Когда внутри слишком много не твоего, а жить приходится на этом фундаменте.",
+      ann: "Возвращает границы, ресурс и способность спокойно не отдавать себя лишнему.",
+      state: "Когда затянулся режим спасателя, донора и вечного «ну ладно».",
     },
     {
       t: "Победоносец",
-      ann: "Собирает волю, подавляет страх и возвращает ощущение: решаешь снова ты.",
-      state: "Когда тревога пытается сесть за руль, а двигаться всё равно нужно.",
+      ann: "Собирает волю, снижает давление страха и возвращает позицию автора своей жизни.",
+      state: "Когда тревога пытается перехватить управление, а действовать всё равно нужно.",
+    },
+    {
+      t: "Исток рода",
+      ann: "Помогает снять внутреннюю тяжесть старых сценариев и вернуть опору под ногами.",
+      state: "Когда внутри слишком много не твоего, а жить приходится именно на этом фундаменте.",
     },
   ];
   return (
     <Section>
+      <div id="examples" />
       <SectionTitle
         kicker="Примеры треков"
-        title="Несколько входных точек"
-        lead="Это не весь каталог, а несколько входных точек, по которым проще сразу понять, как устроена логика проекта."
+        title="Примеры треков"
+        lead="Несколько состояний, с которых чаще всего начинают вход в систему. Это не весь каталог, а несколько типичных точек входа — чтобы сразу понять, как устроена логика проекта."
       />
       <div className="grid gap-5 md:grid-cols-2">
         {cards.map((c, i) => (
@@ -385,80 +407,34 @@ function TrackExamples() {
   );
 }
 
-function GiftPromo() {
-  return (
-    <Section>
-      <div className="oracle-card relative overflow-hidden p-8 md:p-12 box-glow-gold">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full"
-          style={{ background: "radial-gradient(circle, hsl(45 90% 55% / 0.25), transparent 70%)" }}
-        />
-        <div className="relative grid items-center gap-8 md:grid-cols-[60%_40%]">
-          <div>
-            <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary/80">
-              ✦ Бонус первого платного протокола
-            </div>
-            <h2 className="mt-3 font-display text-2xl uppercase text-primary text-glow-gold md:text-4xl">
-              «Код личности» — бесплатно
-            </h2>
-            <div className="sacred-line my-5 w-24" />
-            <p className="font-mono text-sm leading-relaxed text-foreground/90">
-              После покупки первого платного протокола ты дополнительно получаешь бесплатный расчёт «Код личности» — психологический разбор по дате рождения: характер, сильные и слабые стороны, отношения, профессия, главная жизненная задача и рекомендации, как эффективнее жить.
-            </p>
-            <p className="mt-3 font-mono text-xs leading-relaxed text-muted-foreground">
-              Бонус открывается автоматически внутри Telegram после первой оплаты. Ничего отдельно запрашивать не нужно.
-            </p>
-
-            <a
-              href={TELEGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold btn-gold-hover mt-6 inline-flex min-h-[54px] items-center justify-center px-7 py-4 text-sm md:text-base"
-              style={{ animation: "var(--animate-pulse-glow)" }}
-            >
-              Открыть в Telegram
-            </a>
-            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.22em] text-primary/80">
-              Первый платный протокол → «Код личности» открывается бесплатно
-            </p>
-          </div>
-          <div className="hidden md:flex items-center justify-center">
-            <div className="text-primary" style={{ animation: "var(--animate-float)" }}>
-              <SacredSymbol className="size-56" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
 function TreeTeaser() {
   const preview = TREE_NODES.slice(0, 6);
   return (
     <Section>
+      <div id="tree" />
       <SectionTitle
-        kicker="Карта пути"
-        title="Древо трансформации"
-        lead="21 узел. Один путь. Полная перекалибровка."
+        kicker="Навигация"
+        title="Карта состояний"
+        sublabel="Древо трансформации внутри Telegram"
+        lead="Внутри проекта состояния и треки собраны не в хаос, а в понятную карту входов."
       />
 
       <div className="relative mx-auto mt-4 max-w-3xl">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-1/2 w-px -translate-x-1/2"
+          className="pointer-events-none absolute inset-y-0 left-1/2 w-px -translate-x-1/2 hidden md:block"
           style={{ background: "linear-gradient(to bottom, transparent, hsl(45 90% 55% / 0.6), transparent)" }}
         />
-        <ul className="space-y-8">
+        <ul className="space-y-5 md:space-y-8">
           {preview.map((n, i) => {
             const left = i % 2 === 0;
             return (
-              <li key={n.code} className="relative grid grid-cols-2 items-center gap-6">
-                <span aria-hidden className="absolute left-1/2 size-2.5 -translate-x-1/2 rounded-full bg-primary shadow-[0_0_14px_3px_hsl(45_90%_55%/0.6)]" />
-                <div className={left ? "pr-6 text-right" : "col-start-2 pl-6 text-left"}>
+              <li key={n.code} className="relative md:grid md:grid-cols-2 md:items-start md:gap-6">
+                <span aria-hidden className="hidden md:block absolute left-1/2 top-2 size-2.5 -translate-x-1/2 rounded-full bg-primary shadow-[0_0_14px_3px_hsl(45_90%_55%/0.6)]" />
+                <div className={`oracle-card p-4 md:border-0 md:bg-transparent md:p-0 md:shadow-none ${left ? "md:pr-6 md:text-right" : "md:col-start-2 md:pl-6 md:text-left"}`}>
                   <div className="font-mono text-[10px] tracking-[0.25em] text-primary/80">{n.code}</div>
                   <div className="mt-1 font-display text-sm uppercase text-foreground md:text-base">{n.title}</div>
+                  <div className="mt-1 font-mono text-[11px] leading-relaxed text-muted-foreground">{n.desc}</div>
                 </div>
               </li>
             );
@@ -468,7 +444,7 @@ function TreeTeaser() {
 
       <div className="mt-12 text-center">
         <Link to="/tree" className="btn-ghost-gold btn-ghost-gold-hover inline-flex min-h-[52px] items-center justify-center px-6 py-3 text-xs md:text-sm">
-          Все 21 узел → Telegram
+          Вся карта в Telegram →
         </Link>
       </div>
     </Section>
@@ -476,33 +452,34 @@ function TreeTeaser() {
 }
 
 function Modules() {
-  const items = [
+  const base = [
     {
-      n: "01",
+      label: "Формат · 01",
       t: "Протоколы",
-      d: "Точечные инструменты под конкретный сбой в системе: шум, давление, истощение, страх, потеря вектора, провал ресурса, размытые границы, внутренний перегруз. Когда нужно не «что-нибудь послушать», а точно попасть в нужное состояние.",
-      bullets: ["шум и перегруз", "потеря вектора", "страх и давление"],
-      span: "md:col-span-2",
+      d: "Точечные треки под конкретный сбой: шум, страх, перегруз, размытые границы, потеря вектора, дефицит энергии.",
+      bullets: ["убрать шум", "вернуть фокус", "собрать себя"],
     },
     {
-      n: "02",
-      t: "Мантры-манифесты",
-      d: "Слово как несущая частота внутренней опоры. Формат, где главное — не декоративный эффект, а сборка внутреннего закона.",
-    },
-    {
-      n: "03",
+      label: "Формат · 02",
       t: "Аудио-резонансы",
-      d: "Звук, который собирает внимание, выравнивает ритм и помогает мягко войти в нужный режим без перегруза.",
+      d: "Инструменты для выравнивания внимания, ритма и внутреннего состояния без перегруза.",
     },
     {
-      n: "04",
+      label: "Формат · 03",
+      t: "Манифесты",
+      d: "Треки, где слово работает как внутренняя опора и помогает зафиксировать позицию, границы и настрой.",
+    },
+  ];
+  const personal = [
+    {
+      label: "Персонально · 01",
       t: "Индивидуальный протокол",
-      d: "Точная настройка под личный запрос. Когда нужен не общий модуль, а трек, собранный под конкретную ситуацию и задачу.",
+      d: "Точная настройка под личный запрос, когда нужен не общий модуль, а персонально собранный трек.",
     },
     {
-      n: "05",
+      label: "Персонально · 02",
       t: "Код личности",
-      d: "Психологический разбор по дате рождения: характер, сильные и слабые стороны, отношения, профессия, главная жизненная задача и рекомендации.",
+      d: "Экспресс-разбор по дате рождения: сильные стороны, внутренние дефициты, особенности характера и векторы развития.",
     },
   ];
   return (
@@ -511,27 +488,31 @@ function Modules() {
       <SectionTitle
         kicker="Модули"
         title="Аптека состояний"
-        lead="Не один жанр, а несколько способов входа в настройку."
+        lead="Каталог инструментов, разделённый по формату и типу задачи."
       />
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        {items.map((it) => (
+
+      <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.3em] text-primary/80">
+        ✦ Базовые форматы
+      </div>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        {base.map((it) => (
           <motion.div
-            key={it.n}
+            key={it.t}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className={`oracle-card oracle-card-hover flex h-full flex-col p-6 md:p-8 ${it.span ?? ""}`}
+            className="oracle-card oracle-card-hover flex h-full flex-col p-6"
           >
             <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary/70">
-              ✦ Модуль · {it.n}
+              ✦ {it.label}
             </div>
-            <h3 className="mt-3 font-display text-xl uppercase text-foreground text-glow-gold md:text-2xl">
+            <h3 className="mt-3 font-display text-lg uppercase text-foreground text-glow-gold md:text-xl">
               {it.t}
             </h3>
-            <p className="mt-3 font-mono text-sm leading-relaxed text-foreground/85">{it.d}</p>
+            <p className="mt-3 font-mono text-[13px] leading-relaxed text-foreground/85">{it.d}</p>
             {it.bullets && (
-              <ul className="mt-4 grid gap-2 font-mono text-xs text-muted-foreground sm:grid-cols-3">
+              <ul className="mt-4 grid gap-2 font-mono text-xs text-muted-foreground">
                 {it.bullets.map((b) => (
                   <li key={b} className="rounded-md border border-primary/20 bg-primary/5 px-3 py-2">
                     · {b}
@@ -539,6 +520,30 @@ function Modules() {
                 ))}
               </ul>
             )}
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="mb-4 mt-10 font-mono text-[11px] uppercase tracking-[0.3em] text-primary/80">
+        ✦ Персональные решения
+      </div>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        {personal.map((it) => (
+          <motion.div
+            key={it.t}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="oracle-card oracle-card-hover flex h-full flex-col p-6 md:p-8"
+          >
+            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary/70">
+              ✦ {it.label}
+            </div>
+            <h3 className="mt-3 font-display text-xl uppercase text-foreground text-glow-gold md:text-2xl">
+              {it.t}
+            </h3>
+            <p className="mt-3 font-mono text-sm leading-relaxed text-foreground/85">{it.d}</p>
           </motion.div>
         ))}
       </div>
@@ -551,7 +556,7 @@ function FAQ() {
   return (
     <Section>
       <div id="faq" />
-      <SectionTitle kicker="Терминал" title="FAQ" lead="Коротко и по сути — чтобы сразу было понятно, как это работает." />
+      <SectionTitle kicker="Терминал" title="FAQ" lead="Коротко и по делу." />
       <div className="mx-auto max-w-3xl space-y-3">
         {FAQ_ITEMS.map((it, i) => {
           const isOpen = open === i;
@@ -599,13 +604,13 @@ function FinalCTA() {
             ✦ Точка входа
           </div>
           <h2 className="mt-3 font-display text-2xl uppercase text-primary text-glow-gold md:text-4xl">
-            Открой проект в Telegram
+            Запустить систему в Telegram
           </h2>
           <p className="mx-auto mt-5 max-w-2xl font-mono text-sm leading-relaxed text-foreground/85">
-            Если тебе откликается сама идея — не оставайся на уровне просмотра. Внутри Telegram находится вся система: карта пути, дерево, модули, диагностика, протоколы и бонус первого платного входа.
+            Внутри Telegram уже открыты карта состояний, треки, инструкции и первый бесплатный шаг. Можно быстро зайти, посмотреть, протестировать систему и понять, откликается ли такой формат именно сейчас.
           </p>
           <p className="mx-auto mt-4 max-w-xl font-mono text-xs leading-relaxed text-muted-foreground">
-            Открой приложение. Посмотри, где сейчас твоя точка сбоя. Забери нужный инструмент.
+            Вход бесплатный. Первый тест занимает немного времени и не требует обязательной покупки.
           </p>
           <a
             href={TELEGRAM_URL}
@@ -614,13 +619,10 @@ function FinalCTA() {
             className="btn-gold btn-gold-hover mt-8 inline-flex min-h-[56px] w-full max-w-md items-center justify-center px-8 py-4 text-sm md:text-base"
             style={{ animation: "var(--animate-pulse-glow)" }}
           >
-            Открыть в Telegram
+            Запустить в Telegram
           </a>
           <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.25em] text-primary/80">
             @dna_sound_bot
-          </p>
-          <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.25em] text-warning">
-            ⚠ Цикл перенастройки: 21 день
           </p>
         </div>
       </div>
@@ -634,10 +636,10 @@ function Landing() {
       <SiteHeader />
       <main>
         <Hero />
+        <ProblemBlock />
         <HowItWorks />
         <WhatInside />
         <TrackExamples />
-        <GiftPromo />
         <TreeTeaser />
         <Modules />
         <FAQ />

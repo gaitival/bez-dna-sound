@@ -1,23 +1,33 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TELEGRAM_URL } from "@/data/tree";
 
 type NavItem = { href: string; label: string; internal?: boolean };
 const NAV: NavItem[] = [
   { href: "/#how", label: "Как это работает" },
-  { href: "/tree", label: "Карта пути", internal: true },
+  { href: "/#examples", label: "Примеры треков" },
+  { href: "/tree", label: "Карта состояний", internal: true },
   { href: "/#modules", label: "Аптека" },
   { href: "/#faq", label: "FAQ" },
 ];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.6);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <header
       className="sticky top-0 z-40 border-b border-border/60 backdrop-blur-md"
       style={{ background: "hsl(240 10% 4% / 0.7)" }}
     >
-      <div className="mx-auto flex h-[64px] max-w-6xl items-center justify-between px-4 md:h-[78px]">
+      <div className="mx-auto flex h-[60px] max-w-6xl items-center justify-between px-4 md:h-[76px]">
         <Link
           to="/"
           className="flex items-center gap-2 font-display text-[12px] uppercase tracking-[0.2em] text-primary text-glow-gold md:text-[13px]"
@@ -27,7 +37,7 @@ export function SiteHeader() {
           Проект Без-Дна
         </Link>
 
-        <nav className="hidden gap-6 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:flex">
+        <nav className="hidden gap-7 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground md:flex">
           {NAV.map((it) =>
             it.internal ? (
               <Link key={it.href} to={it.href as "/tree"} className="hover:text-primary">
@@ -42,21 +52,23 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a
-            href={TELEGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-gold btn-gold-hover px-3 py-2 text-[11px] md:px-4 md:py-2.5 md:text-xs"
-          >
-            <span className="hidden md:inline">Открыть в Telegram</span>
-            <span className="md:hidden">Telegram</span>
-          </a>
+          {/* Sticky desktop CTA — появляется только после прокрутки ниже hero */}
+          {scrolled && (
+            <a
+              href={TELEGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-gold btn-gold-hover hidden px-4 py-2 text-[11px] md:inline-flex md:text-xs"
+            >
+              В Telegram
+            </a>
+          )}
           <button
             type="button"
             aria-label="Меню"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="ml-1 inline-flex size-9 items-center justify-center rounded-md border border-border/60 text-primary md:hidden"
+            className="inline-flex size-9 items-center justify-center rounded-md border border-border/60 text-primary md:hidden"
           >
             <span className="font-display text-base leading-none">{open ? "✕" : "≡"}</span>
           </button>
