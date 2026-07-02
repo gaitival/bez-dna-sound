@@ -398,9 +398,10 @@ function TrackExamples() {
           href={TELEGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-ghost-gold btn-ghost-gold-hover inline-flex min-h-[52px] items-center justify-center px-6 py-3 text-xs md:text-sm"
+          className="btn-gold btn-gold-hover inline-flex min-h-[54px] items-center justify-center px-7 py-4 text-sm md:text-base"
+          style={{ animation: "var(--animate-pulse-glow)" }}
         >
-          Смотреть все треки в Telegram →
+          Открыть приложение в Telegram
         </a>
       </div>
     </Section>
