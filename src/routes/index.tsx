@@ -5,7 +5,7 @@ import { useState } from "react";
 import { SacredSymbol } from "@/components/SacredSymbol";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { StickyMobileCTA } from "@/components/StickyMobileCTA";
+
 import { TREE_NODES, TELEGRAM_URL } from "@/data/tree";
 
 export const Route = createFileRoute("/")({
@@ -164,7 +164,7 @@ function Hero() {
               Здесь не нужно долго гадать, что с тобой происходит. Внутри системы можно быстро выбрать текущее состояние и получить точный инструмент под свой запрос.
             </p>
             <p className="hidden mt-3 text-[15px] leading-relaxed text-foreground/90 md:block">
-              Это не просто аудио для фона, а рабочий пакет: трек, визуал и инструкция. Для тем, которые действительно цепляют людей: страх, усталость, фокус, границы, внутренний ресурс, магнетизм, удача и возврат к своей опоре.
+              Это не просто аудио для фона, а рабочий пакет: трек, визуал и инструкция. Под запросы, с которыми люди приходят чаще всего: страх, усталость, потеря фокуса, размытые границы, дефицит ресурса, магнетизм, удача и возврат к своей опоре.
             </p>
             <p className="text-[14px] leading-relaxed text-foreground/90 md:hidden">
               Внутри можно быстро выбрать текущее состояние и получить готовый пакет: трек, визуал и инструкцию. Всё происходит в Telegram — без лишней путаницы и долгих поисков.
@@ -186,7 +186,7 @@ function Hero() {
               className="btn-gold btn-gold-hover inline-flex min-h-[54px] items-center justify-center px-7 py-4 text-sm md:text-base"
               style={{ animation: "var(--animate-pulse-glow)" }}
             >
-              Запустить в Telegram
+              Открыть приложение в Telegram
             </a>
             <a
               href="#tree"
@@ -235,7 +235,7 @@ function ProblemBlock() {
           В таком состоянии музыка для фона, случайные практики и бесконечный контент редко помогают. Нужен не шум поверх шума, а точный вход в нужное состояние: убрать внутренний хаос, вернуть фокус, восстановить границы, собрать внимание и снова почувствовать, что управление внутри тебя.
         </p>
         <p className="text-foreground/95">
-          <span className="text-primary">«Без-Дна»</span> — это цифровая система треков и сопутствующих материалов, собранных под конкретные внутренние сбои и состояния.
+          <span className="text-primary">«Без-Дна»</span> — это система треков, визуалов и инструкций, собранных под конкретные внутренние состояния: когда нужно вернуть ясность, ресурс, границы, фокус или внутреннюю опору.
         </p>
       </div>
     </Section>
@@ -298,8 +298,8 @@ function WhatInside() {
   const cards = [
     { t: "Аудио", d: "WAV и MP3 — полная версия трека в двух форматах." },
     { t: "Визуал", d: "Образ, графика или мандала состояния — в зависимости от конкретного трека." },
-    { t: "Инструкция", d: "Краткая точка входа, архитектура смысла и способ правильного использования." },
-    { t: "Доступ в Telegram", d: "Получение материалов, навигация и дальнейшая работа происходят внутри Telegram-приложения." },
+    { t: "Инструкция", d: "Короткая инструкция: как включать, на что обратить внимание и как работать с треком точнее." },
+    { t: "Доступ в Telegram", d: "Все материалы, навигация и дальнейшая работа открываются внутри Telegram-приложения — в одном понятном месте." },
   ];
   return (
     <Section>
@@ -398,9 +398,10 @@ function TrackExamples() {
           href={TELEGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-ghost-gold btn-ghost-gold-hover inline-flex min-h-[52px] items-center justify-center px-6 py-3 text-xs md:text-sm"
+          className="btn-gold btn-gold-hover inline-flex min-h-[54px] items-center justify-center px-7 py-4 text-sm md:text-base"
+          style={{ animation: "var(--animate-pulse-glow)" }}
         >
-          Смотреть все треки в Telegram →
+          Открыть приложение в Telegram
         </a>
       </div>
     </Section>
@@ -456,8 +457,7 @@ function Modules() {
     {
       label: "Формат · 01",
       t: "Протоколы",
-      d: "Точечные треки под конкретный сбой: шум, страх, перегруз, размытые границы, потеря вектора, дефицит энергии.",
-      bullets: ["убрать шум", "вернуть фокус", "собрать себя"],
+      d: "Точечные треки под конкретный сбой: шум, страх, перегруз, размытые границы, потеря вектора и дефицит энергии.",
     },
     {
       label: "Формат · 02",
@@ -511,15 +511,6 @@ function Modules() {
               {it.t}
             </h3>
             <p className="mt-3 font-mono text-[13px] leading-relaxed text-foreground/85">{it.d}</p>
-            {it.bullets && (
-              <ul className="mt-4 grid gap-2 font-mono text-xs text-muted-foreground">
-                {it.bullets.map((b) => (
-                  <li key={b} className="rounded-md border border-primary/20 bg-primary/5 px-3 py-2">
-                    · {b}
-                  </li>
-                ))}
-              </ul>
-            )}
           </motion.div>
         ))}
       </div>
@@ -619,7 +610,7 @@ function FinalCTA() {
             className="btn-gold btn-gold-hover mt-8 inline-flex min-h-[56px] w-full max-w-md items-center justify-center px-8 py-4 text-sm md:text-base"
             style={{ animation: "var(--animate-pulse-glow)" }}
           >
-            Запустить в Telegram
+            Открыть приложение в Telegram
           </a>
           <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.25em] text-primary/80">
             @dna_sound_bot
@@ -632,7 +623,7 @@ function FinalCTA() {
 
 function Landing() {
   return (
-    <div className="min-h-screen pb-24 md:pb-0">
+    <div className="min-h-screen">
       <SiteHeader />
       <main>
         <Hero />
@@ -646,7 +637,6 @@ function Landing() {
         <FinalCTA />
       </main>
       <SiteFooter />
-      <StickyMobileCTA />
     </div>
   );
 }
