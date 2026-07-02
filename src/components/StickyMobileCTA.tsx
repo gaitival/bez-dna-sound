@@ -10,7 +10,7 @@ export function StickyMobileCTA() {
         className="btn-gold btn-gold-hover flex min-h-[52px] w-full items-center justify-center px-4 py-3 text-sm"
         style={{ animation: "var(--animate-pulse-glow)" }}
       >
-        Запустить Лабораторию в Telegram ⚡
+        Открыть приложение в Telegram
       </a>
     </div>
   );
