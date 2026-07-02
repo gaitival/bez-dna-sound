@@ -6,7 +6,7 @@ export function SiteFooter() {
       <div className="sacred-line" />
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-10 text-center">
         <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary/80">
-          ✦ Система · Online
+          ✦ Проект Без-Дна
         </div>
         <a
           href={TELEGRAM_URL}
