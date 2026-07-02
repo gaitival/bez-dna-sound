@@ -62,15 +62,6 @@ export function SiteHeader() {
             <span className="font-display text-base leading-none">{open ? "✕" : "≡"}</span>
           </button>
         </div>
-            type="button"
-            aria-label="Меню"
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-            className="inline-flex size-9 items-center justify-center rounded-md border border-border/60 text-primary md:hidden"
-          >
-            <span className="font-display text-base leading-none">{open ? "✕" : "≡"}</span>
-          </button>
-        </div>
       </div>
 
       {open && (
