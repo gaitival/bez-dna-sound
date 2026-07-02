@@ -5,7 +5,7 @@ import { useState } from "react";
 import { SacredSymbol } from "@/components/SacredSymbol";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { StickyMobileCTA } from "@/components/StickyMobileCTA";
+
 import { TREE_NODES, TELEGRAM_URL } from "@/data/tree";
 
 export const Route = createFileRoute("/")({
