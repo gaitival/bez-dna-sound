@@ -52,18 +52,16 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          {/* Sticky desktop CTA — появляется только после прокрутки ниже hero */}
-          {scrolled && (
-            <a
-              href={TELEGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold btn-gold-hover hidden px-4 py-2 text-[11px] md:inline-flex md:text-xs"
-            >
-              В Telegram
-            </a>
-          )}
           <button
+            type="button"
+            aria-label="Меню"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="inline-flex size-9 items-center justify-center rounded-md border border-border/60 text-primary md:hidden"
+          >
+            <span className="font-display text-base leading-none">{open ? "✕" : "≡"}</span>
+          </button>
+        </div>
             type="button"
             aria-label="Меню"
             aria-expanded={open}
