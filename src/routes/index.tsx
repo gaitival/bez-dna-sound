@@ -610,7 +610,7 @@ function FinalCTA() {
             className="btn-gold btn-gold-hover mt-8 inline-flex min-h-[56px] w-full max-w-md items-center justify-center px-8 py-4 text-sm md:text-base"
             style={{ animation: "var(--animate-pulse-glow)" }}
           >
-            Запустить в Telegram
+            Открыть приложение в Telegram
           </a>
           <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.25em] text-primary/80">
             @dna_sound_bot
