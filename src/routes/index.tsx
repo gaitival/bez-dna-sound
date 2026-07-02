@@ -623,7 +623,7 @@ function FinalCTA() {
 
 function Landing() {
   return (
-    <div className="min-h-screen pb-24 md:pb-0">
+    <div className="min-h-screen">
       <SiteHeader />
       <main>
         <Hero />
@@ -637,7 +637,6 @@ function Landing() {
         <FinalCTA />
       </main>
       <SiteFooter />
-      <StickyMobileCTA />
     </div>
   );
 }
