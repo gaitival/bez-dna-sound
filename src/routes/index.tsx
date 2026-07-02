@@ -186,7 +186,7 @@ function Hero() {
               className="btn-gold btn-gold-hover inline-flex min-h-[54px] items-center justify-center px-7 py-4 text-sm md:text-base"
               style={{ animation: "var(--animate-pulse-glow)" }}
             >
-              Запустить в Telegram
+              Открыть приложение в Telegram
             </a>
             <a
               href="#tree"
