@@ -511,15 +511,6 @@ function Modules() {
               {it.t}
             </h3>
             <p className="mt-3 font-mono text-[13px] leading-relaxed text-foreground/85">{it.d}</p>
-            {it.bullets && (
-              <ul className="mt-4 grid gap-2 font-mono text-xs text-muted-foreground">
-                {it.bullets.map((b) => (
-                  <li key={b} className="rounded-md border border-primary/20 bg-primary/5 px-3 py-2">
-                    · {b}
-                  </li>
-                ))}
-              </ul>
-            )}
           </motion.div>
         ))}
       </div>
