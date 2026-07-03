@@ -140,15 +140,15 @@ function SectionTitle({
 function Hero() {
   return (
     <section className="relative overflow-hidden px-4 pb-14 pt-8 md:pb-20 md:pt-16">
-      <div className="mx-auto grid max-w-6xl items-center gap-8 md:grid-cols-[60%_40%] md:gap-6">
+      <div className="mx-auto grid max-w-6xl items-start gap-6 md:grid-cols-[60%_40%]">
         {/* Left column */}
         <div className="text-center md:text-left">
           <h1 className="font-display uppercase text-primary text-glow-gold"
-              style={{ fontSize: "clamp(38px, 6vw, 56px)", lineHeight: 1.02, letterSpacing: "-0.005em" }}>
+              style={{ fontSize: "clamp(32px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.005em" }}>
             Лаборатория<br />глубинной настройки
           </h1>
 
-          <p className="mt-5 max-w-[620px] font-mono text-sm leading-relaxed text-foreground/85 md:text-[15px]">
+          <p className="mt-5 w-full font-mono text-sm leading-relaxed text-foreground/85 md:text-[15px]">
             <span className="hidden md:inline">
               Telegram-проект треков и аудио-инструментов для состояний, когда нужно убрать внутренний шум, вернуть энергию, выйти из страха, усилить магнетизм, почувствовать опору и снова собрать себя.
             </span>
@@ -159,7 +159,7 @@ function Hero() {
 
           <div className="sacred-line mx-auto mt-6 w-32 md:mx-0" />
 
-          <div className="oracle-card mt-6 w-full max-w-[680px] px-6 py-5 text-left md:py-6">
+          <div className="oracle-card mt-6 w-full px-6 py-5 text-left md:py-6">
             <p className="hidden text-[15px] leading-relaxed text-foreground/90 md:block">
               Здесь не нужно долго гадать, что с тобой происходит. Внутри системы можно быстро выбрать текущее состояние и получить точный инструмент под свой запрос.
             </p>
@@ -174,7 +174,7 @@ function Hero() {
           <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.28em] text-primary">
             ✦ Первый вход и первый протокол — бесплатно
           </p>
-          <p className="mt-2 max-w-[560px] font-mono text-[12px] leading-relaxed text-muted-foreground">
+          <p className="mt-2 w-full font-mono text-[12px] leading-relaxed text-muted-foreground">
             Без обязательной покупки. Зайти, посмотреть и протестировать систему можно сразу.
           </p>
 
@@ -183,28 +183,28 @@ function Hero() {
               href={TELEGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold btn-gold-hover inline-flex min-h-[54px] items-center justify-center px-7 py-4 text-sm md:text-base"
+              className="btn-gold btn-gold-hover inline-flex h-[52px] items-center justify-center px-6 text-xs md:text-sm"
               style={{ animation: "var(--animate-pulse-glow)" }}
             >
               Открыть приложение в Telegram
             </a>
             <a
               href="#tree"
-              className="btn-ghost-gold btn-ghost-gold-hover inline-flex min-h-[52px] items-center justify-center px-6 py-3 text-xs md:text-sm"
+              className="btn-ghost-gold btn-ghost-gold-hover inline-flex h-[52px] items-center justify-center px-6 text-xs md:text-sm"
             >
               Посмотреть карту состояний ↓
             </a>
           </div>
 
-          <p className="mt-5 max-w-[560px] font-mono text-[11px] leading-relaxed text-muted-foreground">
+          <p className="mt-5 w-full font-mono text-[11px] leading-relaxed text-muted-foreground">
             Внутри: карта состояний, треки, инструкции, визуалы и бесплатный первый шаг.
           </p>
         </div>
 
-        {/* Right column — symbol closer to heading */}
-        <div className="relative flex items-center justify-center md:-ml-8 md:-mt-10">
+        {/* Right column — symbol raised into first block */}
+        <div className="relative flex items-start justify-center md:-ml-8 md:-mt-6">
           <div className="text-primary" style={{ animation: "var(--animate-float)" }}>
-            <SacredSymbol className="size-44 md:size-[360px]" />
+            <SacredSymbol className="size-44 md:size-[300px]" />
           </div>
           <div
             aria-hidden
@@ -227,7 +227,7 @@ function ProblemBlock() {
         kicker="Зачем"
         title="Когда обычные способы уже не работают"
       />
-      <div className="mx-auto max-w-3xl space-y-5 font-mono text-[14px] leading-relaxed text-foreground/85 md:text-[15px]">
+      <div className="mx-auto w-full space-y-5 font-mono text-[14px] leading-relaxed text-foreground/85 md:text-[15px]">
         <p>
           Иногда психика не «сломалась» — она просто перегружена. Слишком много чужого давления, фонового шума, тревоги, накопленной усталости и внутренних противоречий.
         </p>
