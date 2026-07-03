@@ -227,7 +227,7 @@ function ProblemBlock() {
         kicker="Зачем"
         title="Когда обычные способы уже не работают"
       />
-      <div className="mx-auto max-w-3xl space-y-5 font-mono text-[14px] leading-relaxed text-foreground/85 md:text-[15px]">
+      <div className="mx-auto w-full space-y-5 font-mono text-[14px] leading-relaxed text-foreground/85 md:text-[15px]">
         <p>
           Иногда психика не «сломалась» — она просто перегружена. Слишком много чужого давления, фонового шума, тревоги, накопленной усталости и внутренних противоречий.
         </p>
