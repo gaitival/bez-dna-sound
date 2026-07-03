@@ -140,26 +140,43 @@ function SectionTitle({
 function Hero() {
   return (
     <section className="relative overflow-hidden px-4 pb-14 pt-8 md:pb-20 md:pt-16">
-      <div className="mx-auto grid max-w-6xl items-start gap-6 md:grid-cols-[60%_40%]">
-        {/* Left column */}
-        <div className="text-center md:text-left">
-          <h1 className="font-display uppercase text-primary text-glow-gold"
-              style={{ fontSize: "clamp(32px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.005em" }}>
-            Лаборатория<br />глубинной настройки
-          </h1>
+      <div className="mx-auto max-w-6xl">
+        {/* Top row: title + symbol */}
+        <div className="grid items-start gap-6 md:grid-cols-[60%_40%]">
+          <div className="text-center md:text-left">
+            <h1 className="font-display uppercase text-primary text-glow-gold"
+                style={{ fontSize: "clamp(32px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.005em" }}>
+              Лаборатория<br />глубинной настройки
+            </h1>
 
-          <p className="mt-5 w-full font-mono text-sm leading-relaxed text-foreground/85 md:text-[15px]">
-            <span className="hidden md:inline">
-              Telegram-проект треков и аудио-инструментов для состояний, когда нужно убрать внутренний шум, вернуть энергию, выйти из страха, усилить магнетизм, почувствовать опору и снова собрать себя.
-            </span>
-            <span className="md:hidden">
-              Треки и инструменты для состояний, когда нужно убрать шум, вернуть энергию, выйти из страха и снова собрать себя.
-            </span>
-          </p>
+            <p className="mt-5 w-full font-mono text-sm leading-relaxed text-foreground/85 md:text-[15px]">
+              <span className="hidden md:inline">
+                Telegram-проект треков и аудио-инструментов для состояний, когда нужно убрать внутренний шум, вернуть энергию, выйти из страха, усилить магнетизм, почувствовать опору и снова собрать себя.
+              </span>
+              <span className="md:hidden">
+                Треки и инструменты для состояний, когда нужно убрать шум, вернуть энергию, выйти из страха и снова собрать себя.
+              </span>
+            </p>
 
-          <div className="sacred-line mx-auto mt-6 w-32 md:mx-0" />
+            <div className="sacred-line mx-auto mt-6 w-32 md:mx-0" />
+          </div>
 
-          <div className="oracle-card mt-6 w-full px-6 py-5 text-left md:py-6">
+          {/* Right column — symbol */}
+          <div className="relative flex items-start justify-center md:-ml-8 md:-mt-6">
+            <div className="text-primary" style={{ animation: "var(--animate-float)" }}>
+              <SacredSymbol className="size-44 md:size-[300px]" />
+            </div>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{ background: "radial-gradient(circle at center, hsl(45 90% 55% / 0.16), transparent 62%)" }}
+            />
+          </div>
+        </div>
+
+        {/* Bottom row: full-width card + CTA */}
+        <div className="mt-8 md:mt-10">
+          <div className="oracle-card w-full px-6 py-5 text-left md:px-8 md:py-6">
             <p className="hidden text-[15px] leading-relaxed text-foreground/90 md:block">
               Здесь не нужно долго гадать, что с тобой происходит. Внутри системы можно быстро выбрать текущее состояние и получить точный инструмент под свой запрос.
             </p>
@@ -171,10 +188,10 @@ function Hero() {
             </p>
           </div>
 
-          <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.28em] text-primary">
+          <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.28em] text-primary text-center md:text-left">
             ✦ Первый вход и первый протокол — бесплатно
           </p>
-          <p className="mt-2 w-full font-mono text-[12px] leading-relaxed text-muted-foreground">
+          <p className="mt-2 w-full font-mono text-[12px] leading-relaxed text-muted-foreground text-center md:text-left">
             Без обязательной покупки. Зайти, посмотреть и протестировать систему можно сразу.
           </p>
 
@@ -196,21 +213,9 @@ function Hero() {
             </a>
           </div>
 
-          <p className="mt-5 w-full font-mono text-[11px] leading-relaxed text-muted-foreground">
+          <p className="mt-5 w-full font-mono text-[11px] leading-relaxed text-muted-foreground text-center md:text-left">
             Внутри: карта состояний, треки, инструкции, визуалы и бесплатный первый шаг.
           </p>
-        </div>
-
-        {/* Right column — symbol raised into first block */}
-        <div className="relative flex items-start justify-center md:-ml-8 md:-mt-6">
-          <div className="text-primary" style={{ animation: "var(--animate-float)" }}>
-            <SacredSymbol className="size-44 md:size-[300px]" />
-          </div>
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{ background: "radial-gradient(circle at center, hsl(45 90% 55% / 0.16), transparent 62%)" }}
-          />
         </div>
       </div>
 
