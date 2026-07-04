@@ -33,7 +33,11 @@ export const Route = createFileRoute("/")({
           "Треки и аудио-инструменты под конкретное состояние. Первый вход — бесплатно.",
       },
     ],
-    links: [{ rel: "canonical", href: "https://bez-dna-sound.lovable.app/" }],
+    links: [
+      { rel: "canonical", href: "https://bez-dna-sound.lovable.app/" },
+      { rel: "alternate", hrefLang: "ru", href: "https://bez-dna-sound.lovable.app/" },
+      { rel: "alternate", hrefLang: "x-default", href: "https://bez-dna-sound.lovable.app/" },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -41,12 +45,25 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Проект Без-Дна",
+          alternateName: "Без-Дна — Лаборатория глубинной настройки",
           description:
             "Telegram-проект треков и аудио-инструментов под конкретные состояния.",
           url: "https://bez-dna-sound.lovable.app/",
+          logo: "https://bez-dna-sound.lovable.app/favicon.ico",
           sameAs: [TELEGRAM_URL],
         }),
       },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Без-Дна — Лаборатория глубинной настройки",
+          url: "https://bez-dna-sound.lovable.app/",
+          inLanguage: "ru-RU",
+        }),
+      },
+
       {
         type: "application/ld+json",
         children: JSON.stringify({
