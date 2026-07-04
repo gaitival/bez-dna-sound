@@ -174,9 +174,9 @@ function Hero() {
           </div>
         </div>
 
-        {/* Bottom row: full-width card + CTA */}
+        {/* Bottom row: full-width text + CTA */}
         <div className="mt-8 md:mt-10">
-          <div className="oracle-card w-full px-6 py-5 text-left md:px-8 md:py-6">
+          <div className="w-full text-left">
             <p className="hidden text-[15px] leading-relaxed text-foreground/90 md:block">
               Здесь не нужно долго гадать, что с тобой происходит. Внутри системы можно быстро выбрать текущее состояние и получить точный инструмент под свой запрос.
             </p>
@@ -188,35 +188,38 @@ function Hero() {
             </p>
           </div>
 
-          <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.28em] text-primary text-center md:text-left">
-            ✦ Первый вход и первый протокол — бесплатно
-          </p>
-          <p className="mt-2 w-full font-mono text-[12px] leading-relaxed text-muted-foreground text-center md:text-left">
-            Без обязательной покупки. Зайти, посмотреть и протестировать систему можно сразу.
-          </p>
+          <div className="mt-10 flex flex-col items-center text-center">
+            <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-primary">
+              ✦ Первый вход и первый протокол — бесплатно
+            </p>
+            <p className="mt-2 font-mono text-[12px] leading-relaxed text-muted-foreground">
+              Без обязательной покупки. Зайти, посмотреть и протестировать систему можно сразу.
+            </p>
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-start">
-            <a
-              href={TELEGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold btn-gold-hover inline-flex h-[52px] items-center justify-center px-6 text-xs md:text-sm"
-              style={{ animation: "var(--animate-pulse-glow)" }}
-            >
-              Открыть приложение в Telegram
-            </a>
-            <a
-              href="#tree"
-              className="btn-ghost-gold btn-ghost-gold-hover inline-flex h-[52px] items-center justify-center px-6 text-xs md:text-sm"
-            >
-              Посмотреть карту состояний ↓
-            </a>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
+              <a
+                href={TELEGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-gold btn-gold-hover inline-flex h-[52px] items-center justify-center px-6 text-xs md:text-sm"
+                style={{ animation: "var(--animate-pulse-glow)" }}
+              >
+                Открыть приложение в Telegram
+              </a>
+              <a
+                href="#tree"
+                className="btn-ghost-gold btn-ghost-gold-hover inline-flex h-[52px] items-center justify-center px-6 text-xs md:text-sm"
+              >
+                Посмотреть карту состояний ↓
+              </a>
+            </div>
+
+            <p className="mt-5 font-mono text-[11px] leading-relaxed text-muted-foreground">
+              Внутри: карта состояний, треки, инструкции, визуалы и бесплатный первый шаг.
+            </p>
           </div>
-
-          <p className="mt-5 w-full font-mono text-[11px] leading-relaxed text-muted-foreground text-center md:text-left">
-            Внутри: карта состояний, треки, инструкции, визуалы и бесплатный первый шаг.
-          </p>
         </div>
+
       </div>
 
       <div aria-hidden className="pointer-events-none absolute -left-20 top-20 size-72 rounded-full" style={{ background: "radial-gradient(circle, hsl(45 90% 55% / 0.12), transparent 70%)" }} />
