@@ -97,25 +97,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
-        rel: "preload",
-        as: "style",
+        rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Exo+2:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
     scripts: [
-      {
-        children:
-          "(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Exo+2:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap';document.head.appendChild(l);})();",
-      },
       {
         src: "https://www.googletagmanager.com/gtag/js?id=G-4HG5Z6W8W6",
         async: true,
       },
       {
         children:
-          "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4HG5Z6W8W6');",
+          "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4HG5Z6W8W6',{'transport_type':'beacon'});",
       },
     ],
+
   }),
   shellComponent: RootShell,
   component: RootComponent,
