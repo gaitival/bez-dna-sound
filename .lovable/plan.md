@@ -1,45 +1,47 @@
-## Что сделаю
+## Анализ скриншота PageSpeed Insights (мобильная версия)
 
-Внедрю рекомендации Google PageSpeed и доукомплектую `<head>`. Все правки — в `src/routes/__root.tsx` (общие теги) и `src/routes/index.tsx` (для главной).
+На отчёте видны 4 круговых показателя: Performance ~63, а Accessibility / Best Practices / SEO — зелёные (близки к 100). То есть **SEO-балл у PSI уже высокий**, проседает именно Performance, и это тоже влияет на мобильный поиск Google (Core Web Vitals — фактор ранжирования).
 
-### 1. Производительность (главная боль из скриншотов)
+Текущее состояние в коде уже хорошее:
+- `<title>`, `description`, `og:*`, `twitter:*`, `canonical` заданы на главной
+- JSON-LD Organization + FAQPage
+- `viewport`, `theme-color`, `lang="ru"` в root
+- шрифты preconnect + preload
 
-**Шрифты Google перестанут блокировать рендер (экономия ~1350 мс)**
-- Заменю `<link rel="stylesheet" href="...fonts.googleapis.com...">` на не-блокирующую загрузку:
-  - `<link rel="preconnect" href="https://fonts.googleapis.com">`
-  - `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>`
-  - `<link rel="preload" as="style" href="...">`
-  - `<link rel="stylesheet" media="print" onload="this.media='all'" href="...">`
-  - `<noscript><link rel="stylesheet" href="..."></noscript>` (фолбэк)
-- Это уберёт красный пункт *«Запросы, блокирующие отрисовку страницы»*.
+## Что реально можно улучшить для мобильного SEO
 
-**LCP-задержка 2500 мс**
-- Добавлю `<link rel="preload" as="image" fetchpriority="high">` для главной фоновой/hero-картинки на `/` (LCP-элемент — заголовок «ЛАБОРАТОРИЯ ГЛУБИННОЙ НАСТРОЙКИ» с фоном).
-- Уберу `opacity:0 → 1` анимацию у самого H1 LCP (framer-motion задерживает отрисовку): для главного заголовка стартовое `opacity` сделаю `1`, чтобы он отрисовался сразу.
+### 1. Core Web Vitals (главное — влияет и на PSI, и на ранжирование)
+- **LCP**: сейчас героический символ + Orbitron грузится через runtime `<script>`-инжект стилей → задерживает первый рендер. Заменить инжект на обычный `<link rel="stylesheet">` в `head().links` и добавить `font-display: swap` через параметр Google Fonts (уже есть `&display=swap`, но подключение отложено JS-ом — убрать это).
+- Добавить `rel="preload"` для LCP-элемента (если это картинка/символ) на главной.
+- Отложить Google Analytics (`gtag`) через `defer` вместо `async` и/или подгружать после `load`, чтобы не блокировать основной поток на мобильных.
+- `framer-motion` тяжёлый — на первом экране заменить на CSS-анимации или lazy-import для секций ниже сгиба.
 
-**Сторонний код (Google Analytics)**
-- Уже грузится `async` — оставлю. Кеш `gpteng.co` и его шрифт `CameraPla` — это лоадер песочницы превью, на проде его не будет, фиксить нечего.
+### 2. Мобильный контент и разметка
+- Убедиться, что **один `<h1>`** на странице (сейчас — да, в hero) и заголовки секций — `<h2>`. Проверить `SectionTitle`.
+- Добавить `alt` ко всем декоративным/значимым изображениям (SacredSymbol — `role="img"` + `aria-label`).
+- Кнопки-ссылки Telegram — использовать `<a rel="noopener">` + понятный текст (уже ок).
 
-### 2. Head-теги (что вы перечислили)
+### 3. Расширенная schema.org для мобильной выдачи
+- Добавить `WebSite` + `SearchAction` (sitelinks searchbox) в root.
+- Дополнить `Organization` полями `logo`, `sameAs` (соцсети), контакты.
+- Для секции «Аптека состояний» / «Примеры треков» — `ItemList` или `Product` разметка, чтобы получать rich results в мобильном Google.
 
-В `src/routes/__root.tsx`:
-- ✅ `viewport` — уже есть, оставлю.
-- ➕ **Favicon**: добавлю `<link rel="icon" href="/favicon.ico">` (файл уже лежит в `public/favicon.ico`).
-- 🔧 `<html lang="en">` → `<html lang="ru">` (сайт на русском).
-- ✅ Дефолтные OG-теги (`og:type`, `og:site_name`, `og:image`, twitter:*) — уже есть.
+### 4. Мобильный UX-сигнал (Page Experience)
+- Проверить, что `StickyMobileCTA` не перекрывает контент и не вызывает CLS.
+- Тап-таргеты ≥ 48px (кнопки CTA — да, `h-[52px]`).
+- Горизонтальный скролл: проверить, что нет overflow на 360px ширине.
 
-В `src/routes/index.tsx` (главная):
-- 🔧 **Title** ≤ 60 симв.: уже 51 симв. («Аптека состояний — Лаборатория глубинной настройки») — оставлю.
-- 🔧 **Description** ≤ 160 симв.: текущая 148 — оставлю.
-- ➕ Добавлю на главную **og:image** + **og:type=website** + **twitter:card/title/description/image** (сейчас они только в root — перенесу/продублирую с самоссылкой), и сделаю `canonical`/`og:url` абсолютными (`https://bez-dna-sound.lovable.app/`), как требует чек-лист.
+### 5. Индексация
+- `robots.txt` + `sitemap.xml` уже есть — проверить, что sitemap отдаёт только `/` и `/tree` с корректным `lastmod`.
+- Добавить `hreflang="ru"` на главной.
 
-### 3. Что НЕ трогаю
+## Что делаю по плану
 
-- Не меняю механизм sitemap/robots — он уже настроен.
-- Не делаю «удалить неиспользуемый JS на 138 KiB» — это рекомендация по tree-shaking бандла Vite, требует крупного рефакторинга lib (framer-motion, radix). Скажу про это в финальном сообщении как опциональный шаг.
-- Не подключаю свои self-hosted шрифты вместо Google Fonts — это отдельная большая задача (можно сделать следующим шагом, даст ещё ~700 мс).
+1. Убираю runtime-инъекцию Google Fonts, заменяю на обычный `<link rel="stylesheet">` в root.
+2. `gtag` → `defer` + инициализация после `DOMContentLoaded`.
+3. Добавляю `WebSite` JSON-LD с `SearchAction` и расширяю `Organization` (logo, sameAs).
+4. Добавляю `hreflang="ru"` и `<link rel="alternate">`.
+5. Проверяю иерархию заголовков и `alt`/`aria-label` на `SacredSymbol`.
+6. Лениво импортирую тяжёлые секции ниже первого экрана (framer-motion блоки) через `React.lazy`, чтобы уменьшить JS первого экрана.
 
-### Файлы
-
-- `src/routes/__root.tsx` — fonts non-blocking, favicon, `lang="ru"`.
-- `src/routes/index.tsx` — preload LCP, абсолютные canonical/og:url, og:image на главной, мгновенная отрисовка H1.
+Пункт про framer-motion lazy-load — самый рискованный (может поменять поведение анимаций). Скажи, включать его или ограничиться пунктами 1–5, которые безопасны и уже дадут заметный прирост Performance/SEO на мобильном.
