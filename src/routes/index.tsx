@@ -5,6 +5,7 @@ import { useState } from "react";
 import { SacredSymbol } from "@/components/SacredSymbol";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 
 import { TREE_NODES, TELEGRAM_URL } from "@/data/tree";
 
@@ -99,8 +100,8 @@ const FAQ_ITEMS = [
     a: "Желательно — так звук воспринимается точнее и внимание меньше рассеивается. Но начать можно и без них.",
   },
   {
-    q: "Это долгая и сложная история",
-    a: "Нет. Первый вход и первый тест занимают немного времени. Дальше можно идти глубже только если сама система действительно откликается.",
+    q: "Нужно ли долго разбираться",
+    a: "Нет. Внутри всё построено как быстрый вход: выбрал состояние, открыл подходящий трек, получил аудио, визуал и инструкцию.",
   },
 ];
 
@@ -161,18 +162,18 @@ function Hero() {
         {/* Top row: title + symbol */}
         <div className="grid items-start gap-6 md:grid-cols-[60%_40%]">
           <div className="text-center md:text-left">
-            <h1 className="font-display uppercase text-primary text-glow-gold"
-                style={{ fontSize: "clamp(32px, 5vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.005em" }}>
+            <h1
+              className="font-display uppercase text-primary text-glow-gold"
+              style={{ fontSize: "clamp(46px, 6vw, 86px)", lineHeight: 1.02, letterSpacing: "-0.005em" }}
+            >
               Лаборатория<br />глубинной настройки
             </h1>
 
-            <p className="mt-5 w-full font-mono text-sm leading-relaxed text-foreground/85 md:text-[15px]">
-              <span className="hidden md:inline">
-                Telegram-проект треков и аудио-инструментов для состояний, когда нужно убрать внутренний шум, вернуть энергию, выйти из страха, усилить магнетизм, почувствовать опору и снова собрать себя.
-              </span>
-              <span className="md:hidden">
-                Треки и инструменты для состояний, когда нужно убрать шум, вернуть энергию, выйти из страха и снова собрать себя.
-              </span>
+            <p
+              className="mx-auto mt-5 max-w-[860px] font-mono text-foreground/85 md:mx-0"
+              style={{ fontSize: "clamp(18px, 1.6vw, 21px)", lineHeight: 1.45, letterSpacing: "0.01em" }}
+            >
+              Telegram-система резонансных инструментов для быстрой внутренней настройки: отключить ментальный шум, вернуть фокус, восстановить личные границы и войти в состояние силы.
             </p>
 
             <div className="sacred-line mx-auto mt-6 w-32 md:mx-0" />
@@ -181,7 +182,7 @@ function Hero() {
           {/* Right column — symbol */}
           <div className="relative flex items-start justify-center md:-ml-8 md:-mt-6">
             <div className="text-primary" style={{ animation: "var(--animate-float)" }}>
-              <SacredSymbol className="size-44 md:size-[300px]" />
+              <SacredSymbol className="size-[220px] md:size-[300px]" />
             </div>
             <div
               aria-hidden
@@ -193,23 +194,20 @@ function Hero() {
 
         {/* Bottom row: full-width text + CTA */}
         <div className="mt-8 md:mt-10">
-          <div className="w-full text-left">
-            <p className="hidden text-[15px] leading-relaxed text-foreground/90 md:block">
-              Здесь не нужно долго гадать, что с тобой происходит. Внутри системы можно быстро выбрать текущее состояние и получить точный инструмент под свой запрос.
-            </p>
-            <p className="hidden mt-3 text-[15px] leading-relaxed text-foreground/90 md:block">
-              Это не просто аудио для фона, а рабочий пакет: трек, визуал и инструкция. Под запросы, с которыми люди приходят чаще всего: страх, усталость, потеря фокуса, размытые границы, дефицит ресурса, магнетизм, удача и возврат к своей опоре.
-            </p>
-            <p className="text-[14px] leading-relaxed text-foreground/90 md:hidden">
-              Внутри можно быстро выбрать текущее состояние и получить готовый пакет: трек, визуал и инструкцию. Всё происходит в Telegram — без лишней путаницы и долгих поисков.
+          <div className="mx-auto w-full max-w-[860px] text-left">
+            <p
+              className="text-foreground/90"
+              style={{ fontSize: "clamp(16px, 1.3vw, 18px)", lineHeight: 1.55, letterSpacing: "0.01em" }}
+            >
+              Без долгого поиска причин и сложных практик. Достаточно выбрать текущую точку сбоя — острая тревога, усталость, страх или дефицит ресурса — и сразу получить готовый целевой модуль: звук, визуал и короткую инструкцию.
             </p>
           </div>
 
           <div className="mt-10 flex flex-col items-center text-center">
-            <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-primary">
+            <p className="font-mono text-[12px] uppercase tracking-[0.28em] text-primary md:text-[13px]">
               ✦ Первый вход и первый протокол — бесплатно
             </p>
-            <p className="mt-2 font-mono text-[12px] leading-relaxed text-muted-foreground">
+            <p className="mt-2 font-mono text-[12px] leading-relaxed text-muted-foreground md:text-[13px]">
               Без обязательной покупки. Зайти, посмотреть и протестировать систему можно сразу.
             </p>
 
@@ -231,7 +229,7 @@ function Hero() {
               </a>
             </div>
 
-            <p className="mt-5 font-mono text-[11px] leading-relaxed text-muted-foreground">
+            <p className="mt-5 font-mono text-[11px] leading-relaxed text-muted-foreground md:text-[12px]">
               Внутри: карта состояний, треки, инструкции, визуалы и бесплатный первый шаг.
             </p>
           </div>
