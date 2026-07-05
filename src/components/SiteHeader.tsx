@@ -79,6 +79,15 @@ export function SiteHeader() {
                 </a>
               ),
             )}
+            <a
+              href="https://t.me/dna_sound_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 rounded px-2 py-3 text-primary hover:bg-primary/5"
+              onClick={() => setOpen(false)}
+            >
+              Открыть в Telegram
+            </a>
           </nav>
         </div>
       )}
