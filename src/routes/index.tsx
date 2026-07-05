@@ -399,15 +399,25 @@ function TrackExamples() {
             className="oracle-card oracle-card-hover flex h-full flex-col overflow-hidden"
           >
             <div
-              className="relative flex h-40 items-center justify-center"
-              style={{
-                background:
-                  "radial-gradient(ellipse at 30% 30%, hsl(45 90% 55% / 0.22), transparent 60%), radial-gradient(ellipse at 70% 70%, hsl(185 80% 45% / 0.18), transparent 60%), hsl(240 10% 6%)",
-              }}
+              className="relative flex h-[200px] items-center justify-center overflow-hidden md:h-[200px]"
+              style={
+                c.imageUrl
+                  ? {
+                      backgroundImage: `url(${c.imageUrl})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }
+                  : {
+                      background:
+                        "radial-gradient(ellipse at 30% 30%, hsl(45 90% 55% / 0.22), transparent 60%), radial-gradient(ellipse at 70% 70%, hsl(185 80% 45% / 0.18), transparent 60%), hsl(240 10% 6%)",
+                    }
+              }
             >
-              <div className="text-primary" style={{ animation: "var(--animate-float)" }}>
-                <SacredSymbol className="size-24" />
-              </div>
+              {!c.imageUrl && (
+                <div className="text-primary" style={{ animation: "var(--animate-float)" }}>
+                  <SacredSymbol className="size-24" />
+                </div>
+              )}
             </div>
             <div className="flex flex-1 flex-col p-6">
               <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary/70">
