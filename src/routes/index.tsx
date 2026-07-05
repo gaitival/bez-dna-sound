@@ -662,7 +662,7 @@ function Landing() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      <main>
+      <main className="pb-[110px] md:pb-0">
         <Hero />
         <ProblemBlock />
         <HowItWorks />
@@ -674,6 +674,7 @@ function Landing() {
         <FinalCTA />
       </main>
       <SiteFooter />
+      <StickyMobileCTA />
     </div>
   );
 }
