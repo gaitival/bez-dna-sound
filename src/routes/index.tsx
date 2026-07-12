@@ -159,50 +159,70 @@ function Hero() {
   return (
     <section className="relative overflow-hidden px-4 pb-14 pt-8 md:pb-20 md:pt-16">
       <div className="mx-auto max-w-6xl">
-        {/* Top row: title + symbol */}
-        <div className="grid items-start gap-6 md:grid-cols-[60%_40%]">
-          <div className="text-center md:text-left">
-            <h1
-              className="font-display uppercase text-primary text-glow-gold"
-              style={{ fontSize: "clamp(46px, 6vw, 86px)", lineHeight: 1.02, letterSpacing: "-0.005em" }}
-            >
-              Лаборатория<br />глубинной настройки
-            </h1>
+        
+        {/* Заголовок (по центру) и подзаголовок (с выравниванием по левому краю) */}
+        <div className="flex flex-col items-center">
+          <h1
+            className="text-center font-display uppercase text-primary text-glow-gold"
+            style={{ fontSize: "clamp(36px, 5vw, 64px)", lineHeight: 1.1, letterSpacing: "-0.005em" }}
+          >
+            Лаборатория глубинной настройки
+          </h1>
 
+          <div className="mx-auto mt-6 w-full max-w-[960px] text-center md:text-left">
             <p
-              className="mx-auto mt-5 max-w-[860px] font-mono text-foreground/85 md:mx-0"
-              style={{ fontSize: "clamp(18px, 1.6vw, 21px)", lineHeight: 1.45, letterSpacing: "0.01em" }}
+              className="font-mono text-foreground/85"
+              style={{ fontSize: "clamp(14px, 1.2vw, 17px)", lineHeight: 1.5, letterSpacing: "0.01em" }}
             >
-              Telegram-система резонансных инструментов для быстрой внутренней настройки: отключить ментальный шум, вернуть фокус, восстановить личные границы и войти в состояние силы.
+              Telegram-система резонансных инструментов для быстрой внутренней настройки:
+              <br className="hidden md:inline" />
+              отключить ментальный шум, вернуть фокус, восстановить личные границы и войти в состояние силы.
             </p>
-
-            <div className="sacred-line mx-auto mt-6 w-32 md:mx-0" />
-          </div>
-
-          {/* Right column — symbol */}
-          <div className="relative flex items-start justify-center md:-ml-8 md:-mt-6">
-            <div className="text-primary" style={{ animation: "var(--animate-float)" }}>
-              <SacredSymbol className="size-[220px] md:size-[300px]" />
-            </div>
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{ background: "radial-gradient(circle at center, hsl(45 90% 55% / 0.16), transparent 62%)" }}
-            />
           </div>
         </div>
 
-        {/* Bottom row: full-width text + CTA */}
-        <div className="mt-8 md:mt-10">
-          <div className="mx-auto w-full max-w-[860px] text-left">
+        {/* Сетка из 4 карточек-заглушек */}
+        <div className="mx-auto mt-10 grid max-w-[960px] grid-cols-2 gap-4 md:grid-cols-4">
+          {[1, 2, 3, 4].map((index) => (
+            <div
+              key={index}
+              className="relative aspect-[4/5] flex flex-col items-center justify-center rounded-lg border border-border/30 bg-black/50 p-4 overflow-hidden"
+              style={{
+                boxShadow: "inset 0 0 20px rgba(0, 0, 0, 0.8)",
+              }}
+            >
+              {/* Внутренний символ с легкой пульсацией */}
+              <div className="relative z-10 text-primary/40">
+                <SacredSymbol 
+                  className="size-20 md:size-24 animate-pulse" 
+                  style={{ animationDuration: `${3 + index}s` }} 
+                />
+              </div>
+
+              {/* Мягкий золотистый градиент на фоне */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background: "radial-gradient(circle at center, hsl(45 90% 55% / 0.06), transparent 65%)",
+                }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Блок с текстом под карточками и кнопками */}
+        <div className="mt-12 md:mt-16">
+          <div className="mx-auto w-full max-w-[960px] text-center md:text-left">
             <p
-              className="text-foreground/90"
-              style={{ fontSize: "clamp(16px, 1.3vw, 18px)", lineHeight: 1.55, letterSpacing: "0.01em" }}
+              className="text-foreground/90 text-sm md:text-base leading-relaxed"
+              style={{ letterSpacing: "0.01em" }}
             >
               Без долгого поиска причин и сложных практик. Достаточно выбрать текущую точку сбоя — острая тревога, усталость, страх или дефицит ресурса — и сразу получить готовый целевой модуль: звук, визуал и короткую инструкцию.
             </p>
           </div>
 
+          {/* Секция с кнопками (CTA) */}
           <div className="mt-10 flex flex-col items-center text-center">
             <p className="font-mono text-[12px] uppercase tracking-[0.28em] text-primary md:text-[13px]">
               ✦ Первый вход и первый протокол — бесплатно
@@ -237,6 +257,7 @@ function Hero() {
 
       </div>
 
+      {/* Фоновые размытые свечения */}
       <div aria-hidden className="pointer-events-none absolute -left-20 top-20 size-72 rounded-full" style={{ background: "radial-gradient(circle, hsl(45 90% 55% / 0.12), transparent 70%)" }} />
       <div aria-hidden className="pointer-events-none absolute -right-20 top-40 size-72 rounded-full" style={{ background: "radial-gradient(circle, hsl(185 80% 45% / 0.10), transparent 70%)" }} />
     </section>
