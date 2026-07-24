@@ -719,6 +719,7 @@ function Landing() {
       <main className="pb-[110px] md:pb-0">
         <Hero />
         <ProblemBlock />
+        <BlogPreview />
         <HowItWorks />
         <WhatInside />
         <TrackExamples />
