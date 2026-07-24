@@ -1,7 +1,7 @@
 export type BlogPost = {
+  slug: string;
   title: string;
   summary: string;
-  tag: string;
   preview: string;
   seoTitle: string;
   seoDescription: string;
@@ -10,10 +10,10 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "pochemu-obychnaya-muzyka-ne-pomogaet-pri-trevoge",
     title: "Почему обычная музыка не помогает при тревоге",
     summary:
       "Когда внутри шум, перегруз и тревога, нужен не просто фон, а точечный вход в состояние ясности и внутренней опоры.",
-    tag: "SEO-статья · hero-ready",
     preview: "Короткий вход в тему, который хорошо работает как для лендинга, так и для блога.",
     seoTitle: "Почему обычная музыка не помогает при тревоге",
     seoDescription:
@@ -25,10 +25,10 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
   },
   {
+    slug: "kak-vernut-granitsy-kogda-ty-postoyanno-vklyuchen",
     title: "Как вернуть границы, когда ты постоянно включен",
     summary:
       "История о том, как хроническая включенность стирает личные границы и как вернуть себе ощущение контроля.",
-    tag: "Лендинг-блок · benefits",
     preview: "Тема про выгорание, эмоциональную усталость и внутреннюю перегрузку без ощущения давления.",
     seoTitle: "Как вернуть границы, когда ты постоянно включен",
     seoDescription:
@@ -40,10 +40,10 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
   },
   {
+    slug: "pochemu-obychnyj-otdyh-ne-pomogaet-vosstanovit-sya",
     title: "Почему обычный отдых не помогает восстановиться",
     summary:
       "Когда усталость уже не физическая, а внутренне-эмоциональная, нужен не просто отдых, а точечный вход в восстановление.",
-    tag: "CTA-блок · testimonial",
     preview: "Полезная тема для аудитории, которая устала, но всё ещё не чувствует реального восстановления.",
     seoTitle: "Почему обычный отдых не помогает восстановиться",
     seoDescription:
