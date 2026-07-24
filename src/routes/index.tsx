@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 
 import { TREE_NODES, TELEGRAM_URL } from "@/data/tree";
+import { BLOG_POSTS } from "@/data/blogPosts";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -281,6 +282,38 @@ function ProblemBlock() {
         <p className="text-foreground/95">
           <span className="text-primary">«Без-Дна»</span> — это система треков, визуалов и инструкций, собранных под конкретные внутренние состояния: когда нужно вернуть ясность, ресурс, границы, фокус или внутреннюю опору.
         </p>
+      </div>
+    </Section>
+  );
+}
+
+function BlogPreview() {
+  return (
+    <Section>
+      <SectionTitle
+        kicker="Блог"
+        title="Статьи, которые уже видны прямо на входе"
+        lead="Они не только про тему — они ведут к точечному протоколу и к первому шагу в Telegram."
+      />
+      <div className="grid gap-5 md:grid-cols-3">
+        {BLOG_POSTS.slice(0, 3).map((post) => (
+          <div key={post.title} className="rounded-[24px] border border-border/50 bg-card/70 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">{post.tag}</p>
+            <h3 className="mt-4 text-xl font-semibold text-foreground">{post.title}</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.summary}</p>
+            <a
+              href="/blog"
+              className="mt-6 inline-flex h-[44px] items-center justify-center rounded-full border border-border/60 px-5 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            >
+              Открыть статью
+            </a>
+          </div>
+        ))}
+      </div>
+      <div className="mt-8 text-center">
+        <a href="/blog" className="inline-flex h-[48px] items-center justify-center rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+          Перейти в блог Без-Дна
+        </a>
       </div>
     </Section>
   );
