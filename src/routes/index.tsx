@@ -297,16 +297,20 @@ function BlogPreview() {
       />
       <div className="grid gap-5 md:grid-cols-3">
         {BLOG_POSTS.slice(0, 3).map((post) => (
-          <div key={post.title} className="rounded-[24px] border border-border/50 bg-card/70 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
-            <h3 className="text-xl font-semibold text-foreground">{post.title}</h3>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.summary}</p>
-            <Link
-              to="/blog/$slug"
-              params={{ slug: post.slug }}
-              className="mt-6 inline-flex h-[44px] items-center justify-center rounded-full border border-border/60 px-5 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-            >
-              Открыть статью
-            </Link>
+          <div key={post.title} className="overflow-hidden rounded-[24px] border border-border/50 bg-card/70 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
+            <img src={post.image} alt={post.title} className="h-40 w-full object-cover" />
+            <div className="p-6">
+              <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary">{post.eyebrow}</p>
+              <h3 className="mt-3 text-xl font-semibold text-foreground">{post.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.summary}</p>
+              <Link
+                to="/blog/$slug"
+                params={{ slug: post.slug }}
+                className="mt-6 inline-flex h-[44px] items-center justify-center rounded-full border border-border/60 px-5 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+              >
+                Открыть статью
+              </Link>
+            </div>
           </div>
         ))}
       </div>

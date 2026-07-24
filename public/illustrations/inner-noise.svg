@@ -1,0 +1,23 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" rx="48" fill="#071018"/>
+  <rect x="68" y="68" width="1064" height="664" rx="36" stroke="url(#stroke)" stroke-width="2"/>
+  <circle cx="420" cy="330" r="200" fill="url(#glow)"/>
+  <path d="M330 260C365 220 430 205 485 235C540 265 586 330 592 398" stroke="#E1C06D" stroke-width="6" stroke-linecap="round"/>
+  <path d="M377 240C392 200 426 172 470 170C512 168 549 188 576 224" stroke="#70C6D3" stroke-width="6" stroke-linecap="round"/>
+  <path d="M282 414C352 374 433 372 500 404C568 436 611 497 628 555" stroke="#F4E6BA" stroke-width="6" stroke-linecap="round" opacity="0.75"/>
+  <path d="M730 226L940 226" stroke="#E1C06D" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+  <path d="M730 290L886 290" stroke="#70C6D3" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+  <path d="M730 354L917 354" stroke="#F4E6BA" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+  <text x="730" y="480" fill="#F4E6BA" font-family="Georgia, serif" font-size="54">Без-Дна</text>
+  <text x="730" y="532" fill="#90A4B0" font-family="Arial, sans-serif" font-size="24">вход в ясность</text>
+  <defs>
+    <linearGradient id="stroke" x1="120" y1="120" x2="1060" y2="680" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E1C06D"/>
+      <stop offset="1" stop-color="#70C6D3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(420 330) rotate(90) scale(200)">
+      <stop stop-color="#E1C06D" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#E1C06D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

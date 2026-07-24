@@ -57,19 +57,23 @@ function BlogPage() {
 
         <section className="mt-16 grid gap-6 lg:grid-cols-3">
           {posts.map((post) => (
-            <article key={post.title} className="rounded-[24px] border border-border/50 bg-card/70 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
-              <h3 className="text-xl font-semibold text-foreground">{post.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.summary}</p>
-              <div className="mt-5 rounded-2xl border border-border/50 bg-background/70 p-4">
-                <p className="text-sm leading-7 text-foreground/80">{post.preview}</p>
+            <article key={post.title} className="flex h-full flex-col overflow-hidden rounded-[24px] border border-border/50 bg-card/70 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
+              <img src={post.image} alt={post.title} className="h-44 w-full object-cover" />
+              <div className="flex flex-1 flex-col p-6">
+                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary">{post.eyebrow}</p>
+                <h3 className="mt-3 text-xl font-semibold text-foreground">{post.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.summary}</p>
+                <div className="mt-5 rounded-2xl border border-border/50 bg-background/70 p-4">
+                  <p className="text-sm leading-7 text-foreground/80">{post.preview}</p>
+                </div>
+                <Link
+                  to="/blog/$slug"
+                  params={{ slug: post.slug }}
+                  className="mt-6 inline-flex h-[44px] items-center justify-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                >
+                  Открыть статью
+                </Link>
               </div>
-              <Link
-                to="/blog/$slug"
-                params={{ slug: post.slug }}
-                className="mt-6 inline-flex h-[44px] items-center justify-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-              >
-                Открыть статью
-              </Link>
             </article>
           ))}
         </section>
