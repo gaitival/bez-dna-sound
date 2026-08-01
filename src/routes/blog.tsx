@@ -7,14 +7,23 @@ import { BLOG_POSTS } from "@/data/blogPosts";
 export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
-      { title: "Блог Без-Дна — статьи и протоколы состояния" },
+      { title: "Состояния — разборы и протоколы Без-Дна" },
       {
         name: "description",
         content:
-          "Сборник статей о внутреннем шуме, тревоге, перегрузке и точечных протоколах состояния для быстрого входа в ясность.",
+          "Разборы состояний: тревога, фоновый страх, рассеянный фокус, размытые границы — и точечные звуковые протоколы Без-Дна.",
       },
+      { property: "og:title", content: "Состояния — разборы и протоколы Без-Дна" },
+      {
+        property: "og:description",
+        content:
+          "Разборы состояний и точечные звуковые протоколы Без-Дна для быстрого входа в ясность.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+
   component: BlogPage,
 });
 
