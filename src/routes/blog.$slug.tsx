@@ -12,8 +12,27 @@ export const Route = createFileRoute("/blog/$slug")({
     }
     return { post };
   },
+  head: ({ loaderData }) => {
+    const post = loaderData?.post;
+    if (!post) {
+      return { meta: [{ title: "Статья недоступна — Без-Дна" }, { name: "robots", content: "noindex" }] };
+    }
+    return {
+      meta: [
+        { title: post.seoTitle },
+        { name: "description", content: post.seoDescription },
+        { property: "og:title", content: post.seoTitle },
+        { property: "og:description", content: post.seoDescription },
+        { property: "og:type", content: "article" },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+    };
+  },
+  errorComponent: ({ error }) => <div role="alert" className="p-10">{error.message}</div>,
+  notFoundComponent: () => <div className="p-10">Статья не найдена</div>,
   component: BlogPostPage,
 });
+
 
 function BlogPostPage() {
   const { post } = Route.useLoaderData();
@@ -71,12 +90,14 @@ function BlogPostPage() {
               Открыть Telegram-протоколы
             </a>
             <Link
-              to="/blog"
+              to="/"
+              hash="states"
               className="inline-flex h-[52px] items-center justify-center rounded-full border border-border/60 px-6 text-sm font-medium text-foreground transition-colors hover:bg-accent"
             >
-              Вернуться к состояниям
+              Вернуться на главную
             </Link>
             </div>
+
           </div>
         </article>
       </main>
