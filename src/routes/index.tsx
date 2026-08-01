@@ -291,7 +291,7 @@ function BlogPreview() {
   return (
     <Section>
       <SectionTitle
-        kicker="Блог"
+        kicker="Состояния"
         title="Статьи, которые уже видны прямо на входе"
         lead="Они не только про тему — они ведут к точечному протоколу и к первому шагу в Telegram."
       />
@@ -316,7 +316,7 @@ function BlogPreview() {
       </div>
       <div className="mt-8 text-center">
         <a href="/blog" className="inline-flex h-[48px] items-center justify-center rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
-          Перейти в блог Без-Дна
+          Перейти в раздел «Состояния»
         </a>
       </div>
     </Section>
