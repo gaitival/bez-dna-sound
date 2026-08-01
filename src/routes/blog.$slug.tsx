@@ -43,7 +43,7 @@ function BlogPostPage() {
 
             <div className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
               <div className="space-y-5 text-base leading-8 text-foreground/85">
-                {post.paragraphs.map((paragraph) => (
+                {post.paragraphs.map((paragraph: string) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
               </div>
@@ -74,7 +74,7 @@ function BlogPostPage() {
               to="/blog"
               className="inline-flex h-[52px] items-center justify-center rounded-full border border-border/60 px-6 text-sm font-medium text-foreground transition-colors hover:bg-accent"
             >
-              Вернуться к блогу
+              Вернуться к состояниям
             </Link>
             </div>
           </div>

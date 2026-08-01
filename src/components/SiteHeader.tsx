@@ -6,7 +6,7 @@ const NAV: NavItem[] = [
   { href: "/#how", label: "Как это работает" },
   { href: "/#examples", label: "Примеры треков" },
   { href: "/tree", label: "Карта состояний", internal: true },
-  { href: "/blog", label: "Блог", internal: true },
+  { href: "/blog", label: "Состояния", internal: true },
   { href: "/#modules", label: "Аптека" },
   { href: "/#faq", label: "FAQ" },
 ];

@@ -1,9 +1,10 @@
-export function SacredSymbol({ className = "" }: { className?: string }) {
+export function SacredSymbol({ className = "", style }: { className?: string; style?: React.CSSProperties }) {
   // Flower of life-inspired ritual glyph
   return (
     <svg
       viewBox="0 0 200 200"
       className={className}
+      style={style}
       fill="none"
       stroke="currentColor"
       strokeWidth="1.2"
