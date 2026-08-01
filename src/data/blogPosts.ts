@@ -1,4 +1,4 @@
-export const blogPosts = [
+export const BLOG_POSTS = [
   {
     slug: "strakh-ne-uhodit-dazhe-kogda-vse-khorosho",
     title: "Почему страх не уходит, даже когда всё хорошо",
