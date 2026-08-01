@@ -289,39 +289,40 @@ function ProblemBlock() {
 
 function BlogPreview() {
   return (
-    <Section>
-      <SectionTitle
-        kicker="Состояния"
-        title="Статьи, которые уже видны прямо на входе"
-        lead="Они не только про тему — они ведут к точечному протоколу и к первому шагу в Telegram."
-      />
-      <div className="grid gap-5 md:grid-cols-3">
-        {BLOG_POSTS.slice(0, 3).map((post) => (
-          <div key={post.title} className="overflow-hidden rounded-[24px] border border-border/50 bg-card/70 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
-            <img src={post.image} alt={post.title} className="h-40 w-full object-cover" />
-            <div className="p-6">
-              <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary">{post.eyebrow}</p>
-              <h3 className="mt-3 text-xl font-semibold text-foreground">{post.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.summary}</p>
-              <Link
-                to="/blog/$slug"
-                params={{ slug: post.slug }}
-                className="mt-6 inline-flex h-[44px] items-center justify-center rounded-full border border-border/60 px-5 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-              >
-                Открыть статью
-              </Link>
+    <>
+      <div id="states" />
+      <Section>
+        <SectionTitle
+          kicker="Состояния"
+          title="Статьи, которые уже видны прямо на входе"
+          lead="Они не только про тему — они ведут к точечному протоколу и к первому шагу в Telegram."
+        />
+        <div className="grid gap-5 md:grid-cols-3">
+          {BLOG_POSTS.slice(0, 3).map((post) => (
+            <div key={post.title} className="flex h-full flex-col overflow-hidden rounded-[24px] border border-border/50 bg-card/70 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
+              <img src={post.image} alt={post.title} className="h-40 w-full object-cover" />
+              <div className="flex flex-1 flex-col p-6">
+                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary">{post.eyebrow}</p>
+                <h3 className="mt-3 text-xl font-semibold text-foreground">{post.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.summary}</p>
+                <Link
+                  to="/blog/$slug"
+                  params={{ slug: post.slug }}
+                  className="mt-auto inline-flex h-[44px] items-center justify-center self-start rounded-full border border-border/60 px-5 pt-0 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+                  style={{ marginTop: "1.5rem" }}
+                >
+                  Открыть статью
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-8 text-center">
-        <a href="/blog" className="inline-flex h-[48px] items-center justify-center rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
-          Перейти в раздел «Состояния»
-        </a>
-      </div>
-    </Section>
+          ))}
+        </div>
+      </Section>
+    </>
   );
 }
+
+
 
 function HowItWorks() {
   const cards = [
