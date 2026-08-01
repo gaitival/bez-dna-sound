@@ -71,12 +71,14 @@ function BlogPostPage() {
               Открыть Telegram-протоколы
             </a>
             <Link
-              to="/blog"
+              to="/"
+              hash="states"
               className="inline-flex h-[52px] items-center justify-center rounded-full border border-border/60 px-6 text-sm font-medium text-foreground transition-colors hover:bg-accent"
             >
-              Вернуться к состояниям
+              Вернуться на главную
             </Link>
             </div>
+
           </div>
         </article>
       </main>
