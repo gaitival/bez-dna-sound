@@ -37,11 +37,12 @@ function BlogPage() {
       <main className="mx-auto flex w-full max-w-6xl flex-col px-4 py-20">
         <section className="rounded-[32px] border border-border/50 bg-card/70 p-8 shadow-[0_30px_80px_rgba(0,0,0,0.16)] md:p-12">
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary">
-            Блог Без-Дна
+            Состояния
           </p>
           <h1 className="mt-4 font-display text-3xl uppercase text-primary text-glow-gold md:text-5xl">
-            Статьи и протоколы для состояний, в которых нужен быстрый вход в себя
+            Разборы состояний и протоколы для быстрого входа в себя
           </h1>
+
           <p className="mt-6 max-w-3xl text-base leading-8 text-muted-foreground md:text-lg">
             Здесь собраны тексты под реальные состояния: внутренний шум, тревога, перегруз, размытые границы и дефицит ресурса. Материалы написаны в мягком, бережном тоне и ведут к Telegram-протоколам Без-Дна.
           </p>
