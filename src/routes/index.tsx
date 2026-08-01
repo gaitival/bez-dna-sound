@@ -305,14 +305,15 @@ function BlogPreview() {
                 <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary">{post.eyebrow}</p>
                 <h3 className="mt-3 text-xl font-semibold text-foreground">{post.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.summary}</p>
-                <Link
-                  to="/blog/$slug"
-                  params={{ slug: post.slug }}
-                  className="mt-auto inline-flex h-[44px] items-center justify-center self-start rounded-full border border-border/60 px-5 pt-0 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-                  style={{ marginTop: "1.5rem" }}
-                >
-                  Открыть статью
-                </Link>
+                <div className="mt-auto pt-6">
+                  <Link
+                    to="/blog/$slug"
+                    params={{ slug: post.slug }}
+                    className="inline-flex h-[44px] items-center justify-center rounded-full border border-border/60 px-5 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+                  >
+                    Открыть статью
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
