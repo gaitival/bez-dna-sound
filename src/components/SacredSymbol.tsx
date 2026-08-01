@@ -4,6 +4,7 @@ export function SacredSymbol({ className = "", style }: { className?: string; st
     <svg
       viewBox="0 0 200 200"
       className={className}
+      style={style}
       fill="none"
       stroke="currentColor"
       strokeWidth="1.2"
