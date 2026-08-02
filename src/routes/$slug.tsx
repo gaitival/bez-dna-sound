@@ -89,7 +89,10 @@ function renderInline(text: string) {
 }
 
 function isHeading(text: string) {
-  return text.length <= 80 && !/[.!?…:»]$/.test(text.trim());
+  const t = text.trim();
+  if (t.length > 80) return false;
+  if (/^(\d+\.|Шаг \d+\.)\s/.test(t)) return true;
+  return !/[.!?…:»]$/.test(t);
 }
 
 function BackLink({ className = "" }: { className?: string }) {
