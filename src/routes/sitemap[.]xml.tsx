@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { BLOG_POSTS } from "@/data/blogPosts";
 
 const BASE_URL = "https://bez-dna-sound.lovable.app";
 
