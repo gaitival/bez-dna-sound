@@ -144,11 +144,11 @@ function ArticlePage() {
               return (
                 <h2
                   key={i}
-                  className="mt-14 flex items-baseline gap-4 font-display text-xl uppercase tracking-wide text-primary md:text-2xl"
+                  className="mt-14 font-display text-xl uppercase tracking-wide text-primary md:text-2xl"
                 >
-                  <span className="h-px w-10 shrink-0 translate-y-[-6px] bg-primary/40" />
                   {renderInline(paragraph)}
                 </h2>
+
               );
             }
             const first = bodyIndex++ === 0;
