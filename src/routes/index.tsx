@@ -93,7 +93,7 @@ export const Route = createFileRoute("/")({
               position: i + 1,
               url: `https://bez-dna-sound.lovable.app/${post.slug}`,
               name: post.title,
-􀀁            })),
+})),
           },
         }),
       },
