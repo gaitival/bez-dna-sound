@@ -78,6 +78,25 @@ export const Route = createFileRoute("/")({
           })),
         }),
       },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Состояния — разборы и протоколы",
+          url: "https://bez-dna-sound.lovable.app/#states",
+          inLanguage: "ru-RU",
+          mainEntity: {
+            "@type": "ItemList",
+            itemListElement: BLOG_POSTS.map((post, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              url: `https://bez-dna-sound.lovable.app/${post.slug}`,
+              name: post.title,
+􀀁            })),
+          },
+        }),
+      },
     ],
   }),
   component: Landing,
