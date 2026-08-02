@@ -155,7 +155,7 @@ function ArticlePage() {
             return (
               <p
                 key={i}
-                className={`mt-6 max-w-[70ch] text-[17px] leading-9 text-foreground/85 md:text-[18px] ${
+                className={`mt-6 max-w-[70ch] text-justify hyphens-auto text-[17px] leading-9 text-foreground/85 md:text-[18px] ${
                   first
                     ? "first-letter:float-left first-letter:mr-3 first-letter:font-display first-letter:text-6xl first-letter:leading-[0.85] first-letter:text-primary"
                     : ""
