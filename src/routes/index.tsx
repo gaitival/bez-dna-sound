@@ -78,6 +78,25 @@ export const Route = createFileRoute("/")({
           })),
         }),
       },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Состояния — разборы и протоколы",
+          url: "https://bez-dna-sound.lovable.app/#states",
+          inLanguage: "ru-RU",
+          mainEntity: {
+            "@type": "ItemList",
+            itemListElement: BLOG_POSTS.map((post, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              url: `https://bez-dna-sound.lovable.app/${post.slug}`,
+              name: post.title,
+})),
+          },
+        }),
+      },
     ],
   }),
   component: Landing,
@@ -302,12 +321,12 @@ function BlogPreview() {
             <div key={post.title} className="flex h-full flex-col overflow-hidden rounded-[24px] border border-border/50 bg-card/70 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
               <img src={post.image} alt={post.title} className="h-40 w-full object-cover" />
               <div className="flex flex-1 flex-col p-6">
-                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary">{post.eyebrow}</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary">{post.type}</p>
                 <h3 className="mt-3 text-xl font-semibold text-foreground">{post.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.summary}</p>
                 <div className="mt-auto pt-6">
                   <Link
-                    to="/blog/$slug"
+                    to="/$slug"
                     params={{ slug: post.slug }}
                     className="inline-flex h-[44px] items-center justify-center rounded-full border border-border/60 px-5 text-sm font-medium text-foreground transition-colors hover:bg-accent"
                   >

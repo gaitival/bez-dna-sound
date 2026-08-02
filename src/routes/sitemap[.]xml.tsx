@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { BLOG_POSTS } from "@/data/blogPosts";
 
 const BASE_URL = "https://bez-dna-sound.lovable.app";
 
@@ -16,6 +17,11 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/tree", changefreq: "monthly", priority: "0.8" },
+          ...BLOG_POSTS.map((post) => ({
+            path: `/${post.slug}`,
+            changefreq: "monthly" as const,
+            priority: "0.7",
+          })),
         ];
 
         const urls = entries.map((e) =>
