@@ -144,13 +144,55 @@ function ArticlePage() {
               return (
                 <h2
                   key={i}
-                  className="mt-14 flex items-baseline gap-4 font-display text-xl uppercase tracking-wide text-primary md:text-2xl"
                   className="mt-14 font-display text-xl uppercase tracking-wide text-primary md:text-2xl"
                 >
-                  <span className="h-px w-10 shrink-0 translate-y-[-6px] bg-primary/40" />
                   {renderInline(paragraph)}
                 </h2>
 
               );
             }
             const first = bodyIndex++ === 0;
+            return (
+              <p
+                key={i}
+                className={`mt-6 max-w-[70ch] text-justify hyphens-auto text-[17px] leading-9 text-foreground/85 md:text-[18px] ${
+                  first
+                    ? "first-letter:float-left first-letter:mr-3 first-letter:font-display first-letter:text-6xl first-letter:leading-[0.85] first-letter:text-primary"
+                    : ""
+                }`}
+              >
+                {renderInline(paragraph)}
+              </p>
+            );
+          })}
+        </article>
+
+        <section className="mt-16 overflow-hidden rounded-[28px] border border-primary/30 bg-primary/[0.06] p-8 md:p-12">
+          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary">
+            Следующий шаг
+          </p>
+          <h2 className="mt-4 max-w-3xl font-display text-2xl uppercase text-foreground md:text-3xl">
+            Протокол {post.protocol} — 15 минут, которые меняют состояние
+          </h2>
+          <p className="mt-4 max-w-2xl text-base leading-8 text-muted-foreground">
+            Здесь не про «спокойную музыку» и не про ещё один совет по самопомощи. Это точечный вход
+            в состояние, когда надо быстро вернуть ясность, контроль и внутреннюю опору.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href={TELEGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-[52px] items-center justify-center rounded-full bg-primary px-7 font-mono text-[12px] uppercase tracking-[0.2em] text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              Открыть приложение в Telegram
+            </a>
+            <BackLink className="h-[52px]" />
+          </div>
+        </section>
+      </main>
+
+      <SiteFooter />
+    </div>
+  );
+}
