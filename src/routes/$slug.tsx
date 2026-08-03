@@ -22,7 +22,7 @@ export const Route = createFileRoute("/$slug")({
     const url = `${BASE_URL}/${params.slug}`;
     return {
       meta: [
-        { title: `${post.title} — Без-Дна` },
+        { title: `${post.title} | Без-Дна` },
         { name: "description", content: post.description },
         { property: "og:type", content: "article" },
         { property: "og:title", content: post.title },
@@ -157,7 +157,7 @@ function ArticlePage() {
             return (
               <p
                 key={i}
-                className={`mt-6 max-w-[70ch] text-justify hyphens-auto text-[17px] leading-9 text-foreground/85 md:text-[18px] ${
+                className={`mt-6 max-w-[70ch] text-justify [hyphens:none] break-normal text-[17px] leading-9 text-foreground/85 md:text-[18px] ${
                   first
                     ? "first-letter:float-left first-letter:mr-3 first-letter:font-display first-letter:text-6xl first-letter:leading-[0.85] first-letter:text-primary"
                     : ""
