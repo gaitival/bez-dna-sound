@@ -28,9 +28,11 @@ export const Route = createFileRoute("/$slug")({
         { property: "og:title", content: post.title },
         { property: "og:description", content: post.description },
         { property: "og:url", content: url },
+        { property: "og:image", content: `${BASE_URL}${post.image}` },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: post.title },
         { name: "twitter:description", content: post.description },
+        { name: "twitter:image", content: `${BASE_URL}${post.image}` },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
