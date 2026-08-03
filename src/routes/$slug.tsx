@@ -140,13 +140,13 @@ function ArticlePage() {
           </div>
         </header>
 
-        <article className="mt-12 w-full">
+        <article className="mt-12 w-full max-w-[70ch]">
           {body.map((paragraph, i) => {
             if (isHeading(paragraph)) {
               return (
                 <h2
                   key={i}
-                  className="mt-14 max-w-[70ch] font-display text-lg uppercase leading-snug tracking-wide text-primary md:text-xl"
+                  className="mt-14 w-full text-balance break-words font-display text-lg uppercase leading-snug tracking-wide text-primary md:text-xl"
                 >
                   {renderInline(paragraph)}
                 </h2>
@@ -157,7 +157,7 @@ function ArticlePage() {
             return (
               <p
                 key={i}
-                className={`mt-6 max-w-[70ch] text-justify [hyphens:none] break-normal text-[17px] leading-9 text-foreground/85 md:text-[18px] ${
+                className={`mt-6 w-full text-justify [hyphens:none] break-normal text-[17px] leading-9 text-foreground/85 md:text-[18px] ${
                   first
                     ? "first-letter:float-left first-letter:mr-3 first-letter:font-display first-letter:text-6xl first-letter:leading-[0.85] first-letter:text-primary"
                     : ""
