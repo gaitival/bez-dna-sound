@@ -1,126 +1,156 @@
-import { useParams } from "react-router-dom";
-import { BLOG_POSTS } from "../data/blogPosts";
-import { useEffect } from "react";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { TELEGRAM_URL } from "@/data/tree";
+import { BLOG_POSTS } from "@/data/blogPosts";
 
-export default function BlogPost() {
-  const { slug } = useParams();
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+const BASE_URL = "https://bez-dna-sound.lovable.app";
 
-  useEffect(() => {
-    if (!post) return;
-
-    const title = `${post.title} | Без-Дна`;
-    const description = post.description;
-    const imageUrl = `https://bez-dna-sound.lovable.app${post.image}`;
-    const pageUrl = `https://bez-dna-sound.lovable.app/${post.slug}`;
-
-    // Title
-    document.title = title;
-
-    // Meta description
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.setAttribute('name', 'description');
-      document.head.appendChild(metaDesc);
+export const Route = createFileRoute("/$slug")({
+  loader: ({ params }) => {
+    const post = BLOG_POSTS.find((item) => item.slug === params.slug);
+    if (!post) throw notFound();
+    return { slug: post.slug };
+  },
+  head: ({ params, loaderData }) => {
+    const post = loaderData ? BLOG_POSTS.find((p) => p.slug === loaderData.slug) : undefined;
+    if (!post) {
+      return {
+        meta: [{ title: "Статья недоступна — Без-Дна" }, { name: "robots", content: "noindex" }],
+      };
     }
-    metaDesc.setAttribute('content', description);
-
-    // OG:title
-    let ogTitle = document.querySelector('meta[property="og:title"]');
-    if (!ogTitle) {
-      ogTitle = document.createElement('meta');
-      ogTitle.setAttribute('property', 'og:title');
-      document.head.appendChild(ogTitle);
-    }
-    ogTitle.setAttribute('content', title);
-
-    // OG:description
-    let ogDesc = document.querySelector('meta[property="og:description"]');
-    if (!ogDesc) {
-      ogDesc = document.createElement('meta');
-      ogDesc.setAttribute('property', 'og:description');
-      document.head.appendChild(ogDesc);
-    }
-    ogDesc.setAttribute('content', description);
-
-    // OG:image
-    let ogImage = document.querySelector('meta[property="og:image"]');
-    if (!ogImage) {
-      ogImage = document.createElement('meta');
-      ogImage.setAttribute('property', 'og:image');
-      document.head.appendChild(ogImage);
-    }
-    ogImage.setAttribute('content', imageUrl);
-
-    // OG:url
-    let ogUrl = document.querySelector('meta[property="og:url"]');
-    if (!ogUrl) {
-      ogUrl = document.createElement('meta');
-      ogUrl.setAttribute('property', 'og:url');
-      document.head.appendChild(ogUrl);
-    }
-    ogUrl.setAttribute('content', pageUrl);
-
-    // Canonical
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', pageUrl);
-
-    // JSON-LD
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": post.title,
-      "description": post.description,
-      "image": imageUrl,
-      "datePublished": post.date,
-      "dateModified": post.date,
-      "author": {
-        "@type": "Person",
-        "name": "Без-Дна"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Без-Дна",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://bez-dna-sound.lovable.app/favicon.ico"
-        }
-      },
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": pageUrl
-      }
+    const url = `${BASE_URL}/${params.slug}`;
+    return {
+      meta: [
+        { title: `${post.title} — Без-Дна` },
+        { name: "description", content: post.description },
+        { property: "og:type", content: "article" },
+        { property: "og:title", content: post.title },
+        { property: "og:description", content: post.description },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: post.title },
+        { name: "twitter:description", content: post.description },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.title,
+            description: post.description,
+            image: `${BASE_URL}${post.image}`,
+            datePublished: post.date,
+            dateModified: post.date,
+            inLanguage: "ru-RU",
+            mainEntityOfPage: { "@type": "WebPage", "@id": url },
+            author: { "@type": "Organization", name: "Проект Без-Дна", url: BASE_URL },
+            publisher: {
+              "@type": "Organization",
+              name: "Проект Без-Дна",
+              logo: { "@type": "ImageObject", url: `${BASE_URL}/favicon.ico` },
+            },
+          }),
+        },
+      ],
     };
-
-    let script = document.querySelector('script[type="application/ld+json"]');
-    if (!script) {
-      script = document.createElement('script');
-      script.setAttribute('type', 'application/ld+json');
-      document.head.appendChild(script);
-    }
-    script.textContent = JSON.stringify(jsonLd);
-  }, [post]);
-
-  if (!post) {
-    return <div>Статья не найдена</div>;
-  }
-
-  return (
-    <div className="blog-post">
-      <h1>{post.title}</h1>
-      <p className="date">{post.date}</p>
-      {post.image && <img src={post.image} alt={post.title} className="cover-image" />}
-      <div className="content">
-        {post.paragraphs.map((paragraph, index) => (
-          <p key={index}>{paragraph}</p>
-        ))}
-      </div>
+  },
+  notFoundComponent: () => (
+    <div className="min-h-screen bg-background text-foreground">
+      <SiteHeader />
+      <main className="mx-auto w-full max-w-6xl px-4 py-32 text-center">
+        <h1 className="font-display text-3xl uppercase text-primary text-glow-gold">Статья не найдена</h1>
+        <Link
+          to="/"
+          hash="states"
+          className="mt-8 inline-flex h-[48px] items-center justify-center rounded-full border border-border/60 px-6 text-sm text-foreground transition-colors hover:bg-accent"
+        >
+          ← Вернуться на главную
+        </Link>
+      </main>
+      <SiteFooter />
     </div>
+  ),
+  component: ArticlePage,
+});
+
+function renderInline(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((chunk, i) =>
+    chunk.startsWith("**") && chunk.endsWith("**") ? (
+      <strong key={i} className="font-semibold text-primary">
+        {chunk.slice(2, -2)}
+      </strong>
+    ) : (
+      <span key={i}>{chunk}</span>
+    ),
   );
 }
+
+function isHeading(text: string) {
+  const t = text.trim();
+  if (t.length > 80) return false;
+  if (/^(\d+\.|Шаг \d+\.)\s/.test(t)) return true;
+  return !/[.!?…:»]$/.test(t);
+}
+
+function BackLink({ className = "" }: { className?: string }) {
+  return (
+    <Link
+      to="/"
+      hash="states"
+      className={`inline-flex h-[48px] w-fit items-center justify-center gap-2 rounded-full border border-primary/40 px-6 font-mono text-[12px] uppercase tracking-[0.24em] text-foreground transition-colors hover:bg-primary/10 ${className}`}
+    >
+      ← Вернуться на главную
+    </Link>
+  );
+}
+
+function ArticlePage() {
+  const { slug } = Route.useLoaderData();
+  const post = BLOG_POSTS.find((p) => p.slug === slug)!;
+  const body = post.paragraphs.filter((p) => p.trim() !== "");
+  let bodyIndex = 0;
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <SiteHeader />
+
+      <main className="mx-auto w-full max-w-6xl px-4 pb-24 pt-14">
+        <BackLink />
+
+        <header className="mt-10 border-b border-primary/20 pb-10">
+          <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-primary">
+            Без-Дна / {post.type}
+          </p>
+          <h1 className="mt-5 max-w-4xl font-display text-3xl uppercase leading-[1.1] text-primary text-glow-gold md:text-5xl">
+            {post.title}
+          </h1>
+          <p className="mt-6 max-w-3xl text-base leading-8 text-muted-foreground md:text-lg">
+            {post.description}
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-foreground/60">
+            <span className="rounded-full border border-primary/30 px-3 py-1 text-primary">
+              {post.protocol}
+            </span>
+            <span>~5 мин чтения</span>
+          </div>
+        </header>
+
+        <article className="mt-12 w-full">
+          {body.map((paragraph, i) => {
+            if (isHeading(paragraph)) {
+              return (
+                <h2
+                  key={i}
+                  className="mt-14 flex items-baseline gap-4 font-display text-xl uppercase tracking-wide text-primary md:text-2xl"
+                  className="mt-14 font-display text-xl uppercase tracking-wide text-primary md:text-2xl"
+                >
+                  <span className="h-px w-10 shrink-0 translate-y-[-6px] bg-primary/40" />
+                  {renderInline(paragraph)}
+                </h2>
+
+              );
+            }
+            const first = bodyIndex++ === 0;
