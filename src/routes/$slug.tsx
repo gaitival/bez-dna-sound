@@ -146,7 +146,7 @@ function ArticlePage() {
               return (
                 <h2
                   key={i}
-                  className="mt-14 font-display text-xl uppercase tracking-wide text-primary md:text-2xl"
+                  className="mt-14 max-w-[70ch] font-display text-lg uppercase leading-snug tracking-wide text-primary md:text-xl"
                 >
                   {renderInline(paragraph)}
                 </h2>
