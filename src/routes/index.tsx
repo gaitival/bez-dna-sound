@@ -8,10 +8,16 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 
 import { TREE_NODES, TELEGRAM_URL } from "@/data/tree";
-import { BLOG_POSTS } from "@/data/blogPosts";
+import { listPublishedPosts } from "@/lib/posts.functions";
+import { dbPostToPost, mergePosts } from "@/lib/posts";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
+  loader: async () => {
+    const rows = await listPublishedPosts();
+    return { posts: mergePosts(rows.map(dbPostToPost)) };
+  },
+  head: ({ loaderData }) => ({
+
     meta: [
       { title: "Без-Дна — Лаборатория глубинной настройки" },
       {
