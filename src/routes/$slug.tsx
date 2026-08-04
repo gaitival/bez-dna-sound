@@ -113,9 +113,9 @@ function BackLink({ className = "" }: { className?: string }) {
 }
 
 function ArticlePage() {
-  const { slug } = Route.useLoaderData();
-  const post = BLOG_POSTS.find((p) => p.slug === slug)!;
-  const body = post.paragraphs.filter((p) => p.trim() !== "");
+  const { post } = Route.useLoaderData() as { post: Post };
+  const body = post.paragraphs.filter((p: string) => p.trim() !== "");
+
   let bodyIndex = 0;
 
   return (
