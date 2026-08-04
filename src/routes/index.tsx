@@ -9,7 +9,7 @@ import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 
 import { TREE_NODES, TELEGRAM_URL } from "@/data/tree";
 import { listPublishedPosts } from "@/lib/posts.functions";
-import { dbPostToPost, mergePosts } from "@/lib/posts";
+import { dbPostToPost, mergePosts, type Post } from "@/lib/posts";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
@@ -313,7 +313,7 @@ function ProblemBlock() {
 }
 
 function BlogPreview() {
-  const { posts } = Route.useLoaderData();
+  const { posts } = Route.useLoaderData() as { posts: Post[] };
   return (
     <>
       <div id="states" />
