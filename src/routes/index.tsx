@@ -8,10 +8,16 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 
 import { TREE_NODES, TELEGRAM_URL } from "@/data/tree";
-import { BLOG_POSTS } from "@/data/blogPosts";
+import { listPublishedPosts } from "@/lib/posts.functions";
+import { dbPostToPost, mergePosts, type Post } from "@/lib/posts";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
+  loader: async () => {
+    const rows = await listPublishedPosts();
+    return { posts: mergePosts(rows.map(dbPostToPost)) };
+  },
+  head: ({ loaderData }) => ({
+
     meta: [
       { title: "Без-Дна — Лаборатория глубинной настройки" },
       {
@@ -88,7 +94,7 @@ export const Route = createFileRoute("/")({
           inLanguage: "ru-RU",
           mainEntity: {
             "@type": "ItemList",
-            itemListElement: BLOG_POSTS.map((post, i) => ({
+            itemListElement: (loaderData?.posts ?? []).map((post, i) => ({
               "@type": "ListItem",
               position: i + 1,
               url: `https://bez-dna-sound.lovable.app/${post.slug}`,
@@ -307,6 +313,7 @@ function ProblemBlock() {
 }
 
 function BlogPreview() {
+  const { posts } = Route.useLoaderData() as { posts: Post[] };
   return (
     <>
       <div id="states" />
@@ -316,8 +323,9 @@ function BlogPreview() {
           title="Статьи, которые уже видны прямо на входе"
           lead="Они не только про тему — они ведут к точечному протоколу и к первому шагу в Telegram."
         />
-        <div className="grid gap-5 md:grid-cols-3">
-          {BLOG_POSTS.slice(0, 3).map((post) => (
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {posts.slice(0, 6).map((post) => (
+
             <div key={post.title} className="flex h-full flex-col overflow-hidden rounded-[24px] border border-border/50 bg-card/70 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
               <img src={post.image} alt={post.title} className="h-40 w-full object-cover" />
               <div className="flex flex-1 flex-col p-6">

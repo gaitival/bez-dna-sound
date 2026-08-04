@@ -2,24 +2,27 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TELEGRAM_URL } from "@/data/tree";
-import { BLOG_POSTS } from "@/data/blogPosts";
+import { listPublishedPosts } from "@/lib/posts.functions";
+import { dbPostToPost, mergePosts, type Post } from "@/lib/posts";
 
 const BASE_URL = "https://bez-dna-sound.lovable.app";
 
 export const Route = createFileRoute("/$slug")({
-  loader: ({ params }) => {
-    const post = BLOG_POSTS.find((item) => item.slug === params.slug);
+  loader: async ({ params }) => {
+    const rows = await listPublishedPosts();
+    const post = mergePosts(rows.map(dbPostToPost)).find((item) => item.slug === params.slug);
     if (!post) throw notFound();
-    return { slug: post.slug };
+    return { post };
   },
   head: ({ params, loaderData }) => {
-    const post = loaderData ? BLOG_POSTS.find((p) => p.slug === loaderData.slug) : undefined;
+    const post = loaderData?.post as Post | undefined;
     if (!post) {
       return {
         meta: [{ title: "Статья недоступна — Без-Дна" }, { name: "robots", content: "noindex" }],
       };
     }
     const url = `${BASE_URL}/${params.slug}`;
+
     return {
       meta: [
         { title: `${post.title} | Без-Дна` },
@@ -110,9 +113,9 @@ function BackLink({ className = "" }: { className?: string }) {
 }
 
 function ArticlePage() {
-  const { slug } = Route.useLoaderData();
-  const post = BLOG_POSTS.find((p) => p.slug === slug)!;
-  const body = post.paragraphs.filter((p) => p.trim() !== "");
+  const { post } = Route.useLoaderData() as { post: Post };
+  const body = post.paragraphs.filter((p: string) => p.trim() !== "");
+
   let bodyIndex = 0;
 
   return (
