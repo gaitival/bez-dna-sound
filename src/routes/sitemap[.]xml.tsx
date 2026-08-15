@@ -7,6 +7,7 @@ const BASE_URL = "https://bez-dna-sound.lovable.app";
 
 interface SitemapEntry {
   path: string;
+  lastmod?: string;
   changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
   priority?: string;
 }
@@ -18,20 +19,21 @@ export const Route = createFileRoute("/sitemap.xml")({
         const rows = await listPublishedPosts();
         const posts = mergePosts(rows.map(dbPostToPost));
         const entries: SitemapEntry[] = [
-          { path: "/", changefreq: "weekly", priority: "1.0" },
-          { path: "/tree", changefreq: "monthly", priority: "0.8" },
+          { path: "/", changefreq: "daily", priority: "1.0" },
+          { path: "/tree", changefreq: "weekly", priority: "0.8" },
           ...posts.map((post) => ({
             path: `/${post.slug}`,
+            lastmod: post.date ? new Date(post.date).toISOString().split("T")[0] : undefined,
             changefreq: "monthly" as const,
             priority: "0.7",
           })),
         ];
 
-
         const urls = entries.map((e) =>
           [
             `  <url>`,
             `    <loc>${BASE_URL}${e.path}</loc>`,
+            e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : null,
             e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
             e.priority ? `    <priority>${e.priority}</priority>` : null,
             `  </url>`,
@@ -49,8 +51,8 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         return new Response(xml, {
           headers: {
-            "Content-Type": "application/xml",
-            "Cache-Control": "public, max-age=3600",
+            "Content-Type": "application/xml; charset=utf-8",
+            "Cache-Control": "public, max-age=3600, s-maxage=3600",
           },
         });
       },

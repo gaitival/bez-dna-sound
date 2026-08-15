@@ -44,7 +44,7 @@ export function dbPostToPost(row: {
     type: row.type || "разбор состояния",
     protocol: row.protocol,
     description: row.description,
-    image: row.image || "/images/blog/strakh-ne-uhodit.jpg",
+    image: row.image || "/images/blog/strakh-ne-uhodit.webp",
     summary: row.summary || row.description,
     paragraphs: row.body.split("\n").map((line) => line.trimEnd()),
   };

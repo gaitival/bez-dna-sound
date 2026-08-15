@@ -18,26 +18,37 @@ export const Route = createFileRoute("/$slug")({
     const post = loaderData?.post as Post | undefined;
     if (!post) {
       return {
-        meta: [{ title: "Статья недоступна — Без-Дна" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Статья недоступна — Без-Дна" }, { name: "robots", content: "noindex, nofollow" }],
       };
     }
     const url = `${BASE_URL}/${params.slug}`;
+    const imageUrl = post.image.startsWith("http") ? post.image : `${BASE_URL}${post.image}`;
 
     return {
       meta: [
         { title: `${post.title} | Без-Дна` },
         { name: "description", content: post.description },
         { property: "og:type", content: "article" },
+        { property: "og:site_name", content: "Без-Дна — Лаборатория глубинной настройки" },
+        { property: "og:locale", content: "ru_RU" },
         { property: "og:title", content: post.title },
         { property: "og:description", content: post.description },
         { property: "og:url", content: url },
-        { property: "og:image", content: `${BASE_URL}${post.image}` },
+        { property: "og:image", content: imageUrl },
+        { property: "article:published_time", content: post.date },
+        { property: "article:modified_time", content: post.date },
+        { property: "article:section", content: post.type },
+        { property: "article:tag", content: post.protocol },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: post.title },
         { name: "twitter:description", content: post.description },
-        { name: "twitter:image", content: `${BASE_URL}${post.image}` },
+        { name: "twitter:image", content: imageUrl },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [
+        { rel: "canonical", href: url },
+        { rel: "alternate", hrefLang: "ru", href: url },
+        { rel: "alternate", hrefLang: "x-default", href: url },
+      ],
       scripts: [
         {
           type: "application/ld+json",
@@ -46,17 +57,51 @@ export const Route = createFileRoute("/$slug")({
             "@type": "Article",
             headline: post.title,
             description: post.description,
-            image: `${BASE_URL}${post.image}`,
+            image: imageUrl,
             datePublished: post.date,
             dateModified: post.date,
             inLanguage: "ru-RU",
+            articleSection: post.type,
+            keywords: [post.type, post.protocol, "звуковые протоколы", "самонастройка", "Без-Дна"],
             mainEntityOfPage: { "@type": "WebPage", "@id": url },
-            author: { "@type": "Organization", name: "Проект Без-Дна", url: BASE_URL },
+            author: {
+              "@type": "Organization",
+              name: "Проект Без-Дна",
+              url: BASE_URL,
+            },
             publisher: {
               "@type": "Organization",
               name: "Проект Без-Дна",
+              url: BASE_URL,
               logo: { "@type": "ImageObject", url: `${BASE_URL}/favicon.ico` },
             },
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Главная",
+                item: BASE_URL,
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Состояния",
+                item: `${BASE_URL}/#states`,
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: post.title,
+                item: url,
+              },
+            ],
           }),
         },
       ],
@@ -123,6 +168,15 @@ function ArticlePage() {
       <SiteHeader />
 
       <main className="mx-auto w-full max-w-6xl px-4 pb-24 pt-14">
+        {/* Semantic Breadcrumbs navigation */}
+        <nav aria-label="Хлебные крошки" className="mb-6 flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+          <Link to="/" className="hover:text-primary transition-colors">Главная</Link>
+          <span>/</span>
+          <Link to="/" hash="states" className="hover:text-primary transition-colors">Состояния</Link>
+          <span>/</span>
+          <span className="text-primary truncate max-w-[280px] sm:max-w-md">{post.title}</span>
+        </nav>
+
         <BackLink />
 
         <header className="mt-10 border-b border-primary/20 pb-10">
@@ -141,6 +195,20 @@ function ArticlePage() {
             </span>
             <span>~5 мин чтения</span>
           </div>
+
+          {post.image && (
+            <figure className="mt-8 overflow-hidden rounded-[20px] border border-primary/20 bg-card/60 shadow-[0_20px_50px_rgba(0,0,0,0.25)]">
+              <img
+                src={post.image}
+                alt={post.title}
+                width={1200}
+                height={630}
+                loading="eager"
+                decoding="async"
+                className="h-auto max-h-[460px] w-full object-cover"
+              />
+            </figure>
+          )}
         </header>
 
         <article className="mt-12 w-full max-w-[70ch]">

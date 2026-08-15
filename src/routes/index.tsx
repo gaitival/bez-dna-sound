@@ -26,13 +26,16 @@ export const Route = createFileRoute("/")({
           "Telegram-проект треков и аудио-инструментов для состояний: убрать шум, вернуть энергию, выйти из страха, усилить магнетизм и снова собрать себя. Первый вход — бесплатно.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Без-Дна — Лаборатория глубинной настройки" },
+      { property: "og:locale", content: "ru_RU" },
       { property: "og:title", content: "Без-Дна — Лаборатория глубинной настройки" },
       {
         property: "og:description",
         content:
-          "Треки и аудио-инструменты под конкретное состояние. Первый вход и первый протокол — бесплатно. Внутри Telegram.",
+          "Треки и аудио-инструментов под конкретное состояние. Первый вход и первый протокол — бесплатно. Внутри Telegram.",
       },
       { property: "og:url", content: "https://bez-dna-sound.lovable.app/" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/82bcb4c3-5a9e-4cc4-97df-cb6c8c7bdba4/id-preview-98bbd9d3--fc8f40ba-b85b-4c91-ae90-7fa61df0c66d.lovable.app-1780920518014.png" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Без-Дна — Лаборатория глубинной настройки" },
       {
@@ -40,6 +43,7 @@ export const Route = createFileRoute("/")({
         content:
           "Треки и аудио-инструменты под конкретное состояние. Первый вход — бесплатно.",
       },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/82bcb4c3-5a9e-4cc4-97df-cb6c8c7bdba4/id-preview-98bbd9d3--fc8f40ba-b85b-4c91-ae90-7fa61df0c66d.lovable.app-1780920518014.png" },
     ],
     links: [
       { rel: "canonical", href: "https://bez-dna-sound.lovable.app/" },
@@ -327,7 +331,15 @@ function BlogPreview() {
           {posts.slice(0, 6).map((post) => (
 
             <div key={post.title} className="flex h-full flex-col overflow-hidden rounded-[24px] border border-border/50 bg-card/70 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
-              <img src={post.image} alt={post.title} className="h-40 w-full object-cover" />
+              <img
+                src={post.image}
+                alt={post.title}
+                width={600}
+                height={240}
+                loading="lazy"
+                decoding="async"
+                className="h-40 w-full object-cover"
+              />
               <div className="flex flex-1 flex-col p-6">
                 <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary">{post.type}</p>
                 <h3 className="mt-3 text-xl font-semibold text-foreground">{post.title}</h3>

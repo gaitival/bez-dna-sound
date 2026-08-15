@@ -35,7 +35,7 @@ const EMPTY = {
   summary: "",
   type: "разбор состояния",
   protocol: "",
-  image: "/images/blog/strakh-ne-uhodit.jpg",
+  image: "/images/blog/strakh-ne-uhodit.webp",
   body: "",
   published: true,
   published_at: new Date().toISOString().slice(0, 10),
