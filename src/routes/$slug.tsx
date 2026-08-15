@@ -93,7 +93,7 @@ export const Route = createFileRoute("/$slug")({
                 "@type": "ListItem",
                 position: 2,
                 name: "Состояния",
-                item: `${BASE_URL}/#states`,
+                item: `${BASE_URL}/states`,
               },
               {
                 "@type": "ListItem",
