@@ -94,7 +94,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           name: "Состояния — разборы и протоколы",
-          url: "https://bez-dna-sound.lovable.app/#states",
+          url: "https://bez-dna-sound.lovable.app/states",
           inLanguage: "ru-RU",
           mainEntity: {
             "@type": "ItemList",
