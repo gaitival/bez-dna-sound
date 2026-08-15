@@ -113,11 +113,10 @@ export const Route = createFileRoute("/$slug")({
       <main className="mx-auto w-full max-w-6xl px-4 py-32 text-center">
         <h1 className="font-display text-3xl uppercase text-primary text-glow-gold">Статья не найдена</h1>
         <Link
-          to="/"
-          hash="states"
+          to="/states"
           className="mt-8 inline-flex h-[48px] items-center justify-center rounded-full border border-border/60 px-6 text-sm text-foreground transition-colors hover:bg-accent"
         >
-          ← Вернуться на главную
+          ← Вернуться в состояния
         </Link>
       </main>
       <SiteFooter />
@@ -148,11 +147,10 @@ function isHeading(text: string) {
 function BackLink({ className = "" }: { className?: string }) {
   return (
     <Link
-      to="/"
-      hash="states"
+      to="/states"
       className={`inline-flex h-[48px] w-fit items-center justify-center gap-2 rounded-full border border-primary/40 px-6 font-mono text-[12px] uppercase tracking-[0.24em] text-foreground transition-colors hover:bg-primary/10 ${className}`}
     >
-      ← Вернуться на главную
+      ← Вернуться в состояния
     </Link>
   );
 }
@@ -172,7 +170,7 @@ function ArticlePage() {
         <nav aria-label="Хлебные крошки" className="mb-6 flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
           <Link to="/" className="hover:text-primary transition-colors">Главная</Link>
           <span>/</span>
-          <Link to="/" hash="states" className="hover:text-primary transition-colors">Состояния</Link>
+          <Link to="/states" className="hover:text-primary transition-colors">Состояния</Link>
           <span>/</span>
           <span className="text-primary truncate max-w-[280px] sm:max-w-md">{post.title}</span>
         </nav>
