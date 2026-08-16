@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-publish_to_telegram.py - публикация анонса статьи в Telegram-канал проекта.
+publish_to_telegram.py - Публикация статьи в Telegraph (Instant View) и анонса в Telegram-канал.
 
-Как работает:
-  1. Читает .env (TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID).
-  2. Загружает markdown-статью из content/blog/<slug>.md.
-  3. Форматирует стильный пост для канала (картинка, цепляющий хук, 3 тезиса,
-     кнопка/ссылка на чтение полной статьи на сайте и ссылка на бота).
-  4. Отправляет через официальный Telegram Bot API (без внешних зависимостей, чисто urllib).
+Возможности:
+  1. Автоматически создает статью в Telegra.ph с нативной поддержкой Instant View («Быстрый просмотр»).
+  2. Форматирует пост для Telegram-канала с обложкой, описанием, кнопкой «Быстрый просмотр» и ссылкой на бота.
+  3. Поддерживает режим предпросмотра --dry-run (без отправки в канал).
+  4. Поддерживает создание только страницы в Telegraph (--telegraph-only).
 
 Использование:
-  python statejnik/tools/publish_to_telegram.py --slug kak-ostanovit-mysli-v-golove-i-emocionalnyj-shum
+  # Проверить форматирование и Telegraph без отправки в канал:
+  python statejnik/tools/publish_to_telegram.py --slug sindrom-emocionalnoj-gubki-kak-zashchitit-sebya-ot-chuzhogo-negativa --dry-run
+
+  # Опубликовать в Telegraph и отправить в Telegram-канал:
+  python statejnik/tools/publish_to_telegram.py --slug sindrom-emocionalnoj-gubki-kak-zashchitit-sebya-ot-chuzhogo-negativa
 """
 import argparse
 import json
@@ -20,6 +23,12 @@ import re
 import sys
 import urllib.request
 import urllib.parse
+
+try:
+    from telegraph_utils import publish_to_telegraph
+except ImportError:
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from telegraph_utils import publish_to_telegraph
 
 if hasattr(sys.stdout, "reconfigure"):
     try:
@@ -62,7 +71,7 @@ def parse_frontmatter(md_path):
 
 def send_photo_telegram(bot_token, chat_id, photo_path, caption, reply_markup=None):
     url = f"https://api.telegram.org/bot{bot_token}/sendPhoto"
-    
+
     # Check if photo is local file or URL
     if photo_path.startswith("http"):
         data = {
@@ -73,7 +82,7 @@ def send_photo_telegram(bot_token, chat_id, photo_path, caption, reply_markup=No
         }
         if reply_markup:
             data["reply_markup"] = json.dumps(reply_markup)
-            
+
         req = urllib.request.Request(
             url,
             data=urllib.parse.urlencode(data).encode("utf-8"),
@@ -82,7 +91,6 @@ def send_photo_telegram(bot_token, chat_id, photo_path, caption, reply_markup=No
         with urllib.request.urlopen(req) as resp:
             return json.loads(resp.read().decode("utf-8"))
     else:
-        # Multipart form data for local photo
         import mimetypes
         boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW"
         body_bytes = bytearray()
@@ -120,22 +128,14 @@ def send_photo_telegram(bot_token, chat_id, photo_path, caption, reply_markup=No
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Публикация анонса статьи в Telegram-канал")
+    parser = argparse.ArgumentParser(description="Публикация статьи в Telegraph (Instant View) и Telegram-канал")
     parser.add_argument("--slug", required=True, help="Slug статьи из content/blog/")
     parser.add_argument("--channel", help="ID канала или @username (перебивает .env)")
     parser.add_argument("--token", help="Токен бота (перебивает .env)")
+    parser.add_argument("--dry-run", action="store_true", help="Режим предпросмотра: не отправлять в Telegram-канал")
+    parser.add_argument("--telegraph-only", action="store_true", help="Только создать страницу в Telegraph")
+    parser.add_argument("--no-telegraph", action="store_true", help="Не создавать Telegraph страницу (ссылка только на сайт)")
     args = parser.parse_args()
-
-    env = load_env()
-    token = args.token or env.get("TELEGRAM_BOT_TOKEN")
-    channel = args.channel or env.get("TELEGRAM_CHANNEL_ID")
-
-    if not token or not channel:
-        print("Ошибка: укажите TELEGRAM_BOT_TOKEN и TELEGRAM_CHANNEL_ID в файле .env или флагами --token и --channel.")
-        print("Пример в .env:")
-        print('  TELEGRAM_BOT_TOKEN="123456789:ABCdefGHIjklMNOpqrSTUvwxYZ"')
-        print('  TELEGRAM_CHANNEL_ID="@your_channel_name"')
-        sys.exit(1)
 
     md_path = f"content/blog/{args.slug}.md"
     if not os.path.exists(md_path):
@@ -148,6 +148,7 @@ def main():
     description = meta.get("description", "")
     image_rel = meta.get("image", "").lstrip("/")
 
+    # Путь к изображению
     image_path = os.path.join("public", image_rel)
     if not os.path.exists(image_path):
         image_jpg = os.path.splitext(image_path)[0] + ".jpg"
@@ -158,23 +159,80 @@ def main():
     article_url = f"{base_site_url}/{args.slug}"
     bot_url = "https://t.me/dna_sound_bot"
 
-    caption = (
-        f"<b>{title}</b>\n\n"
-        f"🧬 <b>Разбор: {protocol}</b>\n\n"
-        f"{description}\n\n"
-        f"<i>15 минут звука, визуального ключа и инструкции, которые переводят нервную систему в другое состояние.</i>\n\n"
-        f"📖 <a href=\"{article_url}\">Читать полную статью на сайте</a>\n"
-        f"⚡ <a href=\"{bot_url}\">Запустить протокол в Telegram</a>"
-    )
+    # 1. Создание страницы в Telegra.ph для Instant View
+    telegraph_url = None
+    if not args.no_telegraph:
+        try:
+            print(f"→ Создание страницы в Telegra.ph: «{title}»...")
+            telegraph_url = publish_to_telegraph(
+                title=title,
+                body_text=body,
+                author_name="Без-Дна",
+                author_url=base_site_url
+            )
+            print(f"✓ Telegraph страница создана: {telegraph_url}")
+        except Exception as e:
+            print(f"⚠️ Предупреждение: не удалось создать страницу в Telegraph ({e}). Используем прямую ссылку на сайт.")
 
-    reply_markup = {
-        "inline_keyboard": [
-            [
-                {"text": "📖 Читать статью на сайте", "url": article_url},
-                {"text": "🧬 Выбрать протокол в боте", "url": bot_url}
-            ]
-        ]
-    }
+    if args.telegraph_only:
+        print("Готово (--telegraph-only).")
+        return
+
+    # 2. Форматирование текста анонса для Telegram
+    caption_lines = [
+        f"<b>{title}</b>",
+        "",
+        f"🧬 <b>Разбор: {protocol}</b>",
+        "",
+        f"{description}",
+        "",
+        "<i>15 минут звука, визуального ключа и инструкции, которые переводят нервную систему в другое состояние.</i>",
+        ""
+    ]
+
+    if telegraph_url:
+        caption_lines.append(f"⚡ <a href=\"{telegraph_url}\">Быстрый просмотр статьи (Instant View)</a>")
+    else:
+        caption_lines.append(f"📖 <a href=\"{article_url}\">Читать полную статью на сайте</a>")
+
+    caption_lines.append(f"🤖 <a href=\"{bot_url}\">Запустить протокол в Telegram</a>")
+
+    caption = "\n".join(caption_lines)
+
+    # 3. Инлайн-кнопки
+    buttons = []
+    if telegraph_url:
+        buttons.append([
+            {"text": "⚡ Быстрый просмотр (Instant View)", "url": telegraph_url}
+        ])
+        buttons.append([
+            {"text": "📖 Читать на сайте", "url": article_url},
+            {"text": "🧬 Выбрать протокол в боте", "url": bot_url}
+        ])
+    else:
+        buttons.append([
+            {"text": "📖 Читать статью на сайте", "url": article_url},
+            {"text": "🧬 Выбрать протокол в боте", "url": bot_url}
+        ])
+
+    reply_markup = {"inline_keyboard": buttons}
+
+    if args.dry_run:
+        print("\n--- [ПРЕДПРОСМОТР ПОСТА ДЛЯ КАНАЛА (DRY RUN)] ---")
+        print(f"Обложка: {image_path}")
+        print(f"Текст:\n{caption}")
+        print(f"Кнопки: {json.dumps(reply_markup, ensure_ascii=False, indent=2)}")
+        print("--- [КОНЕЦ ПРЕДПРОСМОТРА (Пост НЕ отправлялся в канал)] ---\n")
+        return
+
+    # 4. Отправка в канал
+    env = load_env()
+    token = args.token or env.get("TELEGRAM_BOT_TOKEN")
+    channel = args.channel or env.get("TELEGRAM_CHANNEL_ID")
+
+    if not token or not channel:
+        print("Ошибка: укажите TELEGRAM_BOT_TOKEN и TELEGRAM_CHANNEL_ID в .env или параметрами --token и --channel.")
+        sys.exit(1)
 
     try:
         res = send_photo_telegram(token, channel, image_path, caption, reply_markup)
