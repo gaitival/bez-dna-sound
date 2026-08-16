@@ -1,0 +1,5 @@
+User-Agent: Googlebot / YandexBot / GPTBot / ClaudeBot
+Status: 200 OK
+SSR Rendering: Enabled
+Structured Data: JSON-LD Article present
+Indexation Status: Ready for indexing

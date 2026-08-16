@@ -1,0 +1,5 @@
+sitemap.xml: included
+robots.txt: allow all
+canonical: https://bez-dna-sound.lovable.app/sindrom-emocionalnoj-gubki-kak-zashchitit-sebya-ot-chuzhogo-negativa
+schema.org Article: valid
+og:image: https://bez-dna-sound.lovable.app/images/blog/kupol-90.webp
