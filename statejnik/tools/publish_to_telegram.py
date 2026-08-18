@@ -203,16 +203,16 @@ def main():
     buttons = []
     if telegraph_url:
         buttons.append([
-            {"text": "⚡ Быстрый просмотр (Instant View)", "url": telegraph_url}
+            {"text": "📖 Читать", "url": telegraph_url}
         ])
         buttons.append([
-            {"text": "📖 Читать на сайте", "url": article_url},
-            {"text": "🧬 Выбрать протокол в боте", "url": bot_url}
+            {"text": "🌐 На сайт", "url": article_url},
+            {"text": "🧬 Открыть протокол", "url": bot_url}
         ])
     else:
         buttons.append([
-            {"text": "📖 Читать статью на сайте", "url": article_url},
-            {"text": "🧬 Выбрать протокол в боте", "url": bot_url}
+            {"text": "🌐 На сайт", "url": article_url},
+            {"text": "🧬 Открыть протокол", "url": bot_url}
         ])
 
     reply_markup = {"inline_keyboard": buttons}
