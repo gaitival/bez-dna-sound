@@ -1,0 +1,4 @@
+sitemap.xml: included
+robots.txt: allow
+canonical: https://bez-dna-sound.lovable.app/vechnaya-speshka-i-vnutrennyaya-sueta-kak-vernut-svoj-ritm
+og:image: https://bez-dna-sound.lovable.app/images/blog/puls-tvoreniya.webp
