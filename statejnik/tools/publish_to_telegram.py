@@ -186,16 +186,8 @@ def main():
         "",
         f"{description}",
         "",
-        "<i>15 минут звука, визуального ключа и инструкции, которые переводят нервную систему в другое состояние.</i>",
-        ""
+        "<i>15 минут звука, визуального ключа и инструкции, которые переводят нервную систему в другое состояние.</i>"
     ]
-
-    if telegraph_url:
-        caption_lines.append(f"⚡ <a href=\"{telegraph_url}\">Быстрый просмотр статьи (Instant View)</a>")
-    else:
-        caption_lines.append(f"📖 <a href=\"{article_url}\">Читать полную статью на сайте</a>")
-
-    caption_lines.append(f"🤖 <a href=\"{bot_url}\">Запустить протокол в Telegram</a>")
 
     caption = "\n".join(caption_lines)
 
