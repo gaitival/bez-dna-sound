@@ -1,0 +1,4 @@
+sitemap.xml: included
+robots.txt: allow
+canonical: https://bez-dna-sound.lovable.app/probuzhdenie-vedushchej-kak-vernut-doverie-k-svoemu-chutyu
+og:image: https://bez-dna-sound.lovable.app/images/blog/probuzhdenie-vedmy.webp
