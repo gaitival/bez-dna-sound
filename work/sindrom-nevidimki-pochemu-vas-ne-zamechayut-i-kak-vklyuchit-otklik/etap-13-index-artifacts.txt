@@ -1,0 +1,4 @@
+sitemap.xml: included
+robots.txt: allow
+canonical: https://bez-dna-sound.lovable.app/sindrom-nevidimki-pochemu-vas-ne-zamechayut-i-kak-vklyuchit-otklik
+og:image: https://bez-dna-sound.lovable.app/images/blog/vysokij-otklik.webp
