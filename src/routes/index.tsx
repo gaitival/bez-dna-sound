@@ -65,16 +65,24 @@ export const Route = createFileRoute("/")({
           sameAs: [TELEGRAM_URL],
         }),
       },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: "Без-Дна — Лаборатория глубинной настройки",
-          url: "https://bez-dna-sound.lovable.app/",
-          inLanguage: "ru-RU",
-        }),
-      },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Без-Дна — Лаборатория глубинной настройки",
+            url: "https://bez-dna-sound.lovable.app/",
+            inLanguage: "ru-RU",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: {
+                "@type": "EntryPoint",
+                urlTemplate: "https://bez-dna-sound.lovable.app/states?q={search_term_string}",
+              },
+              "query-input": "required name=search_term_string",
+            },
+          }),
+        },
 
       {
         type: "application/ld+json",

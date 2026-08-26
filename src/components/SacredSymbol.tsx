@@ -8,7 +8,8 @@ export function SacredSymbol({ className = "", style }: { className?: string; st
       fill="none"
       stroke="currentColor"
       strokeWidth="1.2"
-      aria-hidden="true"
+      role="img"
+      aria-label="Сакральный символ проекта Без-Дна — геометрия цветка жизни"
     >
       <defs>
         <radialGradient id="ss-core" cx="50%" cy="50%" r="50%">
