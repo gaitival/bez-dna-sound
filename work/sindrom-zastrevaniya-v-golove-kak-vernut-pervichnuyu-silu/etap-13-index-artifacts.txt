@@ -1,0 +1,4 @@
+sitemap.xml: included
+robots.txt: allow
+canonical: https://bez-dna-sound.lovable.app/sindrom-zastrevaniya-v-golove-kak-vernut-pervichnuyu-silu
+og:image: https://bez-dna-sound.lovable.app/images/blog/pervichnaya-sila.webp
