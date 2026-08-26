@@ -90,13 +90,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/$slug'
-    | '/auth'
-    | '/sitemap.xml'
-    | '/states'
-    | '/tree'
-    | '/admin'
+    '/' | '/$slug' | '/auth' | '/sitemap.xml' | '/states' | '/tree' | '/admin'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/$slug' | '/auth' | '/sitemap.xml' | '/states' | '/tree' | '/admin'
   id:
