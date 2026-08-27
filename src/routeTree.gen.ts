@@ -16,6 +16,8 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as SlugRouteImport } from './routes/$slug'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppVizualizatorRouteImport } from './routes/app.vizualizator'
+import { Route as AppKodLichnostiRouteImport } from './routes/app.kod-lichnosti'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const TreeRoute = TreeRouteImport.update({
@@ -52,6 +54,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppVizualizatorRoute = AppVizualizatorRouteImport.update({
+  id: '/app/vizualizator',
+  path: '/app/vizualizator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppKodLichnostiRoute = AppKodLichnostiRouteImport.update({
+  id: '/app/kod-lichnosti',
+  path: '/app/kod-lichnosti',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -66,6 +78,8 @@ export interface FileRoutesByFullPath {
   '/states': typeof StatesRoute
   '/tree': typeof TreeRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/app/kod-lichnosti': typeof AppKodLichnostiRoute
+  '/app/vizualizator': typeof AppVizualizatorRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -75,6 +89,8 @@ export interface FileRoutesByTo {
   '/states': typeof StatesRoute
   '/tree': typeof TreeRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/app/kod-lichnosti': typeof AppKodLichnostiRoute
+  '/app/vizualizator': typeof AppVizualizatorRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -86,6 +102,8 @@ export interface FileRoutesById {
   '/states': typeof StatesRoute
   '/tree': typeof TreeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/app/kod-lichnosti': typeof AppKodLichnostiRoute
+  '/app/vizualizator': typeof AppVizualizatorRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -97,8 +115,19 @@ export interface FileRouteTypes {
     | '/states'
     | '/tree'
     | '/admin'
+    | '/app/kod-lichnosti'
+    | '/app/vizualizator'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$slug' | '/auth' | '/sitemap.xml' | '/states' | '/tree' | '/admin'
+  to:
+    | '/'
+    | '/$slug'
+    | '/auth'
+    | '/sitemap.xml'
+    | '/states'
+    | '/tree'
+    | '/admin'
+    | '/app/kod-lichnosti'
+    | '/app/vizualizator'
   id:
     | '__root__'
     | '/'
@@ -109,6 +138,8 @@ export interface FileRouteTypes {
     | '/states'
     | '/tree'
     | '/_authenticated/admin'
+    | '/app/kod-lichnosti'
+    | '/app/vizualizator'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +150,8 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StatesRoute: typeof StatesRoute
   TreeRoute: typeof TreeRoute
+  AppKodLichnostiRoute: typeof AppKodLichnostiRoute
+  AppVizualizatorRoute: typeof AppVizualizatorRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +205,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/vizualizator': {
+      id: '/app/vizualizator'
+      path: '/app/vizualizator'
+      fullPath: '/app/vizualizator'
+      preLoaderRoute: typeof AppVizualizatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/kod-lichnosti': {
+      id: '/app/kod-lichnosti'
+      path: '/app/kod-lichnosti'
+      fullPath: '/app/kod-lichnosti'
+      preLoaderRoute: typeof AppKodLichnostiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -201,6 +248,8 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StatesRoute: StatesRoute,
   TreeRoute: TreeRoute,
+  AppKodLichnostiRoute: AppKodLichnostiRoute,
+  AppVizualizatorRoute: AppVizualizatorRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
