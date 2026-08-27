@@ -12,7 +12,7 @@ const NAV: NavItem[] = [
   { href: "/states", label: "Блог", internal: true },
   {
     href: "#",
-    label: "Приложение",
+    label: "ПРИЛОЖЕНИЯ",
     children: [
       { href: "/app/kod-lichnosti", label: "Код личности" },
       { href: "/app/vizualizator", label: "Визуализатор" },

@@ -42,10 +42,19 @@ function KodLichnostiPage() {
           Разбор внутренней архитектуры по дате рождения
         </p>
 
-        <div className="oracle-card mx-auto mt-10 max-w-xl px-6 py-8 text-left box-glow-gold">
+        <div className="oracle-card mx-auto mt-10 max-w-xl px-6 py-8 text-center box-glow-gold">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            Здесь скоро появится страница с подробным описанием инструмента и ссылкой на приложение.
+            Экспресс-разбор по дате рождения: сильные стороны, внутренние дефициты, особенности характера и векторы развития.
           </p>
+          <a
+            href="https://valentin-birth-code.fly.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-gold btn-gold-hover mt-6 inline-flex h-[52px] items-center justify-center px-6 text-xs md:text-sm"
+            style={{ animation: "var(--animate-pulse-glow)" }}
+          >
+            Открыть приложение
+          </a>
         </div>
       </main>
       <SiteFooter />
