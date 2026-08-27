@@ -1,18 +1,29 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
-type NavItem = { href: string; label: string; internal?: boolean };
+type NavChild = { href: string; label: string };
+type NavItem = { href: string; label: string; internal?: boolean; children?: NavChild[] };
 const NAV: NavItem[] = [
+  { href: "/#modules", label: "Аптека" },
   { href: "/#how", label: "Как это работает" },
   { href: "/#examples", label: "Примеры треков" },
   { href: "/tree", label: "Карта состояний", internal: true },
-  { href: "/states", label: "Состояния", internal: true },
-  { href: "/#modules", label: "Аптека" },
+  { href: "/states", label: "Блог", internal: true },
+  {
+    href: "#",
+    label: "Приложение",
+    children: [
+      { href: "/app/kod-lichnosti", label: "Код личности" },
+      { href: "/app/vizualizator", label: "Визуализатор" },
+    ],
+  },
   { href: "/#faq", label: "FAQ" },
 ];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
 
   return (
     <header
@@ -31,8 +42,33 @@ export function SiteHeader() {
 
         <nav className="hidden gap-7 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground md:flex">
           {NAV.map((it) =>
-            it.internal ? (
-              <Link key={it.href} to={it.href as "/tree"} className="hover:text-primary">
+            it.children ? (
+              <div key={it.label} className="group relative">
+                <button
+                  type="button"
+                  className="flex items-center gap-1 hover:text-primary"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {it.label}
+                  <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
+                </button>
+                <div className="absolute left-1/2 top-full z-50 hidden min-w-[12rem] -translate-x-1/2 pt-2 group-hover:block">
+                  <div className="overflow-hidden rounded-md border border-border/60 bg-[hsl(240_10%_4%_/_0.98)] py-1 shadow-lg backdrop-blur-md">
+                    {it.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        to={child.href as any}
+                        className="block px-4 py-2.5 text-left text-[11px] uppercase tracking-[0.18em] hover:bg-primary/10 hover:text-primary"
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : it.internal ? (
+              <Link key={it.href} to={it.href as any} className="hover:text-primary">
                 {it.label}
               </Link>
             ) : (
@@ -60,10 +96,41 @@ export function SiteHeader() {
         <div className="border-t border-border/60 md:hidden" style={{ background: "hsl(240 10% 4% / 0.95)" }}>
           <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3 font-mono text-[12px] uppercase tracking-[0.2em] text-muted-foreground">
             {NAV.map((it) =>
-              it.internal ? (
+              it.children ? (
+                <div key={it.label} className="flex flex-col">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setExpandedMobile((v) => (v === it.label ? null : it.label))
+                    }
+                    className="flex items-center justify-between rounded px-2 py-3 text-left hover:bg-primary/5 hover:text-primary"
+                  >
+                    {it.label}
+                    <ChevronDown
+                      className={`h-3 w-3 transition-transform ${
+                        expandedMobile === it.label ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  {expandedMobile === it.label && (
+                    <div className="flex flex-col border-l border-border/60 pl-4">
+                      {it.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          to={child.href as any}
+                          className="rounded px-2 py-2.5 text-[11px] hover:bg-primary/5 hover:text-primary"
+                          onClick={() => setOpen(false)}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : it.internal ? (
                 <Link
                   key={it.href}
-                  to={it.href as "/tree"}
+                  to={it.href as any}
                   className="rounded px-2 py-3 hover:bg-primary/5 hover:text-primary"
                   onClick={() => setOpen(false)}
                 >
@@ -95,3 +162,4 @@ export function SiteHeader() {
     </header>
   );
 }
+
