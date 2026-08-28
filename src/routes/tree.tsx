@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { TreeAxis } from "@/components/TreeAxis";
 import { TELEGRAM_URL } from "@/data/tree";
 
-const BASE_URL = "https://bez-dna-sound.lovable.app";
+const BASE_URL = "https://bez-dna-sound.com";
 const TREE_URL = `${BASE_URL}/tree`;
 const OG_IMAGE = "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/82bcb4c3-5a9e-4cc4-97df-cb6c8c7bdba4/id-preview-98bbd9d3--fc8f40ba-b85b-4c91-ae90-7fa61df0c66d.lovable.app-1780920518014.png";
 

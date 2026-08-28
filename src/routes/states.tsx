@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { listPublishedPosts } from "@/lib/posts.functions";
 import { dbPostToPost, mergePosts, type Post } from "@/lib/posts";
 
-const BASE_URL = "https://bez-dna-sound.lovable.app";
+const BASE_URL = "https://bez-dna-sound.com";
 
 export const Route = createFileRoute("/states")({
   loader: async () => {

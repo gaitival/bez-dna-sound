@@ -5,7 +5,7 @@ import { TELEGRAM_URL } from "@/data/tree";
 import { listPublishedPosts } from "@/lib/posts.functions";
 import { dbPostToPost, mergePosts, type Post } from "@/lib/posts";
 
-const BASE_URL = "https://bez-dna-sound.lovable.app";
+const BASE_URL = "https://bez-dna-sound.com";
 
 export const Route = createFileRoute("/$slug")({
   loader: async ({ params }) => {

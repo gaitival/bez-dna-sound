@@ -3,7 +3,7 @@ import type {} from "@tanstack/react-start";
 import { listPublishedPosts } from "@/lib/posts.functions";
 import { dbPostToPost, mergePosts } from "@/lib/posts";
 
-const BASE_URL = "https://bez-dna-sound.lovable.app";
+const BASE_URL = "https://bez-dna-sound.com";
 
 interface SitemapEntry {
   path: string;

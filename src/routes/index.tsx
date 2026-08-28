@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
         content:
           "Треки и аудио-инструментов под конкретное состояние. Первый вход и первый протокол — бесплатно. Внутри Telegram.",
       },
-      { property: "og:url", content: "https://bez-dna-sound.lovable.app/" },
+      { property: "og:url", content: "https://bez-dna-sound.com/" },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/82bcb4c3-5a9e-4cc4-97df-cb6c8c7bdba4/id-preview-98bbd9d3--fc8f40ba-b85b-4c91-ae90-7fa61df0c66d.lovable.app-1780920518014.png" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Без-Дна — Лаборатория глубинной настройки" },
@@ -46,9 +46,9 @@ export const Route = createFileRoute("/")({
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/82bcb4c3-5a9e-4cc4-97df-cb6c8c7bdba4/id-preview-98bbd9d3--fc8f40ba-b85b-4c91-ae90-7fa61df0c66d.lovable.app-1780920518014.png" },
     ],
     links: [
-      { rel: "canonical", href: "https://bez-dna-sound.lovable.app/" },
-      { rel: "alternate", hrefLang: "ru", href: "https://bez-dna-sound.lovable.app/" },
-      { rel: "alternate", hrefLang: "x-default", href: "https://bez-dna-sound.lovable.app/" },
+      { rel: "canonical", href: "https://bez-dna-sound.com/" },
+      { rel: "alternate", hrefLang: "ru", href: "https://bez-dna-sound.com/" },
+      { rel: "alternate", hrefLang: "x-default", href: "https://bez-dna-sound.com/" },
     ],
     scripts: [
       {
@@ -60,8 +60,8 @@ export const Route = createFileRoute("/")({
           alternateName: "Без-Дна — Лаборатория глубинной настройки",
           description:
             "Telegram-проект треков и аудио-инструментов под конкретные состояния.",
-          url: "https://bez-dna-sound.lovable.app/",
-          logo: "https://bez-dna-sound.lovable.app/favicon.ico",
+          url: "https://bez-dna-sound.com/",
+          logo: "https://bez-dna-sound.com/favicon.ico",
           sameAs: [TELEGRAM_URL],
         }),
       },
@@ -71,13 +71,13 @@ export const Route = createFileRoute("/")({
             "@context": "https://schema.org",
             "@type": "WebSite",
             name: "Без-Дна — Лаборатория глубинной настройки",
-            url: "https://bez-dna-sound.lovable.app/",
+            url: "https://bez-dna-sound.com/",
             inLanguage: "ru-RU",
             potentialAction: {
               "@type": "SearchAction",
               target: {
                 "@type": "EntryPoint",
-                urlTemplate: "https://bez-dna-sound.lovable.app/states?q={search_term_string}",
+                urlTemplate: "https://bez-dna-sound.com/states?q={search_term_string}",
               },
               "query-input": "required name=search_term_string",
             },
@@ -102,14 +102,14 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           name: "Состояния — разборы и протоколы",
-          url: "https://bez-dna-sound.lovable.app/states",
+          url: "https://bez-dna-sound.com/states",
           inLanguage: "ru-RU",
           mainEntity: {
             "@type": "ItemList",
             itemListElement: (loaderData?.posts ?? []).map((post, i) => ({
               "@type": "ListItem",
               position: i + 1,
-              url: `https://bez-dna-sound.lovable.app/${post.slug}`,
+              url: `https://bez-dna-sound.com/${post.slug}`,
               name: post.title,
 })),
           },
