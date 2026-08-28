@@ -219,34 +219,20 @@ function Hero() {
           </div>
         </div>
 
-        {/* Сетка из 4 карточек-заглушек */}
-        <div className="mx-auto mt-10 grid max-w-[960px] grid-cols-2 gap-4 md:grid-cols-4">
-          {[1, 2, 3, 4].map((index) => (
-            <div
-              key={index}
-              className="relative aspect-[4/5] flex flex-col items-center justify-center rounded-lg border border-border/30 bg-black/50 p-4 overflow-hidden"
-              style={{
-                boxShadow: "inset 0 0 20px rgba(0, 0, 0, 0.8)",
-              }}
-            >
-              {/* Внутренний символ с легкой пульсацией */}
-              <div className="relative z-10 text-primary/40">
-                <SacredSymbol 
-                  className="size-20 md:size-24 animate-pulse" 
-                  style={{ animationDuration: `${3 + index}s` }} 
-                />
-              </div>
-
-              {/* Мягкий золотистый градиент на фоне */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background: "radial-gradient(circle at center, hsl(45 90% 55% / 0.06), transparent 65%)",
-                }}
-              />
-            </div>
-          ))}
+        {/* Баннер с символом лаборатории */}
+        <div className="relative mx-auto mt-8 max-w-[960px] overflow-hidden rounded-xl border border-primary/20 bg-black/60 shadow-[0_0_40px_-10px_hsl(45_90%_55%/0.2)] md:mt-10 md:rounded-2xl">
+          <img
+            src="/images/hero-banner.jpg"
+            alt="Без-Дна — Лаборатория глубинной настройки"
+            width={1200}
+            height={370}
+            fetchPriority="high"
+            className="h-auto w-full object-cover object-center"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 rounded-xl md:rounded-2xl shadow-[inset_0_0_30px_rgba(0,0,0,0.7)]"
+          />
         </div>
 
         {/* Блок с текстом под карточками и кнопками */}
