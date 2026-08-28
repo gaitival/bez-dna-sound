@@ -155,7 +155,7 @@ def main():
         if os.path.exists(image_jpg):
             image_path = image_jpg
 
-    base_site_url = "https://bez-dna-sound.lovable.app"
+    base_site_url = "https://bez-dna-sound.com"
     article_url = f"{base_site_url}/{args.slug}"
     bot_url = "https://t.me/dna_sound_bot"
 

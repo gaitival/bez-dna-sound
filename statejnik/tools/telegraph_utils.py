@@ -12,7 +12,7 @@ import urllib.parse
 TELEGRAPH_API_URL = "https://api.telegra.ph"
 
 
-def get_or_create_telegraph_token(env_path=".env", short_name="BezDna", author_name="Без-Дна", author_url="https://bez-dna-sound.lovable.app"):
+def get_or_create_telegraph_token(env_path=".env", short_name="BezDna", author_name="Без-Дна", author_url="https://bez-dna-sound.com"):
     """
     Получает существующий токен Telegraph из .env или регистрирует новый аккаунт.
     """

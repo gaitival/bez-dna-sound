@@ -4,7 +4,7 @@
 
 project:
   # Домен проекта
-  domain: "bez-dna-sound.lovable.app"
+  domain: "bez-dna-sound.com"
   # Путь к разделу со статьями
   content_path: ""
 

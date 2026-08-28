@@ -1,0 +1,4 @@
+sitemap.xml: included
+robots.txt: allow
+canonical: https://bez-dna-sound.com/reka-smorodina-ostav-imya-na-beregu
+og:image: https://bez-dna-sound.com/images/blog/reka-smorodina.webp

@@ -1,0 +1,4 @@
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Path: /reka-smorodina-ostav-imya-na-beregu
+Status: 200 OK
