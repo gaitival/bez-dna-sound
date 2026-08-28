@@ -589,7 +589,7 @@ function TreeTeaser() {
 
       <div className="mt-12 text-center">
         <Link to="/tree" className="btn-ghost-gold btn-ghost-gold-hover inline-flex min-h-[52px] items-center justify-center px-6 py-3 text-xs md:text-sm">
-          Вся карта в Telegram →
+          ВСЯ КАРТА ПОЛНОСТЬЮ →
         </Link>
       </div>
     </Section>
@@ -597,7 +597,7 @@ function TreeTeaser() {
 }
 
 function Modules() {
-  const base = [
+  const items = [
     {
       label: "Формат · 01",
       t: "Протоколы",
@@ -613,8 +613,6 @@ function Modules() {
       t: "Манифесты",
       d: "Треки, где слово работает как внутренняя опора и помогает зафиксировать позицию, границы и настрой.",
     },
-  ];
-  const personal = [
     {
       label: "Персонально · 01",
       t: "Индивидуальный протокол",
@@ -630,50 +628,25 @@ function Modules() {
         lead="Каталог инструментов, разделённый по формату и типу задачи."
       />
 
-      <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.3em] text-primary/80">
-        ✦ Базовые форматы
-      </div>
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-        {base.map((it) => (
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-5">
+        {items.map((it) => (
           <motion.div
             key={it.t}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="oracle-card oracle-card-hover flex h-full flex-col p-6"
+            className="oracle-card oracle-card-hover flex h-full min-h-[250px] flex-col p-6 transition-all duration-300"
           >
-            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary/70">
+            <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-primary/75">
               ✦ {it.label}
             </div>
-            <h3 className="mt-3 font-display text-lg uppercase text-foreground text-glow-gold md:text-xl">
+            <h3 className="mt-3 flex min-h-[3rem] items-center font-display text-[15px] uppercase leading-tight text-foreground text-glow-gold sm:text-base lg:text-lg">
               {it.t}
             </h3>
-            <p className="mt-3 font-mono text-[13px] leading-relaxed text-foreground/85">{it.d}</p>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="mb-4 mt-10 font-mono text-[11px] uppercase tracking-[0.3em] text-primary/80">
-        ✦ Персональные решения
-      </div>
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        {personal.map((it) => (
-          <motion.div
-            key={it.t}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="oracle-card oracle-card-hover flex h-full flex-col p-6 md:p-8"
-          >
-            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary/70">
-              ✦ {it.label}
-            </div>
-            <h3 className="mt-3 font-display text-xl uppercase text-foreground text-glow-gold md:text-2xl">
-              {it.t}
-            </h3>
-            <p className="mt-3 font-mono text-sm leading-relaxed text-foreground/85">{it.d}</p>
+            <p className="mt-3 flex-1 font-mono text-[12px] leading-relaxed text-foreground/85 md:text-[13px]">
+              {it.d}
+            </p>
           </motion.div>
         ))}
       </div>

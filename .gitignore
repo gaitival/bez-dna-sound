@@ -34,3 +34,7 @@ dist-ssr
 # Chat exports & archives
 ChatExport*
 *.rar
+
+# Python cache
+__pycache__/
+*.pyc

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TreeAxis } from "@/components/TreeAxis";
-import { TELEGRAM_URL } from "@/data/tree";
+import { TELEGRAM_URL, useCanonicalTransformationTracks, getNodeWord } from "@/data/tree";
 
 const BASE_URL = "https://bez-dna-sound.com";
 const TREE_URL = `${BASE_URL}/tree`;
@@ -12,27 +12,27 @@ const OG_IMAGE = "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/82bcb4c3-5
 export const Route = createFileRoute("/tree")({
   head: () => ({
     meta: [
-      { title: "Древо трансформации — 21 узел перекалибровки | Без-Дна" },
+      { title: "Древо трансформации — 27 узлов перекалибровки | Без-Дна" },
       {
         name: "description",
         content:
-          "Древо трансформации: 21 узел резонансных протоколов. Один путь. Полная перекалибровка внутренней системы за 21 день.",
+          "Древо трансформации: 27 узлов резонансных протоколов. Один путь. Полная перекалибровка внутренней системы.",
       },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Без-Дна — Лаборатория глубинной настройки" },
       { property: "og:locale", content: "ru_RU" },
-      { property: "og:title", content: "Древо трансформации — 21 узел перекалибровки | Без-Дна" },
+      { property: "og:title", content: "Древо трансформации — 27 узлов перекалибровки | Без-Дна" },
       {
         property: "og:description",
-        content: "21 узел резонансных протоколов. Один путь. Полная перекалибровка внутренней системы за 21 день.",
+        content: "27 узлов резонансных протоколов. Один путь. Полная перекалибровка внутренней системы.",
       },
       { property: "og:url", content: TREE_URL },
       { property: "og:image", content: OG_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Древо трансформации — 21 узел перекалибровки | Без-Дна" },
+      { name: "twitter:title", content: "Древо трансформации — 27 узлов перекалибровки | Без-Дна" },
       {
         name: "twitter:description",
-        content: "21 узел резонансных протоколов. Один путь. Полная перекалибровка внутренней системы за 21 день.",
+        content: "27 узлов резонансных протоколов. Один путь. Полная перекалибровка внутренней системы.",
       },
       { name: "twitter:image", content: OG_IMAGE },
     ],
@@ -47,8 +47,8 @@ export const Route = createFileRoute("/tree")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "Древо трансформации — 21 узел перекалибровки",
-          description: "21 узел резонансных протоколов. Один путь. Полная перекалибровка внутренней системы за 21 день.",
+          name: "Древо трансформации — 27 узлов перекалибровки",
+          description: "27 узлов резонансных протоколов. Один путь. Полная перекалибровка внутренней системы.",
           url: TREE_URL,
           inLanguage: "ru-RU",
           isPartOf: {
@@ -85,6 +85,9 @@ export const Route = createFileRoute("/tree")({
 });
 
 function TreePage() {
+  const tracks = useCanonicalTransformationTracks();
+  const treeCount = tracks.length;
+
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -108,7 +111,7 @@ function TreePage() {
             Древо трансформации
           </h1>
           <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            21 узел. Один путь. Полная перекалибровка.
+            {treeCount} {getNodeWord(treeCount)}. Один путь. Полная перекалибровка.
           </p>
           <div className="sacred-line mx-auto mt-8 w-56" />
 
@@ -122,7 +125,7 @@ function TreePage() {
           </div>
         </motion.div>
 
-        <TreeAxis />
+        <TreeAxis tracks={tracks} />
 
         <div className="mx-auto mt-16 max-w-md text-center">
           <a
@@ -135,7 +138,7 @@ function TreePage() {
             Войти в цикл — Telegram
           </a>
           <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.25em] text-warning">
-            ⚠ Цикл перенастройки: 21 день
+            ⚠ Цикл перенастройки: {treeCount} {getNodeWord(treeCount).toLowerCase()}
           </p>
         </div>
       </main>
