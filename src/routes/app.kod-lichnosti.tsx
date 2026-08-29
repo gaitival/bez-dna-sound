@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 
-const BASE_URL = "https://bez-dna-sound.lovable.app";
+const BASE_URL = "https://bez-dna-sound.com";
 const PAGE_URL = `${BASE_URL}/app/kod-lichnosti`;
 
 export const Route = createFileRoute("/app/kod-lichnosti")({

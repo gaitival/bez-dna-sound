@@ -4,5 +4,5 @@ Disallow: /admin
 Disallow: /_authenticated/
 Disallow: /auth
 
-Sitemap: https://bez-dna-sound.lovable.app/sitemap.xml
-Host: https://bez-dna-sound.lovable.app
+Sitemap: https://bez-dna-sound.com/sitemap.xml
+Host: https://bez-dna-sound.com
