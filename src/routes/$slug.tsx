@@ -4,6 +4,12 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { TELEGRAM_URL } from "@/data/tree";
 import { listPublishedPosts } from "@/lib/posts.functions";
 import { dbPostToPost, mergePosts, type Post } from "@/lib/posts";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const BASE_URL = "https://bez-dna-sound.com";
 
@@ -104,6 +110,25 @@ export const Route = createFileRoute("/$slug")({
             ],
           }),
         },
+        ...(post.faqs && post.faqs.length > 0
+          ? [
+              {
+                type: "application/ld+json",
+                children: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: post.faqs.map((faq) => ({
+                    "@type": "Question",
+                    name: faq.question,
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: faq.answer,
+                    },
+                  })),
+                }),
+              },
+            ]
+          : []),
       ],
     };
   },
@@ -126,15 +151,42 @@ export const Route = createFileRoute("/$slug")({
 });
 
 function renderInline(text: string) {
-  return text.split(/(\*\*[^*]+\*\*)/g).map((chunk, i) =>
-    chunk.startsWith("**") && chunk.endsWith("**") ? (
-      <strong key={i} className="font-semibold text-primary">
-        {chunk.slice(2, -2)}
-      </strong>
-    ) : (
-      <span key={i}>{chunk}</span>
-    ),
-  );
+  return text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g).map((chunk, i) => {
+    if (chunk.startsWith("**") && chunk.endsWith("**")) {
+      return (
+        <strong key={i} className="font-semibold text-primary">
+          {chunk.slice(2, -2)}
+        </strong>
+      );
+    }
+    const linkMatch = chunk.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (linkMatch) {
+      const [, linkText, href] = linkMatch;
+      if (href.startsWith("/")) {
+        return (
+          <Link
+            key={i}
+            to={href}
+            className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors font-medium"
+          >
+            {linkText}
+          </Link>
+        );
+      }
+      return (
+        <a
+          key={i}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors font-medium"
+        >
+          {linkText}
+        </a>
+      );
+    }
+    return <span key={i}>{chunk}</span>;
+  });
 }
 
 function isHeading(text: string) {
@@ -237,6 +289,33 @@ function ArticlePage() {
             );
           })}
         </article>
+
+        {post.faqs && post.faqs.length > 0 && (
+          <section className="mt-16 w-full max-w-[70ch] border-t border-primary/20 pt-10">
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary">
+              FAQ / Вопросы и ответы
+            </p>
+            <h2 className="mt-3 font-display text-2xl uppercase tracking-wide text-primary md:text-3xl">
+              Часто задаваемые вопросы
+            </h2>
+            <Accordion type="single" collapsible className="mt-6 w-full space-y-3">
+              {post.faqs.map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`faq-${index}`}
+                  className="rounded-2xl border border-primary/20 bg-card/40 px-5 py-1 transition-colors data-[state=open]:border-primary/40 data-[state=open]:bg-card/70"
+                >
+                  <AccordionTrigger className="text-left font-display text-base uppercase tracking-wide text-foreground hover:text-primary hover:no-underline">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-[15px] leading-7 text-muted-foreground pt-1 pb-4">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </section>
+        )}
 
         <section className="mt-16 overflow-hidden rounded-[28px] border border-primary/30 bg-primary/[0.06] p-8 md:p-12">
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary">

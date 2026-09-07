@@ -1,5 +1,10 @@
 import { BLOG_POSTS } from "@/data/blogPosts";
 
+export type FAQItem = {
+  question: string;
+  answer: string;
+};
+
 export type Post = {
   slug: string;
   title: string;
@@ -10,6 +15,7 @@ export type Post = {
   image: string;
   summary: string;
   paragraphs: string[];
+  faqs?: FAQItem[];
 };
 
 export type DbPost = {

@@ -74,6 +74,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+const YANDEX_VERIFICATION = (import.meta as any).env?.VITE_YANDEX_VERIFICATION || "";
+const YANDEX_METRIKA_ID = (import.meta as any).env?.VITE_YANDEX_METRIKA_ID || "";
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
@@ -81,6 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
       { name: "google-site-verification", content: "QuG6SOkMw2hVic9s2B1qS0u6WeW8JiNhAFBAJA6hKdg" },
+      { name: "yandex-verification", content: YANDEX_VERIFICATION || "bd63133ecd8c1fb6" },
       { name: "theme-color", content: "#0a0a0f" },
       { name: "author", content: "Проект Без-Дна" },
       { property: "og:type", content: "website" },
@@ -118,6 +122,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children:
           "window.addEventListener('DOMContentLoaded',function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4HG5Z6W8W6',{'transport_type':'beacon'});});",
       },
+      ...(YANDEX_METRIKA_ID
+        ? [
+            {
+              children: `(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();
+for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+ym(${JSON.stringify(YANDEX_METRIKA_ID)}, "init", {
+     clickmap:true,
+     trackLinks:true,
+     accurateTrackBounce:true,
+     webvisor:true
+});`,
+            },
+          ]
+        : []),
     ],
 
   }),
