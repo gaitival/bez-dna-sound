@@ -74,8 +74,8 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-const YANDEX_VERIFICATION = (import.meta as any).env?.VITE_YANDEX_VERIFICATION || "";
-const YANDEX_METRIKA_ID = (import.meta as any).env?.VITE_YANDEX_METRIKA_ID || "";
+const YANDEX_VERIFICATION = (import.meta as any).env?.VITE_YANDEX_VERIFICATION || "bd63133ecd8c1fb6";
+const YANDEX_METRIKA_ID = (import.meta as any).env?.VITE_YANDEX_METRIKA_ID || "112345971";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
       { name: "google-site-verification", content: "QuG6SOkMw2hVic9s2B1qS0u6WeW8JiNhAFBAJA6hKdg" },
-      { name: "yandex-verification", content: YANDEX_VERIFICATION || "bd63133ecd8c1fb6" },
+      { name: "yandex-verification", content: YANDEX_VERIFICATION },
       { name: "theme-color", content: "#0a0a0f" },
       { name: "author", content: "Проект Без-Дна" },
       { property: "og:type", content: "website" },
@@ -129,12 +129,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 m[i].l=1*new Date();
 for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
 k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-ym(${JSON.stringify(YANDEX_METRIKA_ID)}, "init", {
-     clickmap:true,
-     trackLinks:true,
-     accurateTrackBounce:true,
-     webvisor:true
+(window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=${YANDEX_METRIKA_ID}", "ym");
+ym(${JSON.stringify(Number(YANDEX_METRIKA_ID) || YANDEX_METRIKA_ID)}, "init", {
+     ssr: true,
+     webvisor: true,
+     clickmap: true,
+     ecommerce: "dataLayer",
+     referrer: document.referrer,
+     url: location.href,
+     accurateTrackBounce: true,
+     trackLinks: true
 });`,
             },
           ]
@@ -155,6 +159,15 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <noscript>
+          <div>
+            <img
+              src={`https://mc.yandex.ru/watch/${YANDEX_METRIKA_ID}`}
+              style={{ position: "absolute", left: "-9999px" }}
+              alt=""
+            />
+          </div>
+        </noscript>
         {children}
         <Scripts />
       </body>
