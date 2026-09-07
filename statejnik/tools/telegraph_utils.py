@@ -76,7 +76,7 @@ def markdown_to_telegraph_nodes(body_text):
                 label = m.group(2)
                 href = m.group(3)
                 if href.startswith("/"):
-                    href = f"https://bez-dna-sound.lovable.app{href}"
+                    href = f"https://bez-dna-sound.com{href}"
                 parts.append({"tag": "a", "attrs": {"href": href}, "children": [label]})
             elif full.startswith("**"):
                 # Bold
@@ -119,7 +119,7 @@ def markdown_to_telegraph_nodes(body_text):
     return nodes
 
 
-def publish_to_telegraph(title, body_text, author_name="Без-Дна", author_url="https://bez-dna-sound.lovable.app", env_path=".env"):
+def publish_to_telegraph(title, body_text, author_name="Без-Дна", author_url="https://bez-dna-sound.com", env_path=".env"):
     """
     Создает страницу в Telegraph и возвращает полный URL статьи (с Instant View).
     """

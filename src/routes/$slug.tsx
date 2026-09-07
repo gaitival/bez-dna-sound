@@ -163,10 +163,23 @@ function renderInline(text: string) {
     if (linkMatch) {
       const [, linkText, href] = linkMatch;
       if (href.startsWith("/")) {
+        const cleanSlug = href.replace(/^\//, "");
+        if (cleanSlug === "" || cleanSlug === "states" || cleanSlug === "tree") {
+          return (
+            <Link
+              key={i}
+              to={href as any}
+              className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors font-medium"
+            >
+              {linkText}
+            </Link>
+          );
+        }
         return (
           <Link
             key={i}
-            to={href}
+            to="/$slug"
+            params={{ slug: cleanSlug }}
             className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors font-medium"
           >
             {linkText}
