@@ -1,0 +1,4 @@
+$ python3 $SKILL_DIR/scripts/claims-check.py work/zavyazano-razvyazano-kak-razorvat-uzel-ozhidanij-i-vernut-volyu --text work/zavyazano-razvyazano-kak-razorvat-uzel-ozhidanij-i-vernut-volyu/final.md
+
+None
+EXIT 0

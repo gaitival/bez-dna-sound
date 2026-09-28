@@ -1,0 +1,12 @@
+$ python3 $SKILL_DIR/scripts/originality-check.py work/zavyazano-razvyazano-kak-razorvat-uzel-ozhidanij-i-vernut-volyu/final.md work/zavyazano-razvyazano-kak-razorvat-uzel-ozhidanij-i-vernut-volyu\sources --config C:\Users\Valentin\Desktop\Python\bez-dna-sound\statejnik.yaml
+
+РћСЂРёРіРёРЅР°Р»СЊРЅРѕСЃС‚СЊ: PASS
+  Р±Р»РёР¶Р°Р№С€РёР№ СЌС‚Р°Р»РѕРЅ  : tree-catalog.md (РёР· 1 С„Р°Р№Р»РѕРІ)
+  cosine (TF-IDF)   : 0.0924  (РїРѕСЂРѕРі в‰¤0.6)
+  ngram-5 jaccard   : 0.0  (РїРѕСЂРѕРі в‰¤0.3)
+  word jaccard      : 0.0423
+  СЏР·С‹Рє С‡РµСЂРЅ./СЌС‚Р°Р»РѕРЅ : ru/ru
+  СЃР»РѕРІ РІ С‡РµСЂРЅРѕРІРёРєРµ  : 772
+  в†’ РћСЂРёРіРёРЅР°Р»: Р»РµРєСЃРёС‡РµСЃРєРё СЂР°Р·РѕС€С‘Р»СЃСЏ СЃ РєРѕСЂРїСѓСЃРѕРј.
+
+EXIT 0

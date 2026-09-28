@@ -1,0 +1,4 @@
+$ python3 $SKILL_DIR/scripts/structure-check.py work/zavyazano-razvyazano-kak-razorvat-uzel-ozhidanij-i-vernut-volyu/final.md --config C:\Users\Valentin\Desktop\Python\bez-dna-sound\statejnik.yaml
+
+None
+EXIT 0

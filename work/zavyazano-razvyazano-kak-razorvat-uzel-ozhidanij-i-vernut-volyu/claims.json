@@ -1,0 +1,50 @@
+{
+  "slug": "zavyazano-razvyazano-kak-razorvat-uzel-ozhidanij-i-vernut-volyu",
+  "updated": "2026-09-28",
+  "claims": [
+    {
+      "id": "C1",
+      "claim": "КОД 22 Завязано - развязано направлен на отделение чужого давления, навязанных ожиданий и внутреннего спора.",
+      "where": ["title", "вводная часть"],
+      "kind": "fact",
+      "source_url": "https://bez-dna-sound.com/tree",
+      "source_file": "sources/tree-catalog.md",
+      "quote": "Отделение чужого давления, навязанных ожиданий и внутреннего спора. Возврат собственной воли и закрытие личного контура.",
+      "checked_at": "2026-09-28",
+      "status": "verified"
+    },
+    {
+      "id": "C2",
+      "claim": "Формат протокола включает 5-минутный концентрированный звуковой трек, визуальный ключ и соматическую инструкцию.",
+      "where": ["Как распустить узел и закрыть личный контур: 3 шага практики"],
+      "kind": "fact",
+      "source_url": "https://bez-dna-sound.com/tree",
+      "source_file": "sources/tree-catalog.md",
+      "quote": "5-минутный концентрированный звуковой трек, визуальный ключ и соматическая инструкция.",
+      "checked_at": "2026-09-28",
+      "status": "verified"
+    },
+    {
+      "id": "C3",
+      "claim": "Практика занимает 15 минут.",
+      "where": ["Как распустить узел и закрыть личный контур: 3 шага практики", "Куда дальше"],
+      "kind": "number",
+      "source_url": "https://bez-dna-sound.com/tree",
+      "source_file": "sources/tree-catalog.md",
+      "quote": "15 минут.",
+      "checked_at": "2026-09-28",
+      "status": "verified"
+    },
+    {
+      "id": "C4",
+      "claim": "Базовая стоимость одного протокола составляет 250 звёзд в Telegram.",
+      "where": ["Куда дальше"],
+      "kind": "price",
+      "source_url": "https://bez-dna-sound.com/tree",
+      "source_file": "sources/tree-catalog.md",
+      "quote": "250 звёзд.",
+      "checked_at": "2026-09-28",
+      "status": "verified"
+    }
+  ]
+}
