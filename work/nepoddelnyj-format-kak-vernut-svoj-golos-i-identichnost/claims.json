@@ -1,0 +1,50 @@
+{
+  "slug": "nepoddelnyj-format-kak-vernut-svoj-golos-i-identichnost",
+  "updated": "2026-10-06",
+  "claims": [
+    {
+      "id": "C1",
+      "claim": "КОД 20 Неподдельный формат. Идентичность направлен на возврат собственного почерка, голоса и живого внутреннего формата.",
+      "where": ["title", "вводная часть"],
+      "kind": "fact",
+      "source_url": "https://bez-dna-sound.com/tree",
+      "source_file": "sources/tree-catalog.md",
+      "quote": "Возврат собственного почерка, голоса и живого внутреннего формата.",
+      "checked_at": "2026-10-06",
+      "status": "verified"
+    },
+    {
+      "id": "C2",
+      "claim": "Формат протокола включает 5-минутный концентрированный звуковой трек, визуальный ключ и соматическую инструкцию.",
+      "where": ["Как вернуть свой почерк и голос: 3 шага соматической практики"],
+      "kind": "fact",
+      "source_url": "https://bez-dna-sound.com/tree",
+      "source_file": "sources/tree-catalog.md",
+      "quote": "5-минутный концентрированный звуковой трек, визуальный ключ и соматическая инструкция.",
+      "checked_at": "2026-10-06",
+      "status": "verified"
+    },
+    {
+      "id": "C3",
+      "claim": "Практика занимает 15 минут.",
+      "where": ["Как вернуть свой почерк и голос: 3 шага соматической практики", "Куда дальше"],
+      "kind": "number",
+      "source_url": "https://bez-dna-sound.com/tree",
+      "source_file": "sources/tree-catalog.md",
+      "quote": "15 минут.",
+      "checked_at": "2026-10-06",
+      "status": "verified"
+    },
+    {
+      "id": "C4",
+      "claim": "Базовая стоимость одного протокола составляет 250 звёзд в Telegram.",
+      "where": ["Куда дальше"],
+      "kind": "price",
+      "source_url": "https://bez-dna-sound.com/tree",
+      "source_file": "sources/tree-catalog.md",
+      "quote": "250 звёзд.",
+      "checked_at": "2026-10-06",
+      "status": "verified"
+    }
+  ]
+}
