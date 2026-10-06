@@ -112,6 +112,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Exo+2:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
       },
+      { rel: "alternate", type: "text/plain", href: "/llms.txt", title: "LLM Context" },
     ],
     scripts: [
       {
