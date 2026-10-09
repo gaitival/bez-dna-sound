@@ -204,6 +204,7 @@ function renderInline(text: string) {
 
 function isHeading(text: string) {
   const t = text.trim();
+  if (/^#{1,6}\s/.test(t)) return true;
   if (t.length > 80) return false;
   if (/^(\d+\.|Шаг \d+\.)\s/.test(t)) return true;
   return !/[.!?…:»]$/.test(t);
@@ -282,7 +283,7 @@ function ArticlePage() {
                   key={i}
                   className="mt-14 w-full text-balance break-words font-display text-lg uppercase leading-snug tracking-wide text-primary md:text-xl"
                 >
-                  {renderInline(paragraph)}
+                  {renderInline(paragraph.replace(/^#{1,6}\s+/, ""))}
                 </h2>
 
               );
