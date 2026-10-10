@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TELEGRAM_URL } from "@/data/tree";
 import { listPublishedPosts } from "@/lib/posts.functions";
+import { BLOG_POSTS } from "@/data/blogPosts";
 import { dbPostToPost, mergePosts, type Post } from "@/lib/posts";
 import {
   Accordion,
@@ -15,6 +16,12 @@ const BASE_URL = "https://bez-dna-sound.com";
 
 export const Route = createFileRoute("/$slug")({
   loader: async ({ params }) => {
+    // 1. Мгновенный синхронный поиск по статическим статьям (0 мс, без блокирующих сетевых вызовов)
+    const staticPost = (BLOG_POSTS as Post[]).find((item) => item.slug === params.slug);
+    if (staticPost) {
+      return { post: staticPost };
+    }
+    // 2. Резервный поиск среди динамических статей из базы
     const rows = await listPublishedPosts();
     const post = mergePosts(rows.map(dbPostToPost)).find((item) => item.slug === params.slug);
     if (!post) throw notFound();
@@ -169,6 +176,7 @@ function renderInline(text: string) {
             <Link
               key={i}
               to={href as any}
+              preload="intent"
               className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors font-medium"
             >
               {linkText}
@@ -180,6 +188,7 @@ function renderInline(text: string) {
             key={i}
             to="/$slug"
             params={{ slug: cleanSlug }}
+            preload="intent"
             className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors font-medium"
           >
             {linkText}

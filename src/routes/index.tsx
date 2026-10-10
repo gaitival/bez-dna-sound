@@ -342,6 +342,7 @@ function BlogPreview() {
                   <Link
                     to="/$slug"
                     params={{ slug: post.slug }}
+                    preload="intent"
                     className="inline-flex h-[44px] items-center justify-center rounded-full border border-border/60 px-5 text-sm font-medium text-foreground transition-colors hover:bg-accent"
                   >
                     Открыть статью

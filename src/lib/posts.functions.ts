@@ -52,14 +52,55 @@ function publicClient() {
   });
 }
 
+function isSupabaseConfigured(): boolean {
+  const key =
+    process.env["SUPABASE_PUBLISHABLE_KEY"] ||
+    process.env["VITE_SUPABASE_PUBLISHABLE_KEY"] ||
+    (typeof import.meta !== "undefined" && import.meta.env?.VITE_SUPABASE_PUBLISHABLE_KEY) ||
+    "";
+  const url =
+    process.env["SUPABASE_URL"] ||
+    process.env["VITE_SUPABASE_URL"] ||
+    (typeof import.meta !== "undefined" && import.meta.env?.VITE_SUPABASE_URL) ||
+    "";
+  if (!key || !url) return false;
+  // Non-existent demo instance from Lovable template
+  if (url.includes("mzowuhxcerupuzdqaxgr.supabase.co")) return false;
+  return true;
+}
+
+let publishedPostsCache: { data: any[]; timestamp: number } | null = null;
+const CACHE_TTL_MS = 60 * 1000;
+
 export const listPublishedPosts = createServerFn({ method: "GET" }).handler(async () => {
-  const { data, error } = await publicClient()
-    .from("posts")
-    .select(POST_COLUMNS)
-    .eq("published", true)
-    .order("published_at", { ascending: false });
-  if (error) return [];
-  return data ?? [];
+  if (!isSupabaseConfigured()) {
+    return [];
+  }
+
+  if (publishedPostsCache && Date.now() - publishedPostsCache.timestamp < CACHE_TTL_MS) {
+    return publishedPostsCache.data;
+  }
+
+  try {
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error("Supabase fetch timeout")), 1200),
+    );
+    const fetchPromise = publicClient()
+      .from("posts")
+      .select(POST_COLUMNS)
+      .eq("published", true)
+      .order("published_at", { ascending: false })
+      .then(({ data, error }) => {
+        if (error) return [];
+        return data ?? [];
+      });
+
+    const data = await Promise.race([fetchPromise, timeoutPromise]);
+    publishedPostsCache = { data, timestamp: Date.now() };
+    return data;
+  } catch {
+    return [];
+  }
 });
 
 export const listAdminPosts = createServerFn({ method: "GET" })
