@@ -3,6 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { SacredSymbol } from "@/components/SacredSymbol";
+import { HeroSymbol3D } from "@/components/HeroSymbol3D";
+import { TrackAudioPlayer } from "@/components/TrackAudioPlayer";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
@@ -195,93 +197,75 @@ function SectionTitle({
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden px-4 pb-14 pt-8 md:pb-20 md:pt-16">
+    <section className="relative overflow-hidden px-4 pb-14 pt-8 md:pb-20 md:pt-14">
       <div className="mx-auto max-w-6xl">
         
-        {/* Заголовок (по центру) и подзаголовок (с выравниванием по левому краю) */}
-        <div className="flex flex-col items-center">
+        {/* Главный заголовок лаборатории */}
+        <div className="flex flex-col items-center mb-8 md:mb-14">
           <h1
             className="text-center font-display uppercase text-primary text-glow-gold"
-            style={{ fontSize: "clamp(36px, 5vw, 64px)", lineHeight: 1.1, letterSpacing: "-0.005em" }}
+            style={{ fontSize: "clamp(32px, 4.8vw, 62px)", lineHeight: 1.12, letterSpacing: "-0.005em" }}
           >
             Лаборатория глубинной настройки
           </h1>
+        </div>
 
-          <div className="mx-auto mt-6 w-full max-w-[960px] text-center md:text-left">
-            <p
-              className="font-mono text-foreground/85"
-              style={{ fontSize: "clamp(14px, 1.2vw, 17px)", lineHeight: 1.5, letterSpacing: "0.01em" }}
-            >
+        {/* 2-колоночная композиция: текст слева, 3D сакральный символ справа */}
+        <div className="hero-layout-grid">
+          {/* Левая колонка строго по расположению на скриншоте */}
+          <div className="hero-text-content">
+            <p className="hero-text-lead">
               Telegram-система резонансных инструментов для быстрой внутренней настройки:
-              <br className="hidden md:inline" />
-              отключить ментальный шум, вернуть фокус, восстановить личные границы и войти в состояние силы.
+              <br className="hidden sm:inline" />
+              {" "}отключить ментальный шум, вернуть фокус, восстановить личные границы и войти в состояние силы.
+            </p>
+
+            <p className="hero-text-sub">
+              Без долгого поиска причин и сложных практик.
+              <br className="hidden sm:inline" />
+              {" "}Достаточно выбрать текущую точку сбоя <span className="dash-accent">—</span> острая тревога, усталость, страх или дефицит ресурса <span className="dash-accent">—</span> и сразу получить готовый целевой модуль: звук, визуал и короткую инструкцию.
             </p>
           </div>
+
+          {/* Правая колонка: 3D интерактивный сакральный портал */}
+          <HeroSymbol3D />
         </div>
 
-        {/* Баннер с символом лаборатории */}
-        <div className="relative mx-auto mt-8 max-w-[960px] overflow-hidden rounded-xl border border-primary/20 bg-black/60 shadow-[0_0_40px_-10px_hsl(45_90%_55%/0.2)] md:mt-10 md:rounded-2xl">
-          <img
-            src="/images/hero-banner.jpg"
-            alt="Без-Дна — Лаборатория глубинной настройки"
-            width={1200}
-            height={370}
-            fetchPriority="high"
-            className="h-auto w-full object-cover object-center"
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-xl md:rounded-2xl shadow-[inset_0_0_30px_rgba(0,0,0,0.7)]"
-          />
-        </div>
+        {/* Секция с кнопками (CTA) */}
+        <div className="mt-12 md:mt-16 flex flex-col items-center text-center">
+          <p className="font-mono text-[12px] uppercase tracking-[0.28em] text-primary md:text-[13px]">
+            ✦ Первый вход и первый протокол — бесплатно
+          </p>
+          <p className="mt-2 font-mono text-[12px] leading-relaxed text-muted-foreground md:text-[13px]">
+            Без обязательной покупки. Зайти, посмотреть и протестировать систему можно сразу.
+          </p>
 
-        {/* Блок с текстом под карточками и кнопками */}
-        <div className="mt-12 md:mt-16">
-          <div className="mx-auto w-full max-w-[960px] text-center md:text-left">
-            <p
-              className="text-foreground/90 text-sm md:text-base leading-relaxed"
-              style={{ letterSpacing: "0.01em" }}
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
+            <a
+              href={TELEGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-gold btn-gold-hover inline-flex h-[52px] items-center justify-center px-6 text-xs md:text-sm"
+              style={{ animation: "var(--animate-pulse-glow)" }}
             >
-              Без долгого поиска причин и сложных практик. Достаточно выбрать текущую точку сбоя — острая тревога, усталость, страх или дефицит ресурса — и сразу получить готовый целевой модуль: звук, визуал и короткую инструкцию.
-            </p>
+              Открыть приложение в Telegram
+            </a>
+            <a
+              href="#tree"
+              className="btn-ghost-gold btn-ghost-gold-hover inline-flex h-[52px] items-center justify-center px-6 text-xs md:text-sm"
+            >
+              Посмотреть карту состояний ↓
+            </a>
           </div>
 
-          {/* Секция с кнопками (CTA) */}
-          <div className="mt-10 flex flex-col items-center text-center">
-            <p className="font-mono text-[12px] uppercase tracking-[0.28em] text-primary md:text-[13px]">
-              ✦ Первый вход и первый протокол — бесплатно
-            </p>
-            <p className="mt-2 font-mono text-[12px] leading-relaxed text-muted-foreground md:text-[13px]">
-              Без обязательной покупки. Зайти, посмотреть и протестировать систему можно сразу.
-            </p>
-
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
-              <a
-                href={TELEGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-gold btn-gold-hover inline-flex h-[52px] items-center justify-center px-6 text-xs md:text-sm"
-                style={{ animation: "var(--animate-pulse-glow)" }}
-              >
-                Открыть приложение в Telegram
-              </a>
-              <a
-                href="#tree"
-                className="btn-ghost-gold btn-ghost-gold-hover inline-flex h-[52px] items-center justify-center px-6 text-xs md:text-sm"
-              >
-                Посмотреть карту состояний ↓
-              </a>
-            </div>
-
-            <p className="mt-5 font-mono text-[11px] leading-relaxed text-muted-foreground md:text-[12px]">
-              Внутри: карта состояний, треки, инструкции, визуалы и бесплатный первый шаг.
-            </p>
-          </div>
+          <p className="mt-5 font-mono text-[11px] leading-relaxed text-muted-foreground md:text-[12px]">
+            Внутри: карта состояний, треки, инструкции, визуалы и бесплатный первый шаг.
+          </p>
         </div>
 
       </div>
 
-      {/* Фоновые размытые свечения */}
+      {/* Фоновые размытые свечения (общий фон лендинга не меняется) */}
       <div aria-hidden className="pointer-events-none absolute -left-20 top-20 size-72 rounded-full" style={{ background: "radial-gradient(circle, hsl(45 90% 55% / 0.12), transparent 70%)" }} />
       <div aria-hidden className="pointer-events-none absolute -right-20 top-40 size-72 rounded-full" style={{ background: "radial-gradient(circle, hsl(185 80% 45% / 0.10), transparent 70%)" }} />
     </section>
@@ -448,32 +432,50 @@ function WhatInside() {
 }
 
 function TrackExamples() {
-  const cards: { t: string; ann: string; state: string; imageUrl?: string }[] = [
+  const [activeTrackIndex, setActiveTrackIndex] = useState<number | null>(null);
+
+  const cards: {
+    t: string;
+    ann: string;
+    state: string;
+    imageUrl?: string;
+    audioUrl?: string;
+    duration?: number;
+  }[] = [
     {
       t: "Код деактивации",
       ann: "Очищает ментальный шум, навязчивые мысли и внешнее давление.",
       state: "Когда в голове хаос, перегруз и нужно быстро вернуть контроль над вниманием.",
       imageUrl: undefined,
+      audioUrl: "/audio/track-1.wav",
+      duration: 30,
     },
     {
       t: "Право на своё",
       ann: "Возвращает границы, ресурс и способность спокойно не отдавать себя лишнему.",
       state: "Когда затянулся режим спасателя, донора и вечного «ну ладно».",
       imageUrl: undefined,
+      audioUrl: "/audio/track-2.wav",
+      duration: 30,
     },
     {
       t: "Победоносец",
       ann: "Собирает волю, снижает давление страха и возвращает позицию автора своей жизни.",
       state: "Когда тревога пытается перехватить управление, а действовать всё равно нужно.",
       imageUrl: undefined,
+      audioUrl: "/audio/track-3.wav",
+      duration: 30,
     },
     {
       t: "Исток рода",
       ann: "Помогает снять внутреннюю тяжесть старых сценариев и вернуть опору под ногами.",
       state: "Когда внутри слишком много не твоего, а жить приходится именно на этом фундаменте.",
       imageUrl: undefined,
+      audioUrl: "/audio/track-4.wav",
+      duration: 30,
     },
   ];
+
   return (
     <Section>
       <div id="examples" />
@@ -520,6 +522,20 @@ function TrackExamples() {
               <h3 className="mt-2 font-display text-xl uppercase text-foreground text-glow-gold">{c.t}</h3>
               <p className="mt-3 font-mono text-xs leading-relaxed text-foreground/85">{c.ann}</p>
               <p className="mt-3 font-mono text-[11px] leading-relaxed text-muted-foreground">{c.state}</p>
+
+              {/* Полоса проигрывания трека под описанием */}
+              <TrackAudioPlayer
+                audioUrl={c.audioUrl}
+                defaultDuration={c.duration || 30}
+                trackTitle={c.t}
+                isActive={activeTrackIndex === i}
+                onPlay={() => setActiveTrackIndex(i)}
+                onPause={() => {
+                  if (activeTrackIndex === i) {
+                    setActiveTrackIndex(null);
+                  }
+                }}
+              />
             </div>
           </motion.div>
         ))}

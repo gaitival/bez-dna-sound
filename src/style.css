@@ -1,0 +1,242 @@
+/* ==========================================================================
+   HERO SECTION & 3D SACRED SYMBOL STYLES (style.css)
+   Проект «Без-Дна» — Лаборатория глубинной настройки
+   ========================================================================== */
+
+/* Контейнер первого экрана с элементами по скриншоту */
+.hero-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 900px) {
+  .hero-layout-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero-layout-grid {
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 4.5rem;
+  }
+}
+
+/* Левая текстовая колонка */
+.hero-text-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.hero-text-lead {
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 1.45vw, 21px);
+  font-weight: 400;
+  line-height: 1.62;
+  letter-spacing: 0.012em;
+  color: hsl(45 15% 94% / 0.96);
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+}
+
+.hero-text-lead strong,
+.hero-text-lead .highlight-gold {
+  color: hsl(45 95% 65%);
+  font-weight: 600;
+  text-shadow: 0 0 16px hsl(45 90% 55% / 0.45);
+}
+
+.hero-text-sub {
+  font-family: var(--font-sans);
+  font-size: clamp(15px, 1.3vw, 18px);
+  font-weight: 300;
+  line-height: 1.68;
+  letter-spacing: 0.015em;
+  color: hsl(45 10% 82% / 0.88);
+  margin-bottom: 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.hero-text-sub .dash-accent {
+  color: hsl(45 90% 60%);
+  margin: 0 0.25rem;
+}
+
+/* Правая 3D колонка с сакральным символом */
+.hero-visual-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.hero-3d-stage {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.hero-3d-stage:active {
+  cursor: grabbing;
+}
+
+/* Канвас WebGL для 3D сцены Three.js */
+.hero-3d-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50%;
+  z-index: 2;
+  pointer-events: none;
+  outline: none;
+}
+
+/* Многослойные световые ореолы и аура портала */
+.hero-ambient-glow {
+  position: absolute;
+  inset: -15%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    hsl(45 95% 58% / 0.22) 0%,
+    hsl(45 90% 50% / 0.12) 35%,
+    hsl(185 85% 45% / 0.08) 55%,
+    transparent 72%
+  );
+  filter: blur(28px);
+  z-index: 1;
+  pointer-events: none;
+  animation: hero-glow-breathe 6s ease-in-out infinite alternate;
+}
+
+.hero-outer-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid hsl(45 90% 55% / 0.25);
+  box-shadow:
+    0 0 35px hsl(45 90% 55% / 0.2),
+    inset 0 0 25px hsl(45 90% 55% / 0.1);
+  z-index: 1;
+  pointer-events: none;
+  animation: hero-ring-spin 60s linear infinite;
+}
+
+.hero-outer-ring::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: hsl(45 100% 70%);
+  box-shadow: 0 0 12px 3px hsl(45 90% 60% / 0.9);
+}
+
+.hero-outer-ring::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: hsl(185 100% 65%);
+  box-shadow: 0 0 12px 3px hsl(185 90% 50% / 0.9);
+}
+
+/* Запасное изображение на случай отсутствия WebGL */
+.hero-fallback-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  z-index: 0;
+  box-shadow:
+    0 0 45px hsl(45 90% 55% / 0.3),
+    inset 0 0 30px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+
+/* Декоративная аура за блоком */
+@keyframes hero-glow-breathe {
+  0% {
+    transform: scale(0.94);
+    opacity: 0.65;
+    filter: blur(24px);
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.95;
+    filter: blur(34px);
+  }
+  100% {
+    transform: scale(0.98);
+    opacity: 0.75;
+    filter: blur(28px);
+  }
+}
+
+@keyframes hero-ring-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Адаптив для мобильных экранов */
+@media (max-width: 899px) {
+  .hero-layout-grid {
+    text-align: center;
+  }
+  .hero-text-content {
+    text-align: center;
+  }
+  .hero-3d-stage {
+    max-width: 340px;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-3d-stage {
+    max-width: 290px;
+  }
+  .hero-text-lead {
+    font-size: 15px;
+    line-height: 1.55;
+    margin-bottom: 1.5rem;
+  }
+  .hero-text-sub {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
