@@ -85,11 +85,11 @@ export function initHero3D(container) {
   topAccentLight.position.set(2.5, 3.0, 2.2);
   scene.add(topAccentLight);
 
-  // --- 1. 3D ОРБИТАЛЬНЫЕ САМОСТОЯТЕЛЬНЫЕ КОЛЬЦА ---
+  // --- 1. ОРБИТАЛЬНЫЕ САМОСТОЯТЕЛЬНЫЕ КОЛЬЦА (СТРОГО В 2D ПЛОСКОСТИ) ---
   const ringsGroup = new THREE.Group();
   sceneRoot.add(ringsGroup);
 
-  // Кольцо 1: Тонкий золотой тор с наклоном
+  // Кольцо 1: Тонкий золотой тор (вращение по кругу в плоскости экрана)
   const ring1Geo = new THREE.TorusGeometry(1.98, 0.014, 16, 120);
   const ring1Mat = new THREE.MeshBasicMaterial({
     color: 0xffd275,
@@ -97,11 +97,11 @@ export function initHero3D(container) {
     opacity: 0.8,
   });
   const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
-  ring1.rotation.x = THREE.MathUtils.degToRad(25);
-  ring1.rotation.y = THREE.MathUtils.degToRad(15);
+  ring1.rotation.x = 0;
+  ring1.rotation.y = 0;
   ringsGroup.add(ring1);
 
-  // Кольцо 2: Бирюзовый пояс
+  // Кольцо 2: Бирюзовый пояс (вращение по кругу в плоскости экрана)
   const ring2Geo = new THREE.TorusGeometry(2.12, 0.01, 16, 120);
   const ring2Mat = new THREE.MeshBasicMaterial({
     color: 0x4be1ec,
@@ -109,11 +109,11 @@ export function initHero3D(container) {
     opacity: 0.65,
   });
   const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-  ring2.rotation.x = THREE.MathUtils.degToRad(-35);
-  ring2.rotation.z = THREE.MathUtils.degToRad(40);
+  ring2.rotation.x = 0;
+  ring2.rotation.y = 0;
   ringsGroup.add(ring2);
 
-  // Кольцо 3: 12 сакральных световых узлов
+  // Кольцо 3: 12 сакральных световых узлов (бегут по кругу)
   const markersCount = 12;
   const markersGeo = new THREE.BufferGeometry();
   const markerPositions = new Float32Array(markersCount * 3);
@@ -134,7 +134,7 @@ export function initHero3D(container) {
   const markersMesh = new THREE.Points(markersGeo, markersMat);
   ringsGroup.add(markersMesh);
 
-  // --- 2. КВАНТОВОЕ ОБЛАКО ЗОЛОТЫХ ЧАСТИЦ (STARDUST) ---
+  // --- 2. КВАНТОВОЕ ОБЛАКО ЗОЛОТЫХ ЧАСТИЦ (STARDUST ПО КРУГУ) ---
   const particlesCount = 420;
   const particlesGeo = new THREE.BufferGeometry();
   const particlePositions = new Float32Array(particlesCount * 3);
@@ -145,15 +145,11 @@ export function initHero3D(container) {
   const whiteColor = new THREE.Color(0xffffff);
 
   for (let i = 0; i < particlesCount; i++) {
-    const u = Math.random();
-    const v = Math.random();
-    const theta = u * 2.0 * Math.PI;
-    const phi = Math.acos(2.0 * v - 1.0);
+    const angle = Math.random() * Math.PI * 2;
     const r = 1.85 + Math.random() * 0.95;
-
-    const x = r * Math.sin(phi) * Math.cos(theta);
-    const y = r * Math.sin(phi) * Math.sin(theta);
-    const z = r * Math.cos(phi) * 0.7;
+    const x = Math.cos(angle) * r;
+    const y = Math.sin(angle) * r;
+    const z = (Math.random() - 0.5) * 0.2; // строго вблизи плоскости экрана
 
     particlePositions[i * 3] = x;
     particlePositions[i * 3 + 1] = y;
@@ -181,21 +177,10 @@ export function initHero3D(container) {
   const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
   sceneRoot.add(particlesMesh);
 
-  // --- 3. ИНТЕРАКТИВНОСТЬ И 3D НАКЛОН НИЖНЕГО ИЗОБРАЖЕНИЯ ---
+  // --- 3. ИНТЕРАКТИВНОСТЬ (БЕЗ 3D НАКЛОНА, ТОЛЬКО ДИНАМИЧЕСКИЙ СВЕТ И МАСШТАБ) ---
   const state = {
     mouseX: 0,
     mouseY: 0,
-    targetRotXDeg: 0,
-    targetRotYDeg: 0,
-    currentRotXDeg: 0,
-    currentRotYDeg: 0,
-    isDragging: false,
-    dragStartX: 0,
-    dragStartY: 0,
-    dragVelocityX: 0,
-    dragVelocityY: 0,
-    manualRotX: 0,
-    manualRotY: 0,
     isHovered: false,
   };
 
@@ -210,11 +195,7 @@ export function initHero3D(container) {
     state.mouseX = Math.max(-1.5, Math.min(1.5, normX));
     state.mouseY = Math.max(-1.5, Math.min(1.5, normY));
 
-    // Углы 3D наклона для самого контейнера с изображением
-    state.targetRotXDeg = -state.mouseY * 20; // наклон по вертикали
-    state.targetRotYDeg = state.mouseX * 24;  // наклон по горизонтали
-
-    // Перемещение источника света
+    // Перемещение источника света в 2D плоскости над символом
     gsap.to(goldCursorLight.position, {
       x: state.mouseX * 2.2,
       y: -state.mouseY * 2.2,
@@ -226,39 +207,14 @@ export function initHero3D(container) {
   }
 
   function onPointerMove(e) {
-    if (state.isDragging) {
-      const deltaX = e.clientX - state.dragStartX;
-      const deltaY = e.clientY - state.dragStartY;
-      state.dragStartX = e.clientX;
-      state.dragStartY = e.clientY;
-
-      state.dragVelocityX = deltaX * 0.25;
-      state.dragVelocityY = deltaY * 0.25;
-
-      state.manualRotY += state.dragVelocityX;
-      state.manualRotX -= state.dragVelocityY;
-    } else {
-      updateMouseCoordinates(e.clientX, e.clientY);
-    }
-  }
-
-  function onPointerDown(e) {
-    state.isDragging = true;
-    state.dragStartX = e.clientX;
-    state.dragStartY = e.clientY;
-    state.dragVelocityX = 0;
-    state.dragVelocityY = 0;
-  }
-
-  function onPointerUp() {
-    state.isDragging = false;
+    updateMouseCoordinates(e.clientX, e.clientY);
   }
 
   function onMouseEnter() {
     state.isHovered = true;
     gsap.to(container, {
-      scale: 1.04,
-      duration: 0.6,
+      scale: 1.03,
+      duration: 0.5,
       ease: "power2.out",
     });
     gsap.to(goldCursorLight, {
@@ -269,11 +225,9 @@ export function initHero3D(container) {
 
   function onMouseLeave() {
     state.isHovered = false;
-    state.targetRotXDeg = 0;
-    state.targetRotYDeg = 0;
     gsap.to(container, {
       scale: 1,
-      duration: 0.9,
+      duration: 0.8,
       ease: "power2.out",
     });
     gsap.to(goldCursorLight, {
@@ -285,9 +239,7 @@ export function initHero3D(container) {
   }
 
   // Слушатели событий
-  container.addEventListener("pointerdown", onPointerDown);
   window.addEventListener("pointermove", onPointerMove);
-  window.addEventListener("pointerup", onPointerUp);
   container.addEventListener("mouseenter", onMouseEnter);
   container.addEventListener("mouseleave", onMouseLeave);
 
@@ -325,7 +277,7 @@ export function initHero3D(container) {
   // Плавное медитативное дыхание контейнера
   const breatheTimeline = gsap.timeline({ repeat: -1, yoyo: true });
   breatheTimeline.to(container, {
-    scale: 1.03,
+    scale: 1.025,
     duration: 3.6,
     ease: "sine.inOut",
   });
@@ -341,38 +293,17 @@ export function initHero3D(container) {
 
     const elapsedTime = clock.getElapsedTime();
 
-    // Затухание инерции при свайпе
-    if (!state.isDragging) {
-      state.dragVelocityX *= 0.94;
-      state.dragVelocityY *= 0.94;
-      state.manualRotY += state.dragVelocityX;
-      state.manualRotX += state.dragVelocityY;
+    // Мягкая левитация по вертикали (строго 2D, без 3D перспективы и без поворотов по X/Y)
+    const levitationY = Math.sin(elapsedTime * 1.5) * 5;
+    container.style.transform = `translateY(${levitationY}px)`;
 
-      state.manualRotX = THREE.MathUtils.lerp(state.manualRotX, 0, 0.03);
-      state.manualRotY = THREE.MathUtils.lerp(state.manualRotY, 0, 0.03);
-    }
-
-    // Плавная интерполяция поворота
-    state.currentRotXDeg = THREE.MathUtils.lerp(state.currentRotXDeg, state.targetRotXDeg, 0.08);
-    state.currentRotYDeg = THREE.MathUtils.lerp(state.currentRotYDeg, state.targetRotYDeg, 0.08);
-
-    // Левитация (мягкое покачивание вверх-вниз)
-    const levitationY = Math.sin(elapsedTime * 1.5) * 6;
-
-    // Применяем 3D наклон к самому контейнеру с изображением
-    const finalRotX = state.currentRotXDeg + state.manualRotX;
-    const finalRotY = state.currentRotYDeg + state.manualRotY;
-
-    container.style.transform = `perspective(1000px) translateY(${levitationY}px) rotateX(${finalRotX}deg) rotateY(${finalRotY}deg)`;
-
-    // Вращение колец и частиц Three.js
+    // Вращение колец, узлов и частиц ПО КРУГУ (строго в плоскости экрана по оси Z)
     ring1.rotation.z = elapsedTime * 0.22;
     ring2.rotation.z = -elapsedTime * 0.16;
-    markersMesh.rotation.z = elapsedTime * 0.08;
+    markersMesh.rotation.z = elapsedTime * 0.1;
+    particlesMesh.rotation.z = elapsedTime * 0.08;
 
-    particlesMesh.rotation.y = elapsedTime * 0.09;
-    particlesMesh.rotation.x = Math.sin(elapsedTime * 0.3) * 0.05;
-
+    // Пульсация свечения
     cyanRimLight.intensity = 2.2 + Math.sin(elapsedTime * 2.5) * 0.6;
     topAccentLight.intensity = 1.8 + Math.cos(elapsedTime * 1.8) * 0.5;
 
@@ -388,9 +319,7 @@ export function initHero3D(container) {
     intersectionObserver.disconnect();
     breatheTimeline.kill();
 
-    container.removeEventListener("pointerdown", onPointerDown);
     window.removeEventListener("pointermove", onPointerMove);
-    window.removeEventListener("pointerup", onPointerUp);
     container.removeEventListener("mouseenter", onMouseEnter);
     container.removeEventListener("mouseleave", onMouseLeave);
 
@@ -414,36 +343,15 @@ export function initHero3D(container) {
 }
 
 function initCSS3DOnly(container) {
-  let bounds = container.getBoundingClientRect();
-
-  function onMouseMove(e) {
-    bounds = container.getBoundingClientRect();
-    const mouseX = (e.clientX - bounds.left) / bounds.width - 0.5;
-    const mouseY = (e.clientY - bounds.top) / bounds.height - 0.5;
-
-    gsap.to(container, {
-      rotateX: -mouseY * 22,
-      rotateY: mouseX * 24,
-      transformPerspective: 1000,
-      duration: 0.4,
-      ease: "power2.out",
-    });
-  }
-
-  function onMouseLeave() {
-    gsap.to(container, {
-      rotateX: 0,
-      rotateY: 0,
-      duration: 0.8,
-      ease: "power2.out",
-    });
-  }
-
-  window.addEventListener("mousemove", onMouseMove);
-  container.addEventListener("mouseleave", onMouseLeave);
+  const breatheTimeline = gsap.timeline({ repeat: -1, yoyo: true });
+  breatheTimeline.to(container, {
+    scale: 1.025,
+    y: -5,
+    duration: 3.2,
+    ease: "sine.inOut",
+  });
 
   return function destroy() {
-    window.removeEventListener("mousemove", onMouseMove);
-    container.removeEventListener("mouseleave", onMouseLeave);
+    breatheTimeline.kill();
   };
 }

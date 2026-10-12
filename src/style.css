@@ -89,15 +89,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  perspective: 1200px;
-  transform-style: preserve-3d;
-  cursor: grab;
   user-select: none;
-  touch-action: none;
-}
-
-.hero-3d-stage:active {
-  cursor: grabbing;
 }
 
 /* Канвас WebGL для 3D сцены Three.js */

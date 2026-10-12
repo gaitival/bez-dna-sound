@@ -27,7 +27,7 @@ export function HeroSymbol3D({ className = "" }: HeroSymbol3DProps) {
         ref={containerRef}
         className="hero-3d-stage"
         role="img"
-        aria-label="Интерактивный 3D сакральный портал лаборатории «Без-Дна»"
+        aria-label="Сакральный портал лаборатории Без-Дна"
       >
         {/* Фоновая аура свечения */}
         <div className="hero-ambient-glow" aria-hidden="true" />
