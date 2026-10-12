@@ -19,16 +19,16 @@ export const Route = createFileRoute("/states")({
     const posts = (loaderData?.posts ?? []) as Post[];
     return {
       meta: [
-        { title: "Состояния — Без-Дна" },
+        { title: "Разборы состояний - Без-Дна" },
         {
           name: "description",
           content:
             "Все разборы состояний и звуковые протоколы проекта Без-Дна. Новые публикации вверху.",
         },
         { property: "og:type", content: "website" },
-        { property: "og:site_name", content: "Без-Дна — Лаборатория глубинной настройки" },
+        { property: "og:site_name", content: "Без-Дна - Лаборатория глубинной настройки" },
         { property: "og:locale", content: "ru_RU" },
-        { property: "og:title", content: "Состояния — Без-Дна" },
+        { property: "og:title", content: "Разборы состояний - Без-Дна" },
         {
           property: "og:description",
           content:
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/states")({
         },
         { property: "og:url", content: `${BASE_URL}/states` },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:title", content: "Состояния — Без-Дна" },
+        { name: "twitter:title", content: "Разборы состояний - Без-Дна" },
         {
           name: "twitter:description",
           content:
@@ -54,7 +54,7 @@ export const Route = createFileRoute("/states")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            name: "Состояния — разборы и протоколы",
+            name: "Разборы состояний - протоколы",
             url: `${BASE_URL}/states`,
             inLanguage: "ru-RU",
             description:
@@ -65,7 +65,7 @@ export const Route = createFileRoute("/states")({
                 "@type": "ListItem",
                 position: i + 1,
                 url: `${BASE_URL}/${post.slug}`,
-                name: post.title,
+                name: post.title.replace(/[—–]/g, "-"),
               })),
             },
           }),
@@ -85,7 +85,7 @@ export const Route = createFileRoute("/states")({
               {
                 "@type": "ListItem",
                 position: 2,
-                name: "Состояния",
+                name: "Разборы состояний",
                 item: `${BASE_URL}/states`,
               },
             ],
@@ -114,7 +114,7 @@ function StatesPage() {
             Главная
           </Link>
           <span>/</span>
-          <span className="text-primary">Состояния</span>
+          <span className="text-primary">Разборы состояний</span>
         </nav>
 
         <header className="mb-12 border-b border-primary/20 pb-10">
@@ -122,10 +122,10 @@ function StatesPage() {
             Без-Дна / Разборы
           </p>
           <h1 className="mt-5 font-display text-3xl uppercase leading-[1.1] text-primary text-glow-gold md:text-5xl">
-            Состояния
+            Разборы состояний
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground md:text-lg">
-            Все опубликованные разборы состояний и звуковые протоколы. Самые свежие — вверху.
+            Все опубликованные разборы состояний и звуковые протоколы. Самые свежие - вверху.
           </p>
         </header>
 
@@ -158,8 +158,8 @@ function StatesPage() {
                   <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary">
                     {post.type}
                   </p>
-                  <h2 className="mt-3 text-xl font-semibold text-foreground">{post.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.summary}</p>
+                  <h2 className="mt-3 text-xl font-semibold text-foreground">{post.title.replace(/[—–]/g, "-")}</h2>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.summary.replace(/[—–]/g, "-")}</p>
                   <div className="mt-auto pt-6">
                     <Link
                       to="/$slug"

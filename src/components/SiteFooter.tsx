@@ -17,7 +17,7 @@ export function SiteFooter() {
           @dna_sound_bot
         </a>
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-          © {new Date().getFullYear()} — Лаборатория глубинной настройки
+          © {new Date().getFullYear()} - Лаборатория глубинной настройки
         </p>
       </div>
     </footer>

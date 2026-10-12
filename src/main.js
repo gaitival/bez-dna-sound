@@ -47,8 +47,8 @@ export function initHero3D(container) {
   }
 
   const rect = container.getBoundingClientRect();
-  const width = rect.width || 440;
-  const height = rect.height || 440;
+  const width = rect.width || 295;
+  const height = rect.height || 295;
 
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));

@@ -40,8 +40,8 @@ export function HeroSymbol3D({ className = "" }: HeroSymbol3DProps) {
           src="/images/hero-symbol.jpg"
           alt="Символ лаборатории Без-Дна"
           className="hero-fallback-image"
-          width={440}
-          height={440}
+          width={295}
+          height={295}
           fetchPriority="high"
         />
       </div>

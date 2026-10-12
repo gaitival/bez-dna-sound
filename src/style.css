@@ -17,15 +17,15 @@
 
 @media (min-width: 900px) {
   .hero-layout-grid {
-    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-columns: 1.3fr 0.7fr;
     gap: 3.5rem;
   }
 }
 
 @media (min-width: 1200px) {
   .hero-layout-grid {
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 4.5rem;
+    grid-template-columns: 1.35fr 0.65fr;
+    gap: 4rem;
   }
 }
 
@@ -83,7 +83,7 @@
 .hero-3d-stage {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: 295px;
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
@@ -221,14 +221,14 @@
     text-align: center;
   }
   .hero-3d-stage {
-    max-width: 340px;
+    max-width: 260px;
     margin-top: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .hero-3d-stage {
-    max-width: 290px;
+    max-width: 220px;
   }
   .hero-text-lead {
     font-size: 15px;

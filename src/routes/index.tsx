@@ -446,33 +446,33 @@ function TrackExamples() {
       t: "Код деактивации",
       ann: "Очищает ментальный шум, навязчивые мысли и внешнее давление.",
       state: "Когда в голове хаос, перегруз и нужно быстро вернуть контроль над вниманием.",
-      imageUrl: undefined,
-      audioUrl: "/audio/track-1.wav",
-      duration: 30,
+      imageUrl: "/images/tracks/kod-deaktivatsii.webp",
+      audioUrl: "/audio/kod-deaktivatsii.mp3",
+      duration: 40,
     },
     {
       t: "Право на своё",
       ann: "Возвращает границы, ресурс и способность спокойно не отдавать себя лишнему.",
       state: "Когда затянулся режим спасателя, донора и вечного «ну ладно».",
-      imageUrl: undefined,
-      audioUrl: "/audio/track-2.wav",
-      duration: 30,
+      imageUrl: "/images/tracks/pravo-na-svoe.webp",
+      audioUrl: "/audio/pravo-na-svoe.mp3",
+      duration: 33,
     },
     {
       t: "Победоносец",
       ann: "Собирает волю, снижает давление страха и возвращает позицию автора своей жизни.",
       state: "Когда тревога пытается перехватить управление, а действовать всё равно нужно.",
-      imageUrl: undefined,
-      audioUrl: "/audio/track-3.wav",
-      duration: 30,
+      imageUrl: "/images/tracks/pobedonosec.webp",
+      audioUrl: "/audio/pobedonosec.mp3",
+      duration: 31,
     },
     {
       t: "Исток рода",
       ann: "Помогает снять внутреннюю тяжесть старых сценариев и вернуть опору под ногами.",
       state: "Когда внутри слишком много не твоего, а жить приходится именно на этом фундаменте.",
-      imageUrl: undefined,
-      audioUrl: "/audio/track-4.wav",
-      duration: 30,
+      imageUrl: "/images/tracks/istok-roda.webp",
+      audioUrl: "/audio/istok-roda.mp3",
+      duration: 31,
     },
   ];
 
@@ -495,7 +495,7 @@ function TrackExamples() {
             className="oracle-card oracle-card-hover flex h-full flex-col overflow-hidden"
           >
             <div
-              className="relative flex h-[200px] items-center justify-center overflow-hidden md:h-[200px]"
+              className="relative flex h-[200px] sm:h-[220px] items-center justify-center overflow-hidden"
               style={
                 c.imageUrl
                   ? {
@@ -509,6 +509,12 @@ function TrackExamples() {
                     }
               }
             >
+              {c.imageUrl && (
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[hsl(240_8%_9%)] via-transparent to-black/25"
+                />
+              )}
               {!c.imageUrl && (
                 <div className="text-primary" style={{ animation: "var(--animate-float)" }}>
                   <SacredSymbol className="size-24" />
