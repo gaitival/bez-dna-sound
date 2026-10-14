@@ -330,10 +330,12 @@ def main():
 
     print(f"→ Подключение к VK сообществу club{group_id}...")
 
-    # 4. Прикрепление интерактивной обложки статьи (через OpenGraph сниппет сайта)
-    article_url = f"https://bez-dna-sound.com/{args.slug}"
-    print(f"→ Прикрепление карточки-обложки статьи: {article_url}...")
-    attachment = article_url
+    # 4. Загрузка фото на сервер стены сообщества
+    attachment = None
+    if image_file:
+        print("→ Загрузка оригинальной обложки на сервера ВКонтакте...")
+        attachment = upload_photo_to_vk(token, group_id, image_file)
+        print(f"✓ Обложка загружена, attachment: {attachment}")
 
     # 5. Публикация на стене
     print("→ Публикация записи на стене сообщества...")
