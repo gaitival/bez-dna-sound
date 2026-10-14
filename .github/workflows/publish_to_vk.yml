@@ -4,9 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       slug:
-        description: 'Slug статьи (из content/blog или published)'
-        required: true
-        default: 'zavyazano-razvyazano-kak-razorvat-uzel-ozhidanij-i-vernut-volyu'
+        description: 'Slug статьи (из content/blog или published). Если пусто — публикует последние изменения.'
+        required: false
+        default: ''
+  push:
+    branches:
+      - main
+    paths:
+      - 'content/blog/**'
 
 jobs:
   publish:
@@ -16,6 +21,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -30,5 +37,21 @@ jobs:
         env:
           VK_ACCESS_TOKEN: ${{ secrets.VK_ACCESS_TOKEN }}
           VK_GROUP_ID: '242296287'
+          INPUT_SLUG: ${{ github.event.inputs.slug }}
         run: |
-          python statejnik/tools/publish_to_vk.py --slug "${{ github.event.inputs.slug }}"
+          if [ -n "$INPUT_SLUG" ]; then
+            echo "→ Ручной запуск публикации статьи: $INPUT_SLUG"
+            python statejnik/tools/publish_to_vk.py --slug "$INPUT_SLUG"
+          else
+            echo "→ Автоматический поиск измененных статей в content/blog/..."
+            CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep '^content/blog/.*\.md$' || true)
+            if [ -z "$CHANGED_FILES" ]; then
+              echo "ℹ️ Изменений в файлах статей не обнаружено."
+              exit 0
+            fi
+            for file in $CHANGED_FILES; do
+              slug=$(basename "$file" .md)
+              echo "→ Автопубликация статьи в ВК: $slug"
+              python statejnik/tools/publish_to_vk.py --slug "$slug"
+            done
+          fi
