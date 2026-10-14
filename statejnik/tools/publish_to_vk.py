@@ -330,20 +330,10 @@ def main():
 
     print(f"→ Подключение к VK сообществу club{group_id}...")
 
-    # 4. Загрузка фото или прикрепление сниппета статьи
-    attachment = None
+    # 4. Прикрепление интерактивной обложки статьи (через OpenGraph сниппет сайта)
     article_url = f"https://bez-dna-sound.com/{args.slug}"
-    if image_file:
-        print("→ Попытка загрузки оригинальной обложки на сервера ВКонтакте...")
-        try:
-            attachment = upload_photo_to_vk(token, group_id, image_file)
-            print(f"✓ Обложка загружена, attachment: {attachment}")
-        except Exception as e:
-            print(f"⚠️ VK вернул ограничение на загрузку файла ({e}).")
-            print(f"→ Подключаем интерактивную карточку-сниппет статьи с сайта ({article_url})...")
-            attachment = article_url
-    else:
-        attachment = article_url
+    print(f"→ Прикрепление карточки-обложки статьи: {article_url}...")
+    attachment = article_url
 
     # 5. Публикация на стене
     print("→ Публикация записи на стене сообщества...")
