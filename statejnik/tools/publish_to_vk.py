@@ -183,17 +183,20 @@ def upload_photo_to_vk(token, group_id, image_path):
         "v": v
     }
     data = None
-    for attempt in range(3):
+    for attempt in range(2):
         resp = requests.post(url_get_server, data=params, timeout=15)
         data = resp.json()
         if "error" in data and data["error"].get("error_code") == 9:
-            print(f"  ⚠️ Flood control (попытка {attempt + 1}/3), ждём 4 секунды...")
-            time.sleep(4)
+            print(f"  ⚠️ Flood control (попытка {attempt + 1}/2), ждём 3 секунды...")
+            time.sleep(3)
             continue
         break
 
     if "error" in data:
-        raise RuntimeError(f"VK API error (getWallUploadServer): {data['error'].get('error_msg')} (code: {data['error'].get('error_code')})")
+        err_msg = data["error"].get("error_msg")
+        err_code = data["error"].get("error_code")
+        print(f"  ⚠️ photos.getWallUploadServer вернул ошибку ({err_msg}, code: {err_code}). Пробуем через docs.getWallUploadServer...")
+        return upload_doc_to_vk(token, group_id, image_path)
 
     upload_url = data["response"]["upload_url"]
     print(f"  → Сервер загрузки получен: {upload_url[:40]}...")
@@ -237,6 +240,60 @@ def upload_photo_to_vk(token, group_id, image_path):
     owner_id = saved_photo["owner_id"]
     photo_id = saved_photo["id"]
     attachment = f"photo{owner_id}_{photo_id}"
+    return attachment
+
+
+def upload_doc_to_vk(token, group_id, image_path):
+    """
+    Загрузка изображения как документа на стену сообщества (работает с токеном сообщества).
+    """
+    v = "5.199"
+    url_get_server = "https://api.vk.com/method/docs.getWallUploadServer"
+    params = {
+        "access_token": token,
+        "group_id": group_id,
+        "v": v
+    }
+    resp = requests.post(url_get_server, data=params, timeout=15)
+    data = resp.json()
+    if "error" in data:
+        raise RuntimeError(f"VK API error (docs.getWallUploadServer): {data['error'].get('error_msg')} (code: {data['error'].get('error_code')})")
+
+    upload_url = data["response"]["upload_url"]
+    print(f"  → Сервер загрузки документов получен...")
+
+    with open(image_path, "rb") as f:
+        mime = "image/jpeg"
+        post_resp = requests.post(upload_url, files={"file": (os.path.basename(image_path), f, mime)}, timeout=30)
+
+    res = post_resp.json()
+    if "file" not in res:
+        raise RuntimeError(f"VK docs upload error: {res}")
+
+    url_save = "https://api.vk.com/method/docs.save"
+    save_params = {
+        "access_token": token,
+        "file": res["file"],
+        "title": os.path.basename(image_path),
+        "v": v
+    }
+    save_resp = requests.post(url_save, data=save_params, timeout=15)
+    save_data = save_resp.json()
+    if "error" in save_data:
+        raise RuntimeError(f"VK API error (docs.save): {save_data['error'].get('error_msg')} (code: {save_data['error'].get('error_code')})")
+
+    doc_info = save_data["response"]
+    if "doc" in doc_info:
+        doc = doc_info["doc"]
+    elif isinstance(doc_info, list) and len(doc_info) > 0:
+        doc = doc_info[0]
+    else:
+        doc = doc_info
+
+    owner_id = doc.get("owner_id")
+    doc_id = doc.get("id")
+    attachment = f"doc{owner_id}_{doc_id}"
+    print(f"  ✓ Документ сохранён, attachment: {attachment}")
     return attachment
 
 
@@ -334,8 +391,12 @@ def main():
     attachment = None
     if image_file:
         print("→ Загрузка оригинальной обложки на сервера ВКонтакте...")
-        attachment = upload_photo_to_vk(token, group_id, image_file)
-        print(f"✓ Обложка загружена, attachment: {attachment}")
+        try:
+            attachment = upload_photo_to_vk(token, group_id, image_file)
+            print(f"✓ Обложка загружена, attachment: {attachment}")
+        except Exception as e:
+            print(f"⚠️ Не удалось автоматически загрузить обложку через API: {e}")
+            print("→ Публикуем пост на стену с полным текстом и ссылками...")
 
     # 5. Публикация на стене
     print("→ Публикация записи на стене сообщества...")
