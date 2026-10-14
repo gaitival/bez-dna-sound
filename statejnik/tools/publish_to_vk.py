@@ -174,15 +174,24 @@ def upload_photo_to_vk(token, group_id, image_path):
     3. photos.saveWallPhoto
     """
     v = "5.199"
-    # 1. Получаем URL для загрузки
+    # 1. Получаем URL для загрузки (с повторной попыткой при flood control)
+    import time
     url_get_server = "https://api.vk.com/method/photos.getWallUploadServer"
     params = {
         "access_token": token,
         "group_id": group_id,
         "v": v
     }
-    resp = requests.post(url_get_server, data=params, timeout=15)
-    data = resp.json()
+    data = None
+    for attempt in range(3):
+        resp = requests.post(url_get_server, data=params, timeout=15)
+        data = resp.json()
+        if "error" in data and data["error"].get("error_code") == 9:
+            print(f"  ⚠️ Flood control (попытка {attempt + 1}/3), ждём 4 секунды...")
+            time.sleep(4)
+            continue
+        break
+
     if "error" in data:
         raise RuntimeError(f"VK API error (getWallUploadServer): {data['error'].get('error_msg')} (code: {data['error'].get('error_code')})")
 
@@ -321,16 +330,20 @@ def main():
 
     print(f"→ Подключение к VK сообществу club{group_id}...")
 
-    # 4. Загрузка фото
+    # 4. Загрузка фото или прикрепление сниппета статьи
     attachment = None
+    article_url = f"https://bez-dna-sound.com/{args.slug}"
     if image_file:
-        print("→ Загрузка обложки на сервера ВКонтакте...")
+        print("→ Попытка загрузки оригинальной обложки на сервера ВКонтакте...")
         try:
             attachment = upload_photo_to_vk(token, group_id, image_file)
             print(f"✓ Обложка загружена, attachment: {attachment}")
         except Exception as e:
-            print(f"❌ Ошибка загрузки обложки: {e}")
-            raise e
+            print(f"⚠️ VK вернул ограничение на загрузку файла ({e}).")
+            print(f"→ Подключаем интерактивную карточку-сниппет статьи с сайта ({article_url})...")
+            attachment = article_url
+    else:
+        attachment = article_url
 
     # 5. Публикация на стене
     print("→ Публикация записи на стене сообщества...")
