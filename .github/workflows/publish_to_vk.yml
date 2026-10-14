@@ -29,6 +29,6 @@ jobs:
       - name: Publish post to VK
         env:
           VK_ACCESS_TOKEN: ${{ secrets.VK_ACCESS_TOKEN }}
-          VK_GROUP_ID: ${{ secrets.VK_GROUP_ID || '242296287' }}
+          VK_GROUP_ID: '242296287'
         run: |
           python statejnik/tools/publish_to_vk.py --slug "${{ github.event.inputs.slug }}"

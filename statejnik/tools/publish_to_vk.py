@@ -181,12 +181,13 @@ def upload_photo_to_vk(token, group_id, image_path):
         "group_id": group_id,
         "v": v
     }
-    resp = requests.get(url_get_server, params=params, timeout=15)
+    resp = requests.post(url_get_server, data=params, timeout=15)
     data = resp.json()
     if "error" in data:
-        raise RuntimeError(f"VK API error (getWallUploadServer): {data['error'].get('error_msg')}")
+        raise RuntimeError(f"VK API error (getWallUploadServer): {data['error'].get('error_msg')} (code: {data['error'].get('error_code')})")
 
     upload_url = data["response"]["upload_url"]
+    print(f"  → Сервер загрузки получен: {upload_url[:40]}...")
 
     # 2. Подготавливаем файл (конвертируем в JPEG, если это WEBP)
     _, ext = os.path.splitext(image_path)
@@ -204,7 +205,8 @@ def upload_photo_to_vk(token, group_id, image_path):
             post_resp = requests.post(upload_url, files=files, timeout=30)
 
     upload_result = post_resp.json()
-    if "photo" not in upload_result or not upload_result["photo"]:
+    print(f"  → Результат загрузки файла: {upload_result}")
+    if "photo" not in upload_result or not upload_result["photo"] or upload_result["photo"] == "[]":
         raise RuntimeError(f"VK upload photo error: {upload_result}")
 
     # 3. Сохраняем фото в альбом группы
@@ -217,10 +219,10 @@ def upload_photo_to_vk(token, group_id, image_path):
         "hash": upload_result["hash"],
         "v": v
     }
-    save_resp = requests.get(url_save, params=save_params, timeout=15)
+    save_resp = requests.post(url_save, data=save_params, timeout=15)
     save_data = save_resp.json()
     if "error" in save_data:
-        raise RuntimeError(f"VK API error (saveWallPhoto): {save_data['error'].get('error_msg')}")
+        raise RuntimeError(f"VK API error (saveWallPhoto): {save_data['error'].get('error_msg')} (code: {save_data['error'].get('error_code')})")
 
     saved_photo = save_data["response"][0]
     owner_id = saved_photo["owner_id"]
@@ -327,7 +329,8 @@ def main():
             attachment = upload_photo_to_vk(token, group_id, image_file)
             print(f"✓ Обложка загружена, attachment: {attachment}")
         except Exception as e:
-            print(f"⚠️ Ошибка загрузки обложки: {e}. Попробуем опубликовать только текст.")
+            print(f"❌ Ошибка загрузки обложки: {e}")
+            raise e
 
     # 5. Публикация на стене
     print("→ Публикация записи на стене сообщества...")
