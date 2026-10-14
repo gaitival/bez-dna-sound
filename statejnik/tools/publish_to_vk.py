@@ -74,6 +74,18 @@ def format_text_for_vk(meta, body, slug):
     article_url = f"{base_site_url}/{slug}"
     bot_url = "https://t.me/dna_sound_bot"
 
+    # Выбираем эмодзи для главного заголовка
+    h_slug = slug.lower()
+    main_emoji = "✨"
+    if "torgov" in h_slug or "23" in protocol:
+        main_emoji = "🪙"
+    elif "ne-ko-mne" in h_slug or "24" in protocol:
+        main_emoji = "🪞"
+    elif "nepoddeln" in h_slug or "20" in protocol:
+        main_emoji = "🎙"
+    elif "zavyazan" in h_slug or "22" in protocol:
+        main_emoji = "🪢"
+
     # Преобразуем заголовки ## в визуальные разделители
     def replace_headers(match):
         header_text = match.group(1).strip()
@@ -85,10 +97,16 @@ def format_text_for_vk(meta, body, slug):
             emoji = "🧵"
         elif "СЛОВЕСНЫЙ ЗАМОК" in h_upper or "СЛОВА" in h_upper or "ЗАГОВОР" in h_upper:
             emoji = "🗝"
-        elif "ОБРЯД" in h_upper or "ПРАКТИК" in h_upper:
+        elif "ОБРЯД" in h_upper or "ПРАКТИК" in h_upper or "ЗАЧИН" in h_upper:
             emoji = "✨"
-        elif "РАЗВЯЗАТЬ" in h_upper or "СОХРАНИТЬ" in h_upper:
+        elif "РАЗВЯЗАТЬ" in h_upper or "СОХРАНИТЬ" in h_upper or "ОБМЕН" in h_upper:
             emoji = "⚖️"
+        elif "ПОЧИН" in h_upper or "КУПЕЦ" in h_upper or "ПРОДАЖ" in h_upper or "ТОРГ" in h_upper or "ДЕНЬГ" in h_upper:
+            emoji = "🪙"
+        elif "МЁД" in h_upper or "ПЧЁЛ" in h_upper:
+            emoji = "🍯"
+        elif "КЛЮЧ" in h_upper or "ДВЕР" in h_upper or "ДОРОГ" in h_upper:
+            emoji = "🗝"
         elif "КОД" in h_upper or "ЗВУК" in h_upper:
             emoji = "🎧"
         elif "ПОСЛЕДНИЙ" in h_upper or "ФИНАЛ" in h_upper:
@@ -113,13 +131,22 @@ def format_text_for_vk(meta, body, slug):
     formatted_body = re.sub(r"\*\*([^*]+)\*\*", r"\1", formatted_body)
     formatted_body = re.sub(r"\*([^*]+)\*", r"\1", formatted_body)
 
-    # Выделяем строки заговора/шепотка
+    # Выделяем строки заговоров и шепотков
     shepotok_lines = [
         "Что завязано — то развязано.",
         "Что чужим словом послано — за порогом осталось.",
         "Что недобрым помыслом связано — моей волей освобождено.",
         "Чужого не держу, своего не отдаю.",
-        "Слово моё крепко. Ключ. Замок."
+        "Слово моё крепко. Ключ. Замок.",
+        "Ключ поворачиваю — дорогу открываю.",
+        "Добрый товар — доброму купцу.",
+        "Кто искал — пусть увидит.",
+        "Кому надобно — пусть придёт.",
+        "Товару — ход, делу — оборот.",
+        "Мне за труд — честный доход.",
+        "Слово сказано, путь открыт,",
+        "Дело спорится, торг кипит.",
+        "Открыто. Оплачено. Отдано. Принято."
     ]
     for s_line in shepotok_lines:
         formatted_body = formatted_body.replace(s_line, f"   «{s_line}»")
@@ -128,19 +155,30 @@ def format_text_for_vk(meta, body, slug):
     parts = []
 
     # 1. Заголовок и вводный хук (первые строки до ката)
-    parts.append(f"🪢 {title}\n")
+    parts.append(f"{main_emoji} {title}\n")
     if protocol:
         parts.append(f"🧬 {protocol}\n")
 
     # 2. Основное тело статьи
     parts.append(formatted_body.strip())
 
-    # 3. Блок ссылок и призыва к действию
+    # 3. Тематические хештеги
+    if "torgov" in h_slug or "23" in protocol:
+        tags = "#безна #код23 #торговыйзачин #продажи #купечество #фольклор #заговоры #деньги #честныйобмен #звуковыепрактики #саморазвитие"
+    elif "ne-ko-mne" in h_slug or "24" in protocol:
+        tags = "#безна #код24 #некомне #зеркальнаязащита #обереги #фольклор #психология #границы #звуковыепрактики #саморазвитие"
+    elif "nepoddeln" in h_slug or "20" in protocol:
+        tags = "#безна #код20 #неподдельныйформат #идентичность #голос #психология #границы #звуковыепрактики #саморазвитие"
+    elif "zavyazan" in h_slug or "22" in protocol:
+        tags = "#безна #код22 #наузы #обереги #славянскаямагия #фольклор #осознанность #психология #защитаотнегатива #звуковыепрактики #саморазвитие"
+    else:
+        tags = "#безна #фольклор #психология #осознанность #звуковыепрактики #саморазвитие"
+
     footer = (
         f"\n\n──────────────\n"
         f"🌐 Читать статью на сайте лаборатории: {article_url}\n"
         f"🎧 Открыть звуковой протокол: {bot_url}\n\n"
-        f"#безна #код22 #наузы #обереги #славянскаямагия #фольклор #осознанность #психология #защитаотнегатива #звуковыепрактики #саморазвитие"
+        f"{tags}"
     )
     parts.append(footer)
 
