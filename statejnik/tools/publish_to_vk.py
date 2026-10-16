@@ -38,13 +38,14 @@ if hasattr(sys.stdout, "reconfigure"):
 
 def load_env(env_path=".env"):
     env_vars = {}
-    if os.path.exists(env_path):
-        with open(env_path, "r", encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith("#") and "=" in line:
-                    k, v = line.split("=", 1)
-                    env_vars[k.strip()] = v.strip().strip("\"'")
+    for path in [env_path, ".env.local"]:
+        if os.path.exists(path):
+            with open(path, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#") and "=" in line:
+                        k, v = line.split("=", 1)
+                        env_vars[k.strip()] = v.strip().strip("\"'")
     return env_vars
 
 
@@ -85,6 +86,8 @@ def format_text_for_vk(meta, body, slug):
         main_emoji = "🎙"
     elif "zavyazan" in h_slug or "22" in protocol:
         main_emoji = "🪢"
+    elif "deaktiv" in h_slug or "03" in protocol or "ostanovit-mysli" in h_slug:
+        main_emoji = "🗝"
 
     # Преобразуем заголовки ## в визуальные разделители
     def replace_headers(match):
@@ -107,14 +110,23 @@ def format_text_for_vk(meta, body, slug):
             emoji = "🍯"
         elif "КЛЮЧ" in h_upper or "ДВЕР" in h_upper or "ДОРОГ" in h_upper:
             emoji = "🗝"
+        elif "ДЕАКТИВАЦИ" in h_upper or "МОРОК" in h_upper or "СУВЕРЕНИТЕТ" in h_upper:
+            emoji = "🗝"
+        elif "ЧУЖОЕ" in h_upper or "СЕБЯ" in h_upper or "ВОЛЯ" in h_upper:
+            emoji = "⚡"
+        elif "ИСТОК" in h_upper or "СВЕТ" in h_upper or "ОБНУЛ" in h_upper:
+            emoji = "✨"
         elif "КОД" in h_upper or "ЗВУК" in h_upper:
             emoji = "🎧"
-        elif "ПОСЛЕДНИЙ" in h_upper or "ФИНАЛ" in h_upper:
+        elif "ПОСЛЕДНИЙ" in h_upper or "ФИНАЛ" in h_upper or "ВОПРОС" in h_upper:
             emoji = "🌀"
         return f"\n\n{emoji} {h_upper}\n"
 
     formatted_body = re.sub(r"^##\s+(.+)$", replace_headers, body, flags=re.MULTILINE)
     formatted_body = re.sub(r"^###\s+(.+)$", r"\n\n👉 \1\n", formatted_body, flags=re.MULTILINE)
+
+    # Очистка markdown цитат (> цитата)
+    formatted_body = re.sub(r"^>\s*", "", formatted_body, flags=re.MULTILINE)
 
     # Очистка markdown-ссылок: [текст](/url) -> «текст» или текст
     def clean_markdown_links(match):
@@ -131,8 +143,8 @@ def format_text_for_vk(meta, body, slug):
     formatted_body = re.sub(r"\*\*([^*]+)\*\*", r"\1", formatted_body)
     formatted_body = re.sub(r"\*([^*]+)\*", r"\1", formatted_body)
 
-    # Выделяем строки заговоров и шепотков
-    shepotok_lines = [
+    # Выделяем строки заговоров и шепотков (не трогая уже оформленные кавычки «»)
+    shepotok_phrases = [
         "Что завязано — то развязано.",
         "Что чужим словом послано — за порогом осталось.",
         "Что недобрым помыслом связано — моей волей освобождено.",
@@ -144,12 +156,20 @@ def format_text_for_vk(meta, body, slug):
         "Кому надобно — пусть придёт.",
         "Товару — ход, делу — оборот.",
         "Мне за труд — честный доход.",
-        "Слово сказано, путь открыт,",
-        "Дело спорится, торг кипит.",
-        "Открыто. Оплачено. Отдано. Принято."
+        "Слово сказано, путь открыт,\nДело спорится, торг кипит.",
+        "Открыто. Оплачено. Отдано. Принято.",
+        "Зрю сквозь морок. Зрю сквозь дым.",
+        "Все контракты, вязь и пыль —\nСжёг в труху. Стёр в небыль.",
+        "В прах — чужое! Себя возвращаю!",
+        "В прах — чужое. Себя возвращаю.",
+        "Слава Истоку, Сознанью и Силе.\nЯ есть. Я чист. Я — Свет."
     ]
-    for s_line in shepotok_lines:
-        formatted_body = formatted_body.replace(s_line, f"   «{s_line}»")
+    for phrase in shepotok_phrases:
+        clean = phrase.strip("«» \n")
+        lines = [re.escape(l.strip()) for l in clean.splitlines() if l.strip()]
+        regex_pattern = r"\s*".join(lines)
+        if not re.search(rf"«\s*{regex_pattern}\s*»", formatted_body):
+            formatted_body = re.sub(rf"(?<!«)({regex_pattern})(?!»)", r"«\1»", formatted_body)
 
     # Формируем структуру поста
     parts = []
@@ -162,7 +182,7 @@ def format_text_for_vk(meta, body, slug):
     # 2. Основное тело статьи
     parts.append(formatted_body.strip())
 
-    # 3. Тематические хештеги
+    # 3. Тематические хештеги (строго по правилам GEMINI.md: без #код... и без #бездна)
     if "torgov" in h_slug or "23" in protocol:
         tags = "#торговыйзачин #продажи #купечество #фольклор #заговоры #деньги #честныйобмен #звуковыепрактики #саморазвитие"
     elif "ne-ko-mne" in h_slug or "24" in protocol:
@@ -171,6 +191,8 @@ def format_text_for_vk(meta, body, slug):
         tags = "#неподдельныйформат #идентичность #голос #психология #границы #звуковыепрактики #саморазвитие"
     elif "zavyazan" in h_slug or "22" in protocol:
         tags = "#наузы #обереги #славянскаямагия #фольклор #осознанность #психология #защитаотнегатива #звуковыепрактики #саморазвитие"
+    elif "deaktiv" in h_slug or "03" in protocol or "ostanovit-mysli" in h_slug:
+        tags = "#деактивация #суверенитет #свободаволи #морок #фольклор #психология #осознанность #звуковыепрактики #саморазвитие"
     else:
         tags = "#фольклор #психология #осознанность #звуковыепрактики #саморазвитие"
 
@@ -362,12 +384,115 @@ def post_to_vk_wall(token, group_id, message, attachments=None):
     return post_id
 
 
+def upload_photo_to_vk_user(token, user_id, image_path):
+    """
+    Загрузка фотографии на сервер ВКонтакте для личной стены пользователя.
+    1. photos.getWallUploadServer (без group_id)
+    2. POST на upload_url
+    3. photos.saveWallPhoto (user_id)
+    """
+    v = "5.199"
+    import time
+    url_get_server = "https://api.vk.com/method/photos.getWallUploadServer"
+    params = {
+        "access_token": token,
+        "v": v
+    }
+    data = None
+    for attempt in range(2):
+        resp = requests.post(url_get_server, data=params, timeout=15)
+        data = resp.json()
+        if "error" in data and data["error"].get("error_code") == 9:
+            print(f"  ⚠️ Flood control (попытка {attempt + 1}/2), ждём 3 секунды...")
+            time.sleep(3)
+            continue
+        break
+
+    if "error" in data:
+        err_msg = data["error"].get("error_msg")
+        err_code = data["error"].get("error_code")
+        raise RuntimeError(f"VK API error (photos.getWallUploadServer for user): {err_msg} (code: {err_code})")
+
+    upload_url = data["response"]["upload_url"]
+    print(f"  → Сервер загрузки для личной стены получен: {upload_url[:40]}...")
+
+    _, ext = os.path.splitext(image_path)
+    if ext.lower() == ".webp":
+        im = Image.open(image_path).convert("RGB")
+        buf = io.BytesIO()
+        im.save(buf, format="JPEG", quality=95)
+        buf.seek(0)
+        files = {"photo": ("cover.jpg", buf, "image/jpeg")}
+        post_resp = requests.post(upload_url, files=files, timeout=30)
+    else:
+        with open(image_path, "rb") as f:
+            mime = "image/png" if ext.lower() == ".png" else "image/jpeg"
+            files = {"photo": (os.path.basename(image_path), f, mime)}
+            post_resp = requests.post(upload_url, files=files, timeout=30)
+
+    upload_result = post_resp.json()
+    print(f"  → Результат загрузки файла: {upload_result}")
+    if "photo" not in upload_result or not upload_result["photo"] or upload_result["photo"] == "[]":
+        raise RuntimeError(f"VK upload photo error: {upload_result}")
+
+    url_save = "https://api.vk.com/method/photos.saveWallPhoto"
+    save_params = {
+        "access_token": token,
+        "photo": upload_result["photo"],
+        "server": upload_result["server"],
+        "hash": upload_result["hash"],
+        "v": v
+    }
+    if user_id:
+        save_params["user_id"] = int(user_id)
+
+    save_resp = requests.post(url_save, data=save_params, timeout=15)
+    save_data = save_resp.json()
+    if "error" in save_data:
+        raise RuntimeError(f"VK API error (saveWallPhoto for user): {save_data['error'].get('error_msg')} (code: {save_data['error'].get('error_code')})")
+
+    saved_photo = save_data["response"][0]
+    owner_id = saved_photo["owner_id"]
+    photo_id = saved_photo["id"]
+    attachment = f"photo{owner_id}_{photo_id}"
+    return attachment
+
+
+def post_to_vk_user_wall(token, user_id, message, attachments=None):
+    """
+    Публикация записи на личной стене пользователя.
+    """
+    v = "5.199"
+    url = "https://api.vk.com/method/wall.post"
+    owner_id = int(user_id)
+
+    data = {
+        "access_token": token,
+        "owner_id": owner_id,
+        "message": message,
+        "v": v
+    }
+    if attachments:
+        data["attachments"] = attachments
+
+    resp = requests.post(url, data=data, timeout=20)
+    res_json = resp.json()
+    if "error" in res_json:
+        raise RuntimeError(f"VK API error (wall.post to user wall): {res_json['error'].get('error_msg')}")
+
+    post_id = res_json["response"]["post_id"]
+    return post_id
+
+
 def main():
-    p = argparse.ArgumentParser(description="Публикация статьи во ВКонтакте от имени сообщества")
+    p = argparse.ArgumentParser(description="Публикация статьи во ВКонтакте (в сообщество и/или на личную стену)")
     p.add_argument("--slug", required=True, help="Slug статьи (например: zavyazano-razvyazano-kak-razorvat-uzel-ozhidanij-i-vernut-volyu)")
     p.add_argument("--dry-run", action="store_true", help="Предпросмотр форматирования без отправки в ВК")
+    p.add_argument("--target", choices=["community", "user", "both"], help="Куда публиковать: community, user или both")
     p.add_argument("--token", help="VK Access Token сообщества")
     p.add_argument("--group-id", help="ID сообщества ВК (число)")
+    p.add_argument("--user-token", help="VK User Token пользователя для личной стены")
+    p.add_argument("--user-id", help="ID пользователя ВК (число, например: 169786955)")
     args = p.parse_args()
 
     # 1. Поиск статьи
@@ -414,38 +539,83 @@ def main():
         print("✓ Dry-run успешно завершён. Запись НЕ публиковалась.")
         return
 
-    # Получение настроек
+    # Получение настроек окружения
     env = load_env()
-    token = args.token or os.environ.get("VK_ACCESS_TOKEN") or env.get("VK_ACCESS_TOKEN")
+    comm_token = args.token or os.environ.get("VK_ACCESS_TOKEN") or env.get("VK_ACCESS_TOKEN")
     group_id = args.group_id or os.environ.get("VK_GROUP_ID") or env.get("VK_GROUP_ID") or "242296287"
 
-    if not token:
-        print("Ошибка: не указан VK_ACCESS_TOKEN (ни аргументом --token, ни в переменных окружения/секретах).")
-        sys.exit(1)
+    user_token = args.user_token or os.environ.get("VK_USER_TOKEN") or env.get("VK_USER_TOKEN")
+    user_id = args.user_id or os.environ.get("VK_USER_ID") or env.get("VK_USER_ID") or "169786955"
 
-    print(f"→ Подключение к VK сообществу club{group_id}...")
+    target = args.target
+    if not target:
+        if user_token and comm_token:
+            target = "both"
+        elif user_token:
+            target = "user"
+        elif comm_token:
+            target = "community"
+        else:
+            print("❌ Ошибка: не найдены токены VK (ни для сообщества, ни для пользователя).")
+            print("Укажите VK_ACCESS_TOKEN (сообщество) и/или VK_USER_TOKEN (личная страница).")
+            sys.exit(1)
 
-    # 4. Загрузка фото на сервер стены сообщества
-    attachment = None
-    if image_file:
-        print("→ Загрузка оригинальной обложки на сервера ВКонтакте...")
-        try:
-            attachment = upload_photo_to_vk(token, group_id, image_file)
-            print(f"✓ Обложка загружена, attachment: {attachment}")
-        except Exception as e:
-            print(f"⚠️ Не удалось автоматически загрузить обложку через API: {e}")
-            print("→ Публикуем пост на стену с полным текстом и ссылками...")
+    published_urls = []
 
-    # 5. Публикация на стене
-    print("→ Публикация записи на стене сообщества...")
-    try:
-        post_id = post_to_vk_wall(token, group_id, formatted_text, attachment)
-        wall_url = f"https://vk.com/wall-{group_id}_{post_id}"
-        print("\n🎉 УСПЕШНО ОПУБЛИКОВАНО ВО ВКОНТАКТЕ!")
-        print(f"Ссылка на запись: {wall_url}")
-    except Exception as e:
-        print(f"❌ Ошибка публикации на стене ВК: {e}")
-        sys.exit(1)
+    # 4. Публикация в сообщество
+    if target in ("community", "both"):
+        if not comm_token:
+            print("⚠️ Публикация в сообщество пропущена: отсутствует токен сообщества (VK_ACCESS_TOKEN).")
+        else:
+            print(f"\n📢 --- ПУБЛИКАЦИЯ В СООБЩЕСТВО (club{group_id}) ---")
+            attachment = None
+            if image_file:
+                try:
+                    attachment = upload_photo_to_vk(comm_token, group_id, image_file)
+                    print(f"  ✓ Обложка загружена в группу: {attachment}")
+                except Exception as e:
+                    print(f"  ⚠️ Загрузка обложки не удалась: {e}")
+            try:
+                post_id = post_to_vk_wall(comm_token, group_id, formatted_text, attachment)
+                wall_url = f"https://vk.com/wall-{group_id}_{post_id}"
+                print(f"  🎉 УСПЕШНО ОПУБЛИКОВАНО В СООБЩЕСТВЕ: {wall_url}")
+                published_urls.append(("Сообщество", wall_url))
+            except Exception as e:
+                print(f"  ❌ Ошибка публикации на стене сообщества: {e}")
+                if target == "community":
+                    sys.exit(1)
+
+    # 5. Публикация на личной странице пользователя
+    if target in ("user", "both"):
+        if not user_token:
+            print("⚠️ Публикация на личной странице пропущена: отсутствует пользовательский токен (VK_USER_TOKEN).")
+        else:
+            print(f"\n👤 --- ПУБЛИКАЦИЯ НА ЛИЧНОЙ СТРАНИЦЕ (id{user_id}) ---")
+            user_attachment = None
+            if image_file:
+                try:
+                    user_attachment = upload_photo_to_vk_user(user_token, user_id, image_file)
+                    print(f"  ✓ Обложка загружена для пользователя: {user_attachment}")
+                except Exception as e:
+                    print(f"  ⚠️ Загрузка обложки не удалась: {e}")
+            try:
+                post_id = post_to_vk_user_wall(user_token, user_id, formatted_text, user_attachment)
+                user_wall_url = f"https://vk.com/wall{user_id}_{post_id}"
+                print(f"  🎉 УСПЕШНО ОПУБЛИКОВАНО НА ЛИЧНОЙ СТРАНИЦЕ: {user_wall_url}")
+                published_urls.append(("Личная страница", user_wall_url))
+            except Exception as e:
+                print(f"  ❌ Ошибка публикации на личной стене: {e}")
+                if target == "user":
+                    sys.exit(1)
+
+    print("\n" + "=" * 60)
+    print("ИТОГИ ПУБЛИКАЦИИ ВО ВКОНТАКТЕ:")
+    if published_urls:
+        for label, u in published_urls:
+            print(f"  • {label}: {u}")
+    else:
+        print("  (Записи не были опубликованы)")
+    print("=" * 60)
 
 
 if __name__ == "__main__":

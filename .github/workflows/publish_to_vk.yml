@@ -7,6 +7,15 @@ on:
         description: 'Slug статьи (из content/blog или published). Если пусто — публикует последние изменения.'
         required: false
         default: ''
+      target:
+        description: 'Куда публиковать (both, user, community)'
+        required: false
+        default: 'both'
+        type: choice
+        options:
+          - both
+          - user
+          - community
   push:
     branches:
       - main
@@ -15,7 +24,7 @@ on:
 
 jobs:
   publish:
-    name: Publish to VK Community Wall
+    name: Publish to VK (Community / User Wall)
     runs-on: ubuntu-latest
 
     steps:
@@ -37,11 +46,14 @@ jobs:
         env:
           VK_ACCESS_TOKEN: ${{ secrets.VK_ACCESS_TOKEN }}
           VK_GROUP_ID: '242296287'
+          VK_USER_TOKEN: ${{ secrets.VK_USER_TOKEN }}
+          VK_USER_ID: ${{ secrets.VK_USER_ID || '169786955' }}
           INPUT_SLUG: ${{ github.event.inputs.slug }}
+          INPUT_TARGET: ${{ github.event.inputs.target || 'both' }}
         run: |
           if [ -n "$INPUT_SLUG" ]; then
-            echo "→ Ручной запуск публикации статьи: $INPUT_SLUG"
-            python statejnik/tools/publish_to_vk.py --slug "$INPUT_SLUG"
+            echo "→ Ручной запуск публикации статьи: $INPUT_SLUG (цель: $INPUT_TARGET)"
+            python statejnik/tools/publish_to_vk.py --slug "$INPUT_SLUG" --target "$INPUT_TARGET"
           else
             echo "→ Автоматический поиск измененных статей в content/blog/..."
             CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep '^content/blog/.*\.md$' || true)
@@ -51,7 +63,7 @@ jobs:
             fi
             for file in $CHANGED_FILES; do
               slug=$(basename "$file" .md)
-              echo "→ Автопубликация статьи в ВК: $slug"
-              python statejnik/tools/publish_to_vk.py --slug "$slug"
+              echo "→ Автопубликация статьи в ВК: $slug (цель: $INPUT_TARGET)"
+              python statejnik/tools/publish_to_vk.py --slug "$slug" --target "$INPUT_TARGET"
             done
           fi
