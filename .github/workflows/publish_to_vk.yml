@@ -8,14 +8,22 @@ on:
         required: false
         default: ''
       target:
-        description: 'Куда публиковать (both, user, community)'
+        description: 'Куда публиковать (community, both, user)'
         required: false
-        default: 'both'
+        default: 'community'
         type: choice
         options:
+          - community
           - both
           - user
-          - community
+      attach_mode:
+        description: 'Режим обложки: snippet (интерактивный переход на сайт) или photo (картинка ВК)'
+        required: false
+        default: 'snippet'
+        type: choice
+        options:
+          - snippet
+          - photo
   push:
     branches:
       - main
@@ -49,11 +57,12 @@ jobs:
           VK_USER_TOKEN: ${{ secrets.VK_USER_TOKEN }}
           VK_USER_ID: ${{ secrets.VK_USER_ID || '169786955' }}
           INPUT_SLUG: ${{ github.event.inputs.slug }}
-          INPUT_TARGET: ${{ github.event.inputs.target || 'both' }}
+          INPUT_TARGET: ${{ github.event.inputs.target || 'community' }}
+          INPUT_ATTACH_MODE: ${{ github.event.inputs.attach_mode || 'snippet' }}
         run: |
           if [ -n "$INPUT_SLUG" ]; then
-            echo "→ Ручной запуск публикации статьи: $INPUT_SLUG (цель: $INPUT_TARGET)"
-            python statejnik/tools/publish_to_vk.py --slug "$INPUT_SLUG" --target "$INPUT_TARGET"
+            echo "→ Ручной запуск публикации статьи: $INPUT_SLUG (цель: $INPUT_TARGET, режим: $INPUT_ATTACH_MODE)"
+            python statejnik/tools/publish_to_vk.py --slug "$INPUT_SLUG" --target "$INPUT_TARGET" --attach-mode "$INPUT_ATTACH_MODE"
           else
             echo "→ Автоматический поиск измененных статей в content/blog/..."
             CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep '^content/blog/.*\.md$' || true)
@@ -63,7 +72,7 @@ jobs:
             fi
             for file in $CHANGED_FILES; do
               slug=$(basename "$file" .md)
-              echo "→ Автопубликация статьи в ВК: $slug (цель: $INPUT_TARGET)"
-              python statejnik/tools/publish_to_vk.py --slug "$slug" --target "$INPUT_TARGET"
+              echo "→ Автопубликация статьи в ВК: $slug (цель: $INPUT_TARGET, режим: $INPUT_ATTACH_MODE)"
+              python statejnik/tools/publish_to_vk.py --slug "$slug" --target "$INPUT_TARGET" --attach-mode "$INPUT_ATTACH_MODE"
             done
           fi

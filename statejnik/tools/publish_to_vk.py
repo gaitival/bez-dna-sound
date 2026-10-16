@@ -484,11 +484,54 @@ def post_to_vk_user_wall(token, user_id, message, attachments=None):
     return post_id
 
 
+def delete_previous_posts(token, group_id, slug, title):
+    """
+    Поиск и удаление предыдущих записей на стене сообщества для данного slug/title,
+    чтобы обновить пост без дубликатов.
+    """
+    v = "5.199"
+    url = "https://api.vk.com/method/wall.get"
+    params = {
+        "access_token": token,
+        "owner_id": -abs(int(group_id)),
+        "count": 15,
+        "v": v
+    }
+    try:
+        resp = requests.post(url, data=params, timeout=15)
+        res = resp.json()
+        if "response" in res and "items" in res["response"]:
+            items = res["response"]["items"]
+            for item in items:
+                text = item.get("text", "")
+                short_title = title.split(":")[0].strip() if ":" in title else title[:30]
+                if slug in text or (short_title and short_title.lower() in text.lower()):
+                    post_id = item["id"]
+                    print(f"  → Обнаружен предыдущий пост #{post_id} по теме «{short_title}». Удаляем для обновления...")
+                    del_url = "https://api.vk.com/method/wall.delete"
+                    del_params = {
+                        "access_token": token,
+                        "owner_id": -abs(int(group_id)),
+                        "post_id": post_id,
+                        "v": v
+                    }
+                    del_resp = requests.post(del_url, data=del_params, timeout=15)
+                    del_data = del_resp.json()
+                    if del_data.get("response") == 1:
+                        print(f"  ✓ Старый пост #{post_id} успешно удалён со стены сообщества.")
+                    else:
+                        print(f"  ⚠️ Не удалось удалить пост #{post_id}: {del_data}")
+    except Exception as e:
+        print(f"  ⚠️ Ошибка при проверке/удалении старых постов: {e}")
+
+
 def main():
     p = argparse.ArgumentParser(description="Публикация статьи во ВКонтакте (в сообщество и/или на личную стену)")
     p.add_argument("--slug", required=True, help="Slug статьи (например: zavyazano-razvyazano-kak-razorvat-uzel-ozhidanij-i-vernut-volyu)")
     p.add_argument("--dry-run", action="store_true", help="Предпросмотр форматирования без отправки в ВК")
-    p.add_argument("--target", choices=["community", "user", "both"], help="Куда публиковать: community, user или both")
+    p.add_argument("--target", choices=["community", "user", "both"], default="community", help="Куда публиковать: community, user или both (по умолчанию: community)")
+    p.add_argument("--attach-mode", choices=["snippet", "photo"], default="snippet", help="Режим вложения: 'snippet' (интерактивная обложка-ссылка с переходом на сайт) или 'photo' (статичная картинка ВК)")
+    p.add_argument("--delete-old", action=argparse.BooleanOptionalAction, default=True, help="Удалять предыдущий пост этой статьи со стены сообщества перед публикацией нового")
     p.add_argument("--token", help="VK Access Token сообщества")
     p.add_argument("--group-id", help="ID сообщества ВК (число)")
     p.add_argument("--user-token", help="VK User Token пользователя для личной стены")
@@ -513,6 +556,7 @@ def main():
 
     meta, body = parse_frontmatter(md_path)
     title = meta.get("title", args.slug)
+    article_url = f"https://bez-dna-sound.com/{args.slug}"
     print(f"→ Загружена статья: «{title}» ({md_path})")
 
     # 2. Форматирование текста
@@ -532,7 +576,9 @@ def main():
         print("\n" + "=" * 60)
         print("--- [ПРЕДПРОСМОТР ЗАПИСИ ДЛЯ ВКОНТАКТЕ (DRY RUN)] ---")
         print("=" * 60)
-        print(f"Обложка для прикрепления: {image_file}")
+        print(f"Режим вложения: {args.attach_mode} ({'Интерактивный сниппет ссылки' if args.attach_mode == 'snippet' else 'Статичное фото ВК'})")
+        print(f"Ссылка статьи: {article_url}")
+        print(f"Файл обложки: {image_file}")
         print("-" * 60)
         print(formatted_text)
         print("=" * 60)
@@ -548,17 +594,6 @@ def main():
     user_id = args.user_id or os.environ.get("VK_USER_ID") or env.get("VK_USER_ID") or "169786955"
 
     target = args.target
-    if not target:
-        if user_token and comm_token:
-            target = "both"
-        elif user_token:
-            target = "user"
-        elif comm_token:
-            target = "community"
-        else:
-            print("❌ Ошибка: не найдены токены VK (ни для сообщества, ни для пользователя).")
-            print("Укажите VK_ACCESS_TOKEN (сообщество) и/или VK_USER_TOKEN (личная страница).")
-            sys.exit(1)
 
     published_urls = []
 
@@ -568,13 +603,25 @@ def main():
             print("⚠️ Публикация в сообщество пропущена: отсутствует токен сообщества (VK_ACCESS_TOKEN).")
         else:
             print(f"\n📢 --- ПУБЛИКАЦИЯ В СООБЩЕСТВО (club{group_id}) ---")
-            attachment = None
-            if image_file:
-                try:
-                    attachment = upload_photo_to_vk(comm_token, group_id, image_file)
-                    print(f"  ✓ Обложка загружена в группу: {attachment}")
-                except Exception as e:
-                    print(f"  ⚠️ Загрузка обложки не удалась: {e}")
+            
+            # Удаление старых записей этой же статьи
+            if args.delete_old:
+                delete_previous_posts(comm_token, group_id, args.slug, title)
+
+            # Выбор типа вложения
+            if args.attach_mode == "snippet":
+                # Вложение URL делает всю обложку кликабельной со сниппетом и переходом на сайт
+                attachment = article_url
+                print(f"  → Прикрепляем интерактивный сниппет ссылки (клик по обложке ведёт на сайт): {attachment}")
+            else:
+                attachment = None
+                if image_file:
+                    try:
+                        attachment = upload_photo_to_vk(comm_token, group_id, image_file)
+                        print(f"  ✓ Обложка загружена в альбом группы: {attachment}")
+                    except Exception as e:
+                        print(f"  ⚠️ Загрузка фото не удалась: {e}")
+
             try:
                 post_id = post_to_vk_wall(comm_token, group_id, formatted_text, attachment)
                 wall_url = f"https://vk.com/wall-{group_id}_{post_id}"
@@ -591,13 +638,17 @@ def main():
             print("⚠️ Публикация на личной странице пропущена: отсутствует пользовательский токен (VK_USER_TOKEN).")
         else:
             print(f"\n👤 --- ПУБЛИКАЦИЯ НА ЛИЧНОЙ СТРАНИЦЕ (id{user_id}) ---")
-            user_attachment = None
-            if image_file:
-                try:
-                    user_attachment = upload_photo_to_vk_user(user_token, user_id, image_file)
-                    print(f"  ✓ Обложка загружена для пользователя: {user_attachment}")
-                except Exception as e:
-                    print(f"  ⚠️ Загрузка обложки не удалась: {e}")
+            if args.attach_mode == "snippet":
+                user_attachment = article_url
+                print(f"  → Прикрепляем интерактивный сниппет ссылки: {user_attachment}")
+            else:
+                user_attachment = None
+                if image_file:
+                    try:
+                        user_attachment = upload_photo_to_vk_user(user_token, user_id, image_file)
+                        print(f"  ✓ Обложка загружена для пользователя: {user_attachment}")
+                    except Exception as e:
+                        print(f"  ⚠️ Загрузка фото не удалась: {e}")
             try:
                 post_id = post_to_vk_user_wall(user_token, user_id, formatted_text, user_attachment)
                 user_wall_url = f"https://vk.com/wall{user_id}_{post_id}"
